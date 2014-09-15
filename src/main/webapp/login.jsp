@@ -15,7 +15,7 @@
 		
 		<title>Login</title>
 
-        <link rel="stylesheet" type="text/css" href="../../resources/style/home2.css">
+        <link rel="stylesheet" type="text/css" href="resources/style/home2.css">
 
 <style type="text/css">
 .ll-content-notification *{
@@ -47,7 +47,7 @@
 
     <div id="header">
 		<div class="wrapper">
-			<h1><a href="https://www.survs.com/">Survs – Collaborative Online Survey Tool, Web Survey Software</a></h1>
+			<h1><a href="<c:url value="/login" />">Commercial bank</a></h1>
 		</div>
 	</div>
 
@@ -118,17 +118,8 @@
 
     <div id="footer">
 	<div class="wrapper">
-		<p>
-			<a href="http://blog.survs.com/"><span>Blog</span></a> <span class="bar">|</span>
-			<a href="https://www.survs.com/press/"><span>Press</span></a> <span class="bar">|</span>
-			<a href="https://www.survs.com/privacy/"><span>Privacy</span></a> <span class="bar">|</span>
-			<a href="https://www.survs.com/tos/"><span>Terms</span></a> <span class="bar">|</span>
-			<a href="http://www.twitter.com/survs"><span>Twitter</span></a> <span class="bar">|</span>
-			<a href="https://www.survs.com/help/"><span>Help</span></a> <span class="bar">|</span>
-			<a href="https://www.survs.com/contact/">Contact</a>
-		</p>
 		<p id="copyright">
-			Copyright © 2014 <a href="http://www.enoughpepper.com/">Enough Pepper Lda</a>. All rights reserved.
+			Copyright © 2014 <a href="skellag@gmail.com">Oleksii Bobko</a>. All rights reserved.
 		</p>
 	</div>
 </div>

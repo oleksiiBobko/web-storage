@@ -77,7 +77,7 @@
 				<li><a href="<c:url value="/registration" />"><spring:message code="label.registration" /></a></li>				 
 				<li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>
 
-				<li><c:if test="${authorized}">
+				<li><c:if test="${true}">
 						<form:form method="post" action="grab.html" commandName="url"
 							enctype="multipart/form-data">
 							<form:input path="URL" />

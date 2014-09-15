@@ -81,5 +81,9 @@ public class Picture {
     public void setPath(String path) {
         this.path = path;
     }
+
+	public String getThumbPath() {
+		return path;
+	}
         
 }

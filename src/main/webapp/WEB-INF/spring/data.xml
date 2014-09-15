@@ -22,10 +22,9 @@
                         http://www.springframework.org/schema/context/spring-context-3.0.xsd
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-	<!-- Настраивает управление транзакциями с помощью аннотации @Transactional -->
+                        
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<!-- Менеджер транзакций -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -37,22 +36,17 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
-	<!-- Настройки бина dataSource будем хранить в отдельном файле -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="/WEB-INF/jdbc.properties" />
 
-	<!-- Непосредственно бин dataSource -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="${jdbc.driverClassName}" 
 		p:url="${jdbc.databaseurl}"
 		p:username="${jdbc.username}" 
 		p:password="${jdbc.password}" />
 
-	<!-- Настройки фабрики сессий Хибернейта -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation">
 			<value>classpath:hibernate.cfg.xml</value>
@@ -69,21 +63,24 @@
 		</property>
 	</bean>
 
-    <bean id="multipartResolver"
-        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
- 
-        <!-- one of the properties available; the maximum file size in bytes -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="10000000" /> 
     </bean>
     
     <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
-            <property name="supportedMediaTypes">
-                <list>
-                    <value>image/jpeg</value>
-                    <value>image/jpg</value>
-                    <value>image/png</value>
-                </list>
-            </property>
+    <property name="supportedMediaTypes">
+	<list>
+		<value>image/gif</value>
+		<value>image/jpeg</value>
+		<value>image/pjpeg</value>
+		<value>image/png</value>
+		<value>image/svg+xml</value>
+		<value>image/tiff</value>
+		<value>image/vnd.microsoft.icon</value>
+		<value>image/vnd.wap.wbmp</value>
+		<value>image/jpg</value>
+	</list>
+	</property>
     </bean>   
 
 </beans>

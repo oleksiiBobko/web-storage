@@ -18,8 +18,7 @@
 		<intercept-url pattern="/pictures"  access="permitAll"/>
 		<intercept-url pattern="/registration" access="permitAll" />
 		<intercept-url pattern="/adduser" access="permitAll" />
-		<form-login login-page="/login.jsp"
-			authentication-failure-url="/login.jsp?error=true" />
+		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" />
 
 
 	<security:logout logout-url="/logout"

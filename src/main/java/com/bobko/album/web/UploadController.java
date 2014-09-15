@@ -179,6 +179,38 @@ public class UploadController {
         return data;
     }
 
+	@RequestMapping(value = "/thumbimage/{imageId}")
+	@ResponseBody
+	public byte[] getThumbImage(@PathVariable int imageId) {
+		String path = null;
+		byte[] data = null;
+		BufferedImage image = null;
+		path = picService.getPicture(imageId).getThumbPath();
+		InputStream stream = null;
+		File file = new File(rootPath + File.separator + path);
+		try {
+			data = new byte[(int) file.length()];
+			image = ImageIO.read(file);
+
+			if (image != null) {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ImageIO.write(image, "png", baos);
+				data = baos.toByteArray();
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (stream != null) {
+				try {
+					stream.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return data;
+	}    
+    
     /**
      * Method set proportional size of picture if picture height or width more then MAX_PICTURE_SIZE 
      * */

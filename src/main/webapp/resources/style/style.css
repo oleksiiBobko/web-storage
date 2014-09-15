@@ -56,7 +56,7 @@ body {
     left: 50%;
 }
 
-/*pagination*/
+/*pagination
 ul {
     border: 0;
     margin: 0;
@@ -104,3 +104,4 @@ ul {
 #pagination-clean a:hover {
     text-decoration: none;
 }
+*/

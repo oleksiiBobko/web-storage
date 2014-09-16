@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.PictureDAO;
+import com.bobko.album.dao.interfaces.IPictureDao;
 import com.bobko.album.domain.Picture;
 
 @Service
 public class PictureServiceImpl implements PictureService {
 
     @Autowired
-    private PictureDAO picDAO;
+    private IPictureDao picDAO;
 
     @Transactional
     public List<Picture> list(int shift, int count) {
@@ -28,7 +28,7 @@ public class PictureServiceImpl implements PictureService {
 
     @Transactional
     public Picture getPicture(Integer id) {
-        return picDAO.getPicture(id);
+        return picDAO.find(id);
     }
     
     @Transactional

@@ -26,6 +26,8 @@ import com.bobko.album.domain.Picture;
 
 public class PictureGrabber {
 
+	private static final String PATTERN_STRING = "<img[^>]*src=[\"']([^\"^']*)";
+	
     private String uRL;
     private LinkedList<String> uRLs;
     private Iterator<String> it;
@@ -76,9 +78,7 @@ public class PictureGrabber {
                     input.append((char) ch);
                 }
 
-                String patternString = "<img[^>]*src=[\"']([^\"^']*)";
-
-                Pattern pattern = Pattern.compile(patternString,
+                Pattern pattern = Pattern.compile(PATTERN_STRING,
                         Pattern.CASE_INSENSITIVE);
                 Matcher matcher = pattern.matcher(input);
 
@@ -131,7 +131,7 @@ public class PictureGrabber {
         if (fileName == null) {
             return null;
         }
-        pic.setPath(userName + "/" + fileName);
+        pic.setPath(userName + File.separator + fileName);
         pic.setDescription(getClearAdress(uRL));
         int slashIndex = imgUrl.lastIndexOf('/');
         String originalFileName = imgUrl.substring(slashIndex + 1);
@@ -156,7 +156,7 @@ public class PictureGrabber {
             int ByteRead, ByteWritten = 0;
             urlToPicture = new URL(fAddress);
             outStream = new BufferedOutputStream(new FileOutputStream(
-                    destinationDir + "\\" + localFileName));
+                    destinationDir + File.separator + localFileName));
 
             // Proxy proxy = new Proxy(Proxy.Type.HTTP, new
             // InetSocketAddress("172.30.0.2", 3128));

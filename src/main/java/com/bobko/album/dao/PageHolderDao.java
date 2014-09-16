@@ -18,12 +18,13 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bobko.album.dao.interfaces.IPagesHolderDao;
 import com.bobko.album.domain.AlbumPage;
 import com.bobko.album.domain.Picture;
 import com.bobko.album.service.PagesService;
 
 @Repository
-public class AlbumPageHolderDAOImpl implements AlbumPagesHolderDAO {
+public class PageHolderDao implements IPagesHolderDao {
 
     private int shift = 0;
     private int pagesCount = 0;

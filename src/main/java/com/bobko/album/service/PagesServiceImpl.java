@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.AlbumPagesHolderDAO;
+import com.bobko.album.dao.interfaces.IPagesHolderDao;
 import com.bobko.album.domain.AlbumPage;
 
 
@@ -20,7 +20,7 @@ import com.bobko.album.domain.AlbumPage;
 public class PagesServiceImpl implements PagesService{
 
     @Autowired
-    AlbumPagesHolderDAO pagesDao;
+    IPagesHolderDao pagesDao;
     
     @Transactional
     public List<AlbumPage> list() {

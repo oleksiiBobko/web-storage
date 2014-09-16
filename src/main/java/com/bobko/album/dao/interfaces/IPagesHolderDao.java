@@ -1,4 +1,4 @@
-package com.bobko.album.dao;
+package com.bobko.album.dao.interfaces;
 
 /**
  * Interface that provides navigation and pagination 
@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.bobko.album.domain.AlbumPage;;
 
-public interface AlbumPagesHolderDAO {
+public interface IPagesHolderDao {
    
     /**
      * @return <tt>List</tt> of pages that provides handling active page and count of pages

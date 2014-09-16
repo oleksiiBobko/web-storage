@@ -1,4 +1,4 @@
-package com.bobko.album.dao;
+package com.bobko.album.dao.interfaces;
 
 /**
  * Interface that provides manipulation with <tt>UserEntity</tt>   
@@ -10,7 +10,7 @@ package com.bobko.album.dao;
 
 import com.bobko.album.domain.UserEntity;
 
-public interface UserDAO {
+public interface IUserDao {
     
     /**
      * Add new user to DB
@@ -25,6 +25,6 @@ public interface UserDAO {
     /**
      * Retrieve user from DB by unique name
      * */    
-    public UserEntity getUser(String name);
+    public UserEntity findUser(String name);
     
 }

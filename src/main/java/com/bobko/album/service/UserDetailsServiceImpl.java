@@ -16,14 +16,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.UserDAO;
+import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.UserEntity;
 
 @Service("userDetailsService") 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Autowired 
-  private UserDAO dao;
+  private IUserDao dao;
   @Autowired 
   private Assembler assembler;
 

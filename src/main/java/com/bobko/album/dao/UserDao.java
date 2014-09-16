@@ -13,11 +13,12 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.UserEntity;
 
 
 @Repository
-public class UserDAOImpl implements UserDAO{
+public class UserDao implements IUserDao{
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -39,7 +40,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public UserEntity getUser(String name) {
+    public UserEntity findUser(String name) {
         UserEntity user = null;
         try {
         user = (UserEntity) sessionFactory.getCurrentSession().load(

@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.UserDAO;
+import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.UserEntity;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserDAO userDAO;
+    IUserDao userDAO;
     
     @Transactional
     public void addUser(UserEntity user) {

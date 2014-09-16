@@ -1,4 +1,4 @@
-package com.bobko.album.dao;
+package com.bobko.album.dao.interfaces;
 
 /**
  * Interface that provides manipulation with <tt>Picture</tt>   
@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.bobko.album.domain.Picture;
 
-public interface PictureDAO {
+public interface IPictureDao {
 
     /**
      * Add new picture to DB
@@ -27,11 +27,11 @@ public interface PictureDAO {
     /**
      * Retrieve <tt>Picture</tt> from DB by unique ID
      * */
-    public Picture getPicture(Integer id);
+    public Picture find(int id);
     
     /**
      * Remove <tt>Picture</tt> from DB by unique ID
      * */
-    public void removePicture(Integer id);
+    public void removePicture(int id);
 
 }

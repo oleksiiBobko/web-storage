@@ -8,6 +8,8 @@ package com.bobko.album.dao;
 
 import java.util.List;
 
+import com.bobko.album.dao.base.HibernateDao;
+import com.bobko.album.dao.interfaces.IPictureDao;
 import com.bobko.album.domain.Picture;
 
 import org.hibernate.Criteria;
@@ -18,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PictureDAOImpl implements PictureDAO {
+public class PictureDao extends HibernateDao<Picture> implements IPictureDao {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -37,14 +39,12 @@ public class PictureDAOImpl implements PictureDAO {
         return criteria.list();
     }
 
-    public Picture getPicture(Integer id) {
-        Session session = sessionFactory.getCurrentSession();
-        return (Picture)session.get(Picture.class, id);
+    public Picture find(int id) {
+    	return super.find(id, Picture.class);
     }    
     
-    public void removePicture(Integer id) {
-        Picture pic = (Picture) sessionFactory.getCurrentSession().load(
-                Picture.class, id);
+    public void removePicture(int id) {
+        Picture pic = (Picture) sessionFactory.getCurrentSession().load(Picture.class, id);
         if (null != pic) {
             sessionFactory.getCurrentSession().delete(pic);
         }

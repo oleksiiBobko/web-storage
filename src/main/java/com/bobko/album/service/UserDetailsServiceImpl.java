@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       throws UsernameNotFoundException, DataAccessException {
 
     //UserDetails userDetails = null;
-    UserEntity userEntity = dao.getUser(user);
+    UserEntity userEntity = dao.findUser(user);
     if (userEntity == null)
       throw new UsernameNotFoundException("user not found");
 

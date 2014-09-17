@@ -10,28 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.interfaces.IUserDao;
+import com.bobko.album.dao.factory.IDaoFactoryMySql;
 import com.bobko.album.domain.UserEntity;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    IUserDao userDAO;
-    
-    @Transactional
+	@Autowired
+	IDaoFactoryMySql daoFactoryMySql;
+	
     public void addUser(UserEntity user) {
-        userDAO.addUser(user);
+    	daoFactoryMySql.getUserDao().addUser(user);
     }
 
-    @Transactional
     public void removeUser(String name) {
-        userDAO.removeUser(name);
+    	daoFactoryMySql.getUserDao().removeUser(name);
     }
 
-    @Transactional
     public UserEntity getUser(String name) {
-        return userDAO.getUser(name);
+        return daoFactoryMySql.getUserDao().findUser(name);
     }
 
 }

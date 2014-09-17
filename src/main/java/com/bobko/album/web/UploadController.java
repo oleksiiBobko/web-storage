@@ -65,10 +65,13 @@ public class UploadController {
     /**
      * */
     @RequestMapping("/pictures")
-    public String listPictures(Map<String, Object> map) {
-        map.put("url", new IncomingURL());
-        map.put("pages", pagesService.list());
-        map.put("pictures", picService.list(pagesService.getShift(), PagesService.PICTURE_COUNT));
+    public String listPictures(Map<String, Object> map, HttpServletRequest request) {
+
+		map.put("url", new IncomingURL());
+		map.put("pages", pagesService.list());
+		map.put("pictures", picService.list(pagesService.getShift(),
+				PagesService.PICTURE_COUNT));
+		map.put("authorized", request.isUserInRole("ROLE_ADMIN"));
         return "picturesList";
     }
     

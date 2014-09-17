@@ -77,7 +77,7 @@
 				<li><a href="<c:url value="/registration" />"><spring:message code="label.registration" /></a></li>				 
 				<li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>
 
-				<li><c:if test="${true}">
+				<li><c:if test="${authorized}">
 						<form:form method="post" action="grab.html" commandName="url"
 							enctype="multipart/form-data">
 							<form:input path="URL" />
@@ -118,9 +118,7 @@
 						<div>
 							<div>
 								<c:if test="${authorized}">
-									<a href="<c:url value="/delete/${picture.id}" />"> <spring:message
-											code="label.delete" />
-									</a>
+									<a href="<c:url value="/delete/${picture.id}" />"><spring:message code="label.delete" /></a>
 								</c:if>
 							</div>
 

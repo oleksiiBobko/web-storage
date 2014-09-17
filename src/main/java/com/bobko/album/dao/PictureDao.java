@@ -12,43 +12,28 @@ import com.bobko.album.dao.base.HibernateDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
 import com.bobko.album.domain.Picture;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PictureDao extends HibernateDao<Picture> implements IPictureDao {
-
-    @Autowired
-    private SessionFactory sessionFactory;
+public class PictureDao extends HibernateDao<Picture, Integer> implements IPictureDao {
 
     public void addPicture(Picture pic) {
-        sessionFactory.getCurrentSession().save(pic);
+        super.add(pic);
     }
     
-    @SuppressWarnings("unchecked")
     public List<Picture> list(int shift, int count) {
-        Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Picture.class);
-        criteria.setFirstResult(shift * count);
-        criteria.setMaxResults(count);
-        criteria.addOrder(Order.desc("created"));
-        return criteria.list();
+    	return super.rankList(shift, count);
     }
 
     public Picture find(int id) {
-    	return super.find(id, Picture.class);
+    	return super.find(id);
     }    
     
     public void removePicture(int id) {
-        Picture pic = (Picture) sessionFactory.getCurrentSession().load(Picture.class, id);
+        Picture pic = super.find(id);
         if (null != pic) {
-            sessionFactory.getCurrentSession().delete(pic);
+            super.remove(pic);
         }
-
     }
 
 }

@@ -12,33 +12,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.interfaces.IPictureDao;
+import com.bobko.album.dao.factory.IDaoFactoryMySql;
 import com.bobko.album.domain.Picture;
 
 @Service
+@Transactional
 public class PictureServiceImpl implements PictureService {
 
-    @Autowired
-    private IPictureDao picDAO;
-
-    @Transactional
+	@Autowired
+	IDaoFactoryMySql daoFactoryMySql;
+	
     public List<Picture> list(int shift, int count) {
-        return picDAO.list(shift, count);
+        return daoFactoryMySql.getPictureDao().list(shift, count);
     }
 
-    @Transactional
     public Picture getPicture(Integer id) {
-        return picDAO.find(id);
+        return daoFactoryMySql.getPictureDao().find(id);
     }
     
-    @Transactional
     public void addPicture(Picture pic) {
-        picDAO.addPicture(pic);
+    	daoFactoryMySql.getPictureDao().addPicture(pic);
     }
 
-    @Transactional
     public void removePicture(Integer id) {
-        picDAO.removePicture(id);
+    	daoFactoryMySql.getPictureDao().removePicture(id);
     }
 
 }

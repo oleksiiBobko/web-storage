@@ -1,29 +1,37 @@
 package com.bobko.album.service;
 
 /**
- * Service provide access to domain lavel to retrieve information about users from DB
  * @author oleksii bobko
  * @data 12.08.2013
+ * @see UserService
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.UserEntity;
+import com.bobko.album.service.interfaces.IUserService;
 
-public interface UserService {
+@Service
+@Transactional
+public class UserService implements IUserService {
 
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
-    /**
-     * add new user to db
-     * */
-    public void addUser(UserEntity user);
-    
-    /**
-     * remove user from db by unique user name
-     * */
-    public void removeUser(String name);
-    
-    /**
-     * retrieve user from db bt unique user name
-     * */
-    public UserEntity getUser(String name);    
-    
+    @Autowired
+    IUserDao<UserEntity, String> userDao;
+
+    public void addUser(UserEntity user) {
+        userDao.add(user);
+    }
+
+    public void removeUser(String name) {
+        UserEntity entity = userDao.find(name);
+        userDao.remove(entity);
+    }
+
+    public UserEntity getUser(String name) {
+        return userDao.find(name);
+    }
+
 }

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 import com.bobko.album.dao.interfaces.IPagesHolderDao;
 import com.bobko.album.domain.AlbumPage;
 import com.bobko.album.domain.Picture;
-import com.bobko.album.service.PagesService;
+import com.bobko.album.service.interfaces.IPagesService;
 
 @Repository
 public class PageHolderDao implements IPagesHolderDao {
@@ -37,7 +37,7 @@ public class PageHolderDao implements IPagesHolderDao {
     public List<AlbumPage> list() {
         return createPagesList();
     }
-    
+
     /**
      * @return List of <tt>AlbumPage</tt>
      * */
@@ -47,11 +47,11 @@ public class PageHolderDao implements IPagesHolderDao {
                 .setProjection(Projections.rowCount()).uniqueResult())
                 .intValue();
         pagesCount = ((int) Math.ceil(rowCount
-                / (double) PagesService.PICTURE_COUNT)) - 1;
+                / (double) IPagesService.PICTURE_COUNT)) - 1;
         int finalCount = pagesCount;
         List<AlbumPage> pages = new ArrayList<AlbumPage>(6);
-        if (pagesCount > PagesService.MAX_PAGES_COUNT) {
-            finalCount = PagesService.MAX_PAGES_COUNT;
+        if (pagesCount > IPagesService.MAX_PAGES_COUNT) {
+            finalCount = IPagesService.MAX_PAGES_COUNT;
         }
 
         for (int i = 0; i <= finalCount; i++) {

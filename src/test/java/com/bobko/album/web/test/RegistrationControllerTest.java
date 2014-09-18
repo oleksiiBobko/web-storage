@@ -22,9 +22,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
 import com.bobko.album.domain.*;
 import com.bobko.album.web.*;
 import com.bobko.album.service.*;
+import com.bobko.album.service.interfaces.IUserService;
 
 import org.mockito.*; 
 import org.junit.*;
@@ -47,7 +49,7 @@ public class RegistrationControllerTest {
     private RegistrationController registrationController;
 
     @Mock
-    private UserService userService;
+    private IUserService userService;
    
     @Before
     public void setup() {
@@ -56,7 +58,7 @@ public class RegistrationControllerTest {
         existsUser = new UserEntity();
         existsUser.setUsrName("alex");
         existsUser.setActive(true);
-        existsUser.setRole(UserService.ROLE_ADMIN);
+        existsUser.setRole(IUserService.ROLE_ADMIN);
         existsUser.setPw("1111");
         
         Mockito.when(userService.getUser("alex")).thenReturn(newUser);

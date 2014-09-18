@@ -4,9 +4,9 @@
     "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-	<session-factory>
-        <property name="connection.pool_size">10</property>	
-		<mapping class="com.bobko.album.domain.Picture"></mapping>
-		<mapping class="com.bobko.album.domain.UserEntity"></mapping>
-	</session-factory>
+    <session-factory>
+        <property name="connection.pool_size">10</property>
+        <mapping class="com.bobko.album.domain.Picture"></mapping>
+        <mapping class="com.bobko.album.domain.UserEntity"></mapping>
+    </session-factory>
 </hibernate-configuration>

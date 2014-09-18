@@ -20,10 +20,10 @@ import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.UserEntity;
 
 @Service("userDetailsService") 
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsSrv implements UserDetailsService {
 
   @Autowired 
-  private IUserDao dao;
+  private IUserDao<UserEntity, String> dao;
   @Autowired 
   private Assembler assembler;
 
@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       throws UsernameNotFoundException, DataAccessException {
 
     //UserDetails userDetails = null;
-    UserEntity userEntity = dao.findUser(user);
+    UserEntity userEntity = dao.find(user);
     if (userEntity == null)
       throw new UsernameNotFoundException("user not found");
 

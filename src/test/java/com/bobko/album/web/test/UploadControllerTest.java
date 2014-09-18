@@ -26,9 +26,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
 import com.bobko.album.domain.*;
 import com.bobko.album.web.*;
 import com.bobko.album.service.*;
+import com.bobko.album.service.interfaces.IPagesService;
+import com.bobko.album.service.interfaces.IUserService;
 
 import org.mockito.*; 
 import org.junit.*;
@@ -54,13 +57,13 @@ public class UploadControllerTest {
     private UploadController uploadController;
    
     @Mock
-    private PictureServiceImpl pictureService;
+    private PictureService pictureService;
     
     @Mock
-    private PagesService pagesService;
+    private IPagesService pagesService;
 
     @Mock
-    private UserService userService;
+    private IUserService userService;
    
     @Before
     public void setup() {
@@ -87,7 +90,7 @@ public class UploadControllerTest {
         pictures.add(picture);
         pictures.add(picture2);
        
-        Mockito.when(pictureService.list(0, PagesService.PICTURE_COUNT)).thenReturn(pictures);
+        Mockito.when(pictureService.list(0, IPagesService.PICTURE_COUNT)).thenReturn(pictures);
         
         pages = new ArrayList<AlbumPage>();
         pages.add(new AlbumPage(0, true));

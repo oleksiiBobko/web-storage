@@ -1,7 +1,5 @@
-<beans:beans 
-    xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans
@@ -15,24 +13,26 @@
 		<intercept-url pattern="/delete/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="grub.html" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/" access="permitAll" />
-		<intercept-url pattern="/pictures"  access="permitAll"/>
+		<intercept-url pattern="/pictures" access="permitAll" />
 		<intercept-url pattern="/registration" access="permitAll" />
 		<intercept-url pattern="/adduser" access="permitAll" />
-		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" />
+		<form-login login-page="/login.jsp"
+			authentication-failure-url="/login.jsp?error=true" />
 
 
-	<security:logout logout-url="/logout"
+		<security:logout logout-url="/logout"
 			success-handler-ref="logoutSuccessHandler" />
 	</security:http>
 
-    <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
-    
+	<beans:bean
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
 	<beans:bean id="daoAuthenticationProvider"
 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="userDetailsService" />
 	</beans:bean>
 
-    
+
 
 	<beans:bean id="authenticationManager"
 		class="org.springframework.security.authentication.ProviderManager">

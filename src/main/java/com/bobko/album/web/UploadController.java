@@ -24,7 +24,6 @@ import com.bobko.album.domain.Picture;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureService;
-import com.bobko.album.util.AlbumUtils;
 import com.bobko.album.util.PictureGrabber;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +61,6 @@ public class UploadController {
     @Value("${data.root.path}")
     String rootPath;
 
-    /**
-     * */
     @RequestMapping("/pictures")
     public String listPictures(Map<String, Object> map,
             HttpServletRequest request) {
@@ -100,49 +97,11 @@ public class UploadController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("picture") Picture pic,
             @RequestParam("file") MultipartFile file) {
-
-        pic.setFilename(file.getOriginalFilename());
-
-        // check if field is correct
-        if ((pic.getOwner() == null) || (pic.getOwner().isEmpty())
-                || (pic.getDescription() == null)
-                || (pic.getDescription().isEmpty())
-                || (pic.getFilename() == null) || (pic.getFilename().isEmpty())) {
-            return "redirect:/pictures?error=true";
-        }
-
-        String username = getLoginedUserName();
-
-        // normalize description length
-        if (pic.getDescription().length() >= Picture.MAX_DESCRIPTION_SIZE) {
-            pic.setDescription(pic.getDescription().substring(0,
-                    Picture.MAX_DESCRIPTION_SIZE));
-        }
-
-        File dir = new File(rootPath + "/" + username + "/");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        String fileName = pic.getFilename();
-
-        String suffix = "";
-
-        int i = fileName.lastIndexOf('.');
-        if (i > 0) {
-            suffix = fileName.substring(i + 1);
-        }
-        final String uuid = AlbumUtils.getUUID();
-        File multipartFile = new File(dir + "/" + uuid + "." + suffix);
         try {
-            file.transferTo(multipartFile);
-
-            pic.setPath(username + "/" + uuid + "." + suffix);
-
-            picService.addPicture(pic);
+            picService.savePicture(pic, file);
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/pictures?error=true";
-
         }
 
         return "redirect:/pictures";

@@ -127,9 +127,11 @@
 			<version>5.1.26</version>
 		</dependency>
 
-		<!-- Roo dependencies> <dependency> <groupId>org.springframework.roo</groupId> 
-			<artifactId>org.springframework.roo.annotations</artifactId> <version>${org.springframework.roo-version}</version> 
-			<scope>provided</scope> </dependency -->
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.1.2</version>
+		</dependency>
 
 		<!-- AspectJ -->
 		<dependency>

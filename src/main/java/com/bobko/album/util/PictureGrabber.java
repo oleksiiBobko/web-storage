@@ -26,8 +26,9 @@ import com.bobko.album.domain.Picture;
 
 public class PictureGrabber {
 
-	private static final String PATTERN_STRING = "<img[^>]*src=[\"']([^\"^']*)";
-	
+//    private static final String PATTERN_STRING = "(<img[^>]*src=[\"']([^\"^']*))()";
+    private static final String PATTERN_STRING = "\\(?\\b((https?|ftp|file)://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]";
+
     private String uRL;
     private LinkedList<String> uRLs;
     private Iterator<String> it;
@@ -181,10 +182,10 @@ public class PictureGrabber {
             e.printStackTrace();
         } finally {
             try {
-                if(is != null)
-                is.close();
-                if(outStream != null)
-                outStream.close();
+                if (is != null)
+                    is.close();
+                if (outStream != null)
+                    outStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

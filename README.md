@@ -1,6 +1,8 @@
 album
 =====
 
-Spring MVC web project which aimed to store photos in DB.
+Spring MVC + Security + web project which aimed to store photos in DB.
 
-Generic dao + Hibernate
+Generic dao + Hibernate + c3p0
+
+Mock testing not implemented yet.

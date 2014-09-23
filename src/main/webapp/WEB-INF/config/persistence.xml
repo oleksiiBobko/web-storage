@@ -39,7 +39,8 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
 		p:location="/WEB-INF/jdbc.properties" />
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}" />
 		<property name="jdbcUrl" value="${jdbc.url}" />
 		<property name="user" value="${jdbc.username}" />
@@ -54,24 +55,21 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource">
-			<ref local="dataSource"/>
+			<ref local="dataSource" />
 		</property>
 
-        <property name="packagesToScan">
-            <list>
-                <value>com.bobko.album.domain</value>
-            </list>
-        </property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.bobko.album.domain</value>
+			</list>
+		</property>
 
 		<property name="configurationClass">
 			<value>org.hibernate.cfg.AnnotationConfiguration</value>
 		</property>
 		<property name="namingStrategy">
-		  <bean class="org.hibernate.cfg.ImprovedNamingStrategy"/>
+			<bean class="org.hibernate.cfg.DefaultNamingStrategy" />
 		</property>
-<!-- 		<property name="configLocation">
-			<value>classpath:hibernate.cfg.xml</value>
-		</property> -->
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
@@ -79,6 +77,7 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
 				<prop key="hibernate.auto_close_session">${hibernate.auto_close_session}</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 	</bean>

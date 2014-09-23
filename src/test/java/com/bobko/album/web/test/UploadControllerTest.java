@@ -44,8 +44,8 @@ import java.util.*;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class})
 public class UploadControllerTest {
    
-    private Picture picture;
-    private List<Picture> pictures;
+    private Pictures picture;
+    private List<Pictures> pictures;
     private List<AlbumPage> pages;
     
     @Autowired
@@ -70,8 +70,8 @@ public class UploadControllerTest {
 
         MockitoAnnotations.initMocks(this);
 
-        pictures = new ArrayList<Picture>();
-        picture = new Picture();
+        pictures = new ArrayList<Pictures>();
+        picture = new Pictures();
         
         picture.setDescription("on vocation");
         picture.setFilename("1.jpg");
@@ -79,7 +79,7 @@ public class UploadControllerTest {
         picture.setOwner("alex");
         picture.setPath("/1/2");
        
-        Picture picture2 = new Picture();
+        Pictures picture2 = new Pictures();
        
         picture2.setDescription("description2");
         picture2.setFilename("2.jpg");

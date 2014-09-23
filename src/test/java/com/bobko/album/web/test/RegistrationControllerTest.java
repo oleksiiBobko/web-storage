@@ -37,8 +37,8 @@ import org.junit.*;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class})
 public class RegistrationControllerTest {
    
-    private UserEntity newUser;
-    private UserEntity existsUser;
+    private Users newUser;
+    private Users existsUser;
     
     @Autowired
     private WebApplicationContext wac;
@@ -55,7 +55,7 @@ public class RegistrationControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         
-        existsUser = new UserEntity();
+        existsUser = new Users();
         existsUser.setUsrName("alex");
         existsUser.setActive(true);
         existsUser.setRole(IUserService.ROLE_ADMIN);

@@ -15,13 +15,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.domain.UserEntity;
+import com.bobko.album.domain.Users;
 
 @Service("assembler")
 public class Assembler {
 
   @Transactional(readOnly = true)
-  User buildUserFromUserEntity(UserEntity userEntity) {
+  User buildUserFromUserEntity(Users userEntity) {
 
     if(userEntity.getUsrName() == null) {
         return null;

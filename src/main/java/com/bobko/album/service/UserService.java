@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bobko.album.dao.interfaces.IUserDao;
-import com.bobko.album.domain.UserEntity;
+import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IUserService;
 
 @Service
@@ -19,18 +19,18 @@ import com.bobko.album.service.interfaces.IUserService;
 public class UserService implements IUserService {
 
     @Autowired
-    IUserDao<UserEntity, String> userDao;
+    IUserDao<Users, String> userDao;
 
-    public void addUser(UserEntity user) {
+    public void addUser(Users user) {
         userDao.add(user);
     }
 
     public void removeUser(String name) {
-        UserEntity entity = userDao.find(name);
+        Users entity = userDao.find(name);
         userDao.remove(entity);
     }
 
-    public UserEntity getUser(String name) {
+    public Users getUser(String name) {
         return userDao.find(name);
     }
 

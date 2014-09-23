@@ -63,7 +63,7 @@
 				<font color="red"> <spring:message code="label.addError" /></font>
 			</c:if>
 
-			</br>
+			<br>
 
 			<ul id="nav">
 				<li><a href="#">About Us</a></li>

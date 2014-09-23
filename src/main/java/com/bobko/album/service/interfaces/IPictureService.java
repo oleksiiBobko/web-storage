@@ -9,18 +9,18 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bobko.album.domain.Picture;
+import com.bobko.album.domain.Pictures;
 
 public interface IPictureService {
 
-    public void addPicture(Picture pic);
+    public void addPicture(Pictures pic);
 
-    public List<Picture> list(int shift, int count);
+    public List<Pictures> list(int shift, int count);
 
-    public Picture getPicture(Integer id);
+    public Pictures getPicture(Integer id);
     
     public void removePicture(Integer id);
 
-    public void savePicture(Picture pic, MultipartFile file) throws Exception;
+    public void savePicture(Pictures pic, MultipartFile file) throws Exception;
 
 }

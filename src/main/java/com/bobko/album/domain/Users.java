@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USERS")
-public class UserEntity {
+public class Users {
     
     @Id
     @Column(name = "LOGIN")
@@ -27,7 +27,7 @@ public class UserEntity {
     private String role;
 
     @Column(name = "ACTIVE")
-    private boolean isActive;    
+    private boolean isActive;
         
     public String getUsrName() {
         return usrName;

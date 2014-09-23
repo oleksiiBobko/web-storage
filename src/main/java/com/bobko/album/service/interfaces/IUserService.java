@@ -6,7 +6,7 @@ package com.bobko.album.service.interfaces;
  * @data 12.08.2013
  */
 
-import com.bobko.album.domain.UserEntity;
+import com.bobko.album.domain.Users;
 
 public interface IUserService {
 
@@ -14,7 +14,7 @@ public interface IUserService {
     /**
      * add new user to db
      * */
-    public void addUser(UserEntity user);
+    public void addUser(Users user);
     
     /**
      * remove user from db by unique user name
@@ -24,6 +24,6 @@ public interface IUserService {
     /**
      * retrieve user from db bt unique user name
      * */
-    public UserEntity getUser(String name);    
+    public Users getUser(String name);    
     
 }

@@ -17,13 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bobko.album.dao.interfaces.IUserDao;
-import com.bobko.album.domain.UserEntity;
+import com.bobko.album.domain.Users;
 
 @Service("userDetailsService") 
 public class UserDetailsSrv implements UserDetailsService {
 
   @Autowired 
-  private IUserDao<UserEntity, String> dao;
+  private IUserDao<Users, String> dao;
   @Autowired 
   private Assembler assembler;
 
@@ -32,7 +32,7 @@ public class UserDetailsSrv implements UserDetailsService {
       throws UsernameNotFoundException, DataAccessException {
 
     //UserDetails userDetails = null;
-    UserEntity userEntity = dao.find(user);
+    Users userEntity = dao.find(user);
     if (userEntity == null)
       throw new UsernameNotFoundException("user not found");
 

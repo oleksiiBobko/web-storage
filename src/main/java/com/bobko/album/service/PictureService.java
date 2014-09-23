@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bobko.album.dao.interfaces.IPictureDao;
-import com.bobko.album.domain.Picture;
+import com.bobko.album.domain.Pictures;
 import com.bobko.album.service.interfaces.IPictureService;
 import com.bobko.album.util.AlbumUtils;
 
@@ -27,29 +27,29 @@ import com.bobko.album.util.AlbumUtils;
 public class PictureService implements IPictureService {
 
     @Autowired
-    IPictureDao<Picture, Integer> pictureDao;
+    IPictureDao<Pictures, Integer> pictureDao;
 
     @Value("${data.root.path}")
     String rootPath;
     
-    public List<Picture> list(int shift, int count) {
+    public List<Pictures> list(int shift, int count) {
         return pictureDao.rankList(shift, count);
     }
 
-    public Picture getPicture(Integer id) {
+    public Pictures getPicture(Integer id) {
         return pictureDao.find(id);
     }
 
-    public void addPicture(Picture pic) {
+    public void addPicture(Pictures pic) {
         pictureDao.add(pic);
     }
 
     public void removePicture(Integer id) {
-        Picture entity = pictureDao.find(id);
+        Pictures entity = pictureDao.find(id);
         pictureDao.remove(entity);
     }
 
-    public void savePicture(Picture pic, MultipartFile file) throws Exception {
+    public void savePicture(Pictures pic, MultipartFile file) throws Exception {
         
         pic.setFilename(file.getOriginalFilename());
 
@@ -64,9 +64,9 @@ public class PictureService implements IPictureService {
         String username = getLoginedUserName();
 
         // normalize description length
-        if (pic.getDescription().length() >= Picture.MAX_DESCRIPTION_SIZE) {
+        if (pic.getDescription().length() >= Pictures.MAX_DESCRIPTION_SIZE) {
             pic.setDescription(pic.getDescription().substring(0,
-                    Picture.MAX_DESCRIPTION_SIZE));
+                    Pictures.MAX_DESCRIPTION_SIZE));
         }
 
         File dir = new File(rootPath + "/" + username + "/");

@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.bobko.album.domain.Picture;
+import com.bobko.album.domain.Pictures;
 
 public class PictureGrabber {
 
@@ -44,8 +44,8 @@ public class PictureGrabber {
         it = uRLs.iterator();
     }
 
-    public Picture getNextPicture() {
-        Picture nextPicture = null;
+    public Pictures getNextPicture() {
+        Pictures nextPicture = null;
         while (it.hasNext()) {
             String imgUrl = (String) it.next();
             nextPicture = getPicture(imgUrl);
@@ -126,8 +126,8 @@ public class PictureGrabber {
         }
     }
 
-    private Picture getPicture(String imgUrl) {
-        Picture pic = new Picture();
+    private Pictures getPicture(String imgUrl) {
+        Pictures pic = new Pictures();
         String fileName = downloadFile(imgUrl, rootDir + "/" + userName + "/");
         if (fileName == null) {
             return null;

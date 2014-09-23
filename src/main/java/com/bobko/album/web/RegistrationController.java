@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bobko.album.domain.UserEntity;
+import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IUserService;
 
 @Controller
@@ -32,7 +32,7 @@ public class RegistrationController {
      * */
     @RequestMapping("/registration")
     public String registration(Map<String, Object> map) {
-        map.put("user", new UserEntity());
+        map.put("user", new Users());
         return "registrationPage";
     }
 
@@ -40,7 +40,7 @@ public class RegistrationController {
      * perform adding new user to db
      * */
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
-    public String createNewUser(@ModelAttribute("user") UserEntity user) {
+    public String createNewUser(@ModelAttribute("user") Users user) {
 
         // check empty fields
         if ((user == null) || user.getPw().isEmpty()
@@ -71,7 +71,7 @@ public class RegistrationController {
 
         user.setPw(hashedPass);
 
-        UserEntity checkUser = null;
+        Users checkUser = null;
         checkUser = userService.getUser(user.getUsrName());
 
         // check if new user already exists in base

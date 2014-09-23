@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import com.bobko.album.domain.Picture;
+import com.bobko.album.domain.Pictures;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -86,7 +86,7 @@ public class UploadController {
      * */
     @RequestMapping("/add")
     public String addNew(Map<String, Object> map) {
-        map.put("picture", new Picture());
+        map.put("picture", new Pictures());
         return "addPicture";
     }
 
@@ -95,7 +95,7 @@ public class UploadController {
      * system
      * */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("picture") Picture pic,
+    public String save(@ModelAttribute("picture") Pictures pic,
             @RequestParam("file") MultipartFile file) {
         try {
             picService.savePicture(pic, file);
@@ -236,7 +236,7 @@ public class UploadController {
 
         PictureGrabber graber = new PictureGrabber(uRL.getURL(), rootPath,
                 userName);
-        Picture coin = null;
+        Pictures coin = null;
         while ((coin = graber.getNextPicture()) != null) {
             picService.addPicture(coin);
         }

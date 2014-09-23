@@ -20,8 +20,7 @@
 			authentication-failure-url="/login.jsp?error=true" />
 
 
-		<security:logout logout-url="/logout"
-			success-handler-ref="logoutSuccessHandler" />
+		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
 	</security:http>
 
 	<beans:bean

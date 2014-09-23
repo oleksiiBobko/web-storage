@@ -57,12 +57,21 @@
 			<ref local="dataSource"/>
 		</property>
 
+        <property name="packagesToScan">
+            <list>
+                <value>com.bobko.album.domain</value>
+            </list>
+        </property>
+
 		<property name="configurationClass">
 			<value>org.hibernate.cfg.AnnotationConfiguration</value>
 		</property>
-		<property name="configLocation">
-			<value>classpath:hibernate.cfg.xml</value>
+		<property name="namingStrategy">
+		  <bean class="org.hibernate.cfg.ImprovedNamingStrategy"/>
 		</property>
+<!-- 		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property> -->
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>

@@ -16,34 +16,14 @@
 		<intercept-url pattern="/pictures" access="permitAll" />
 		<intercept-url pattern="/registration" access="permitAll" />
 		<intercept-url pattern="/adduser" access="permitAll" />
-		<form-login login-page="/login.jsp"
-			authentication-failure-url="/login.jsp?error=true" />
-
-
-		<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" />
+	<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
 	</security:http>
 
-	<beans:bean
-		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
-
-	<beans:bean id="daoAuthenticationProvider"
-		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<beans:property name="userDetailsService" ref="userDetailsService" />
-	</beans:bean>
-
-
-
-	<beans:bean id="authenticationManager"
-		class="org.springframework.security.authentication.ProviderManager">
-		<beans:property name="providers">
-			<beans:list>
-				<beans:ref local="daoAuthenticationProvider" />
-			</beans:list>
-		</beans:property>
-	</beans:bean>
+    <beans:bean id="albumUserDetailsService" class="com.bobko.album.service.AlbumUserDetailsService" />
 
 	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
+		<authentication-provider user-service-ref="albumUserDetailsService">
 			<password-encoder hash="md5" />
 		</authentication-provider>
 	</authentication-manager>

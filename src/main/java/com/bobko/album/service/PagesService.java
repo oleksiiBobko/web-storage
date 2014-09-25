@@ -18,7 +18,7 @@ import com.bobko.album.service.interfaces.IPagesService;
 
 
 @Service
-public class PagesService implements IPagesService{
+public class PagesService implements IPagesService {
 
     @Autowired
     IPagesHolderDao pagesDao;

@@ -90,10 +90,8 @@
 		<div id="container">
 			<div align="center">
 				<div class="pagination">
-					<a class="page" href="<c:url value="/goto/0" />"><spring:message
-							code="label.begin" /></a> <a class="page"
-						href="<c:url value="/prevPage" />"><spring:message
-							code="label.prev" /></a>
+					<a class="page" href="<c:url value="/goto/0" />"><spring:message code="label.begin" /></a> <a class="page"
+						href="<c:url value="/prevPage" />"><spring:message code="label.prev" /></a>
 					<c:if test="${!empty pages}">
 						<c:forEach items="${pages}" var="depositPage">
 							<c:choose>
@@ -106,8 +104,7 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<a class="page" href="<c:url value="/nextPage" />"><spring:message
-								code="label.next" /></a>
+						<a class="page" href="<c:url value="/nextPage" />"><spring:message code="label.next" /></a>
 					</c:if>
 				</div>
 			</div>
@@ -122,9 +119,8 @@
 								</c:if>
 							</div>
 
-							<a href='<c:url value="image/${picture.id}"/>' class="highslide"
-								onclick="return hs.expand(this)"> <img src="${pageContext.servletContext.contextPath}/thumbimage/${picture.id}"
-								alt="${picture.filename}" title="Click to enlarge" />
+							<a href='<c:url value="/images/${picture.path}"/>' class="highslide" onclick="return hs.expand(this)"> 
+								<img src="${pageContext.servletContext.contextPath}/images/${picture.path}" alt="${picture.filename}" title="Click to enlarge" />
 							</a>
 							<div class="highslide-caption">${picture.description}</div>
 							<br>

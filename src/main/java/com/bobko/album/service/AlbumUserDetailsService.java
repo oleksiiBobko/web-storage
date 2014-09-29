@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IUserService;
 
@@ -56,7 +57,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
 
         // Build user's authorities
         //for (UserRole userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            setAuths.add(new SimpleGrantedAuthority(UserRolesTypes.ROLE_ADMIN));
         //}
 
         List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);

@@ -77,14 +77,18 @@
 				<li><a href="<c:url value="/registration" />"><spring:message code="label.registration" /></a></li>				 
 				<li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>
 
-				<li><c:if test="${authorized}">
+				<li>
+				    <c:if test="${authorized}">
 						<form:form method="post" action="grab.html" commandName="url"
-							enctype="multipart/form-data">
+							enctype="multipart/form-data" id="grub">
 							<form:input path="URL" />
 
 							<input type="submit" value="<spring:message code="label.grab" />" />
 						</form:form>
-					</c:if></li>
+					</c:if>
+				</li>
+				<li>
+				</li>
 			</ul>
 		</div>
 		<div id="container">

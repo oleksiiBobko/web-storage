@@ -41,8 +41,7 @@ public class PictureGrabber implements IPictureGrabber {
     @Value("${data.root.path}")
     String rootPath;
     
-//  private static final String PATTERN_STRING = "(<img[^>]*src=[\"']([^\"^']*))()";
-  private static final String PATTERN_STRING = "\\(?\\b((https?|ftp|file)://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]";    
+    private static final String PATTERN_STRING = "((https?|ftp|file)://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*(.jpg|.png|.gif|.tiff|.ico)";    
 
     private String url;
     private LinkedList<String> uRLs;
@@ -102,7 +101,7 @@ public class PictureGrabber implements IPictureGrabber {
         return null;
     }
 
-    private void performDownloading(String fAddress, String localFileName,
+    private boolean performDownloading(String fAddress, String localFileName,
             String destinationDir) {
         OutputStream outStream = null;
         HttpURLConnection connection = null;
@@ -122,6 +121,7 @@ public class PictureGrabber implements IPictureGrabber {
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 System.out.println(connection.getErrorStream());
+                return false;
             } else {
                 is = connection.getInputStream();
                 buf = new byte[size];
@@ -132,6 +132,7 @@ public class PictureGrabber implements IPictureGrabber {
                 System.out.println("Downloaded Successfully.");
                 System.out.println("File name:\"" + localFileName
                         + "\"\nNo ofbytes :" + ByteWritten);
+                return true;
             }
 
         } catch (Exception e) {
@@ -146,6 +147,7 @@ public class PictureGrabber implements IPictureGrabber {
                 e.printStackTrace();
             }
         }
+        return false;
     }    
     
     private Pictures getPicture(String imgUrl) {
@@ -181,7 +183,9 @@ public class PictureGrabber implements IPictureGrabber {
 
         if (periodIndex >= 1 && slashIndex >= 0
                 && slashIndex < fAddress.length() - 1) {
-            performDownloading(fAddress, fileName, destinationDir);
+            if(!performDownloading(fAddress, fileName, destinationDir)) {
+                return null;
+            }
         } else {
             System.err.println("path or file name.");
             return null;

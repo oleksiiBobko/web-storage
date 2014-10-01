@@ -163,6 +163,17 @@ body {
 	text-shadow: none;
 }
 
+#grub {
+	float: right;
+    color: #555;
+    display: block;
+    padding: 7px 7px 7px 7px;
+    margin: 0 10px;
+    font-size: 14px;
+    outline: none;
+    text-shadow: none;
+}
+
 #header ul li a:hover {
 	text-decoration: none;
 }

@@ -20,16 +20,15 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.Pictures;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.service.interfaces.IPagesService;
+import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
-import com.bobko.album.util.PictureGrabber;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +49,9 @@ public class UploadController {
     @Autowired
     private IPagesService pagesService;
 
-    /**
-     * */
+    @Autowired
+    private IPictureGrabber pictureGrubber;
+    
     @Autowired
     private ServletContext context;
 
@@ -69,7 +69,7 @@ public class UploadController {
         map.put("pages", pagesService.list());
         map.put("pictures", picService.list(pagesService.getShift(),
                 IPagesService.PICTURE_COUNT));
-        map.put("authorized", request.isUserInRole("ROLE_ADMIN"));
+        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
         return "picturesList";
     }
 
@@ -87,7 +87,7 @@ public class UploadController {
     @RequestMapping("/add")
     public String addNew(Map<String, Object> map) {
         map.put("picture", new Pictures());
-        return "addPicture";
+        return "add-picture";
     }
 
     /**
@@ -225,36 +225,16 @@ public class UploadController {
      * Method perform picture grabbind from web-page by incomingURL
      * */
     @RequestMapping(value = "/grab")
-    public String grub(@ModelAttribute("URL") IncomingURL uRL) {
+    public String grub(@ModelAttribute("URL") IncomingURL url) {
 
-        String userName = getLoginedUserName();
-
-        File dir = new File(rootPath + "/" + userName + "/");
-        if (!dir.exists()) {
-            dir.mkdirs();
+        try {
+            pictureGrubber.grub(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error";
         }
-
-        PictureGrabber graber = new PictureGrabber(uRL.getURL(), rootPath,
-                userName);
-        Pictures coin = null;
-        while ((coin = graber.getNextPicture()) != null) {
-            picService.addPicture(coin);
-        }
-
+        
         return "redirect:/pictures";
-    }
-
-    /**
-     * @return authenticated user name
-     * */
-    private String getLoginedUserName() {
-        String userName = "anonimouse";
-        Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
-        if (authentication != null) {
-            userName = authentication.getName();
-        }
-        return userName;
     }
 
     /**

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +25,12 @@ public class DataController {
     @Value("${data.root.path}")
     String rootPath;
     
+    private static final Logger logger = Logger.getLogger(DataController.class);
+    
     @ResponseBody
     @RequestMapping(value = "/images/{owner}/**", method = RequestMethod.GET)
     byte[] getFile(@PathVariable String owner, HttpServletRequest request) {
+        
         String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         byte[] fileData = new byte[0];
         path = path.substring("/images".length());
@@ -34,8 +38,10 @@ public class DataController {
         try {
             fileData = Files.readAllBytes(p);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
+        
+        logger.debug("file = " + path);
         
         return fileData;
     }

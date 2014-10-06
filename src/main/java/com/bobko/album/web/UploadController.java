@@ -7,25 +7,10 @@ package com.bobko.album.web;
  * @data 12.08.2013
  */
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-import com.bobko.album.common.UserRolesTypes;
-import com.bobko.album.domain.Pictures;
-import com.bobko.album.domain.IncomingURL;
-import com.bobko.album.service.interfaces.IPagesService;
-import com.bobko.album.service.interfaces.IPictureGrabber;
-import com.bobko.album.service.interfaces.IPictureService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,13 +20,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.bobko.album.common.UserRolesTypes;
+import com.bobko.album.domain.IncomingURL;
+import com.bobko.album.domain.Pictures;
+import com.bobko.album.service.interfaces.IPagesService;
+import com.bobko.album.service.interfaces.IPictureGrabber;
+import com.bobko.album.service.interfaces.IPictureService;
 
 @Controller
 public class UploadController {
-
-    public static final int MAX_PICTURE_SIZE = 400;
 
     @Autowired
     private IPictureService picService;
@@ -70,7 +59,7 @@ public class UploadController {
         map.put("pictures", picService.list(pagesService.getShift(),
                 IPagesService.PICTURE_COUNT));
         map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
-        return "picturesList";
+        return "pictures-list";
     }
 
     /**
@@ -105,103 +94,6 @@ public class UploadController {
         }
 
         return "redirect:/pictures";
-    }
-
-    /**
-     * @return byte[] that contains binary data of picture. Picture retrieve
-     *         from db by unique id
-     * */
-    @RequestMapping(value = "/image/{imageId}")
-    @ResponseBody
-    public byte[] getImage(@PathVariable int imageId) {
-        String path = null;
-        byte[] data = null;
-        BufferedImage image = null;
-        path = picService.getPicture(imageId).getPath();
-        InputStream stream = null;
-        File file = new File(rootPath + "/" + path);
-        try {
-            data = new byte[(int) file.length()];
-            image = correctingSize(ImageIO.read(file));
-
-            if (image != null) {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(image, "png", baos);
-                data = baos.toByteArray();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        return data;
-    }
-
-    @RequestMapping(value = "/thumbimage/{imageId}")
-    @ResponseBody
-    public byte[] getThumbImage(@PathVariable int imageId) {
-        String path = null;
-        byte[] data = null;
-        BufferedImage image = null;
-        path = picService.getPicture(imageId).getThumbPath();
-        InputStream stream = null;
-        File file = new File(rootPath + File.separator + path);
-        try {
-            data = new byte[(int) file.length()];
-            image = ImageIO.read(file);
-
-            if (image != null) {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(image, "png", baos);
-                data = baos.toByteArray();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        return data;
-    }
-
-    /**
-     * Method set proportional size of picture if picture height or width more
-     * then MAX_PICTURE_SIZE
-     * */
-    public BufferedImage correctingSize(BufferedImage img) {
-        if (img == null)
-            return null;
-        int oldWidth = img.getWidth();
-        int oldHeight = img.getHeight();
-
-        if ((oldHeight <= MAX_PICTURE_SIZE) && (oldWidth <= MAX_PICTURE_SIZE)) {
-            return img;
-        }
-        double ratio = Math.min((double) MAX_PICTURE_SIZE / (double) oldHeight,
-                (double) MAX_PICTURE_SIZE / (double) oldWidth);
-        int newWidth = (int) (oldWidth * ratio);
-        int newHeight = (int) (oldHeight * ratio);
-
-        BufferedImage dimg = new BufferedImage(newWidth, newHeight,
-                img.getType());
-        Graphics2D g = dimg.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g.drawImage(img, 0, 0, newWidth, newHeight, 0, 0, oldWidth, oldHeight,
-                null);
-        g.dispose();
-        return dimg;
     }
 
     /**

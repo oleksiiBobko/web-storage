@@ -42,7 +42,7 @@
 
 <style>
 #header-wrap {
-	background: #eeeeff;
+	background: #129793;
 	position: fixed;
 	height: 50px;
 	width: 100%;
@@ -51,8 +51,17 @@
 }
 
 #container {
+    background-color: #FFF5C3;
 	margin-top: 50px;
 }
+
+table {
+    width:100%;
+}
+
+th, td {
+    width:50%;
+} 
 </style>
 
 <title>Pictures</title>
@@ -114,9 +123,9 @@
 			</div>
 
 			<c:if test="${!empty pictures}">
-				<div align="center" class="highslide-gallery">
+				<div align="center" class="highslide-gallery" >
 					<c:forEach items="${pictures}" var="picture">
-						<div>
+						<div style="background:#FF7260; width:600px;">
 							<div>
 								<c:if test="${authorized}">
 									<a href="<c:url value="/delete/${picture.id}" />"><spring:message code="label.delete" /></a>
@@ -124,10 +133,21 @@
 							</div>
 
 							<a href='<c:url value="/images/${picture.path}"/>' class="highslide" onclick="return hs.expand(this)"> 
-								<img src="${pageContext.servletContext.contextPath}/images/${picture.path}" alt="${picture.filename}" title="Click to enlarge" />
+								<img src="${pageContext.servletContext.contextPath}/thumbimage/${picture.path}" alt="${picture.filename}" title="Click to enlarge" />
 							</a>
 							<div class="highslide-caption">${picture.description}</div>
 							<br>
+						<table>
+						<tr>
+						<td>Original</td><td><a href='<c:url value="/images/${picture.path}"/>' target="_blank">Download</a></td>
+						<tr>
+                        <tr>
+                        <td>Resolution</td><td></td>
+                        <tr>
+                        <tr>
+                        <td>Format</td><td></td>
+                        <tr>                        
+						</table>
 						</div>
 						<br>
 					</c:forEach>

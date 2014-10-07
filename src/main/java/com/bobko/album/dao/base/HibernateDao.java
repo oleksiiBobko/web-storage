@@ -74,7 +74,7 @@ public class HibernateDao<E, K extends Serializable> implements
         Criteria criteria = currentSession().createCriteria(daoType);
         criteria.setFirstResult(shift * count);
         criteria.setMaxResults(count);
-        criteria.addOrder(Order.desc("created"));
+        criteria.addOrder(Order.desc("id"));
         return criteria.list();
     }
 }

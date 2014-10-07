@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -40,11 +41,13 @@ public class PictureGrabber implements IPictureGrabber {
      * */
     @Value("${data.root.path}")
     String rootPath;
+
+    private static final Logger logger = Logger.getLogger(PictureGrabber.class);
     
     private static final String PATTERN_STRING = "((https?|ftp|file)://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*(.jpg|.png|.gif|.tiff|.ico)";    
 
     private String url;
-    private LinkedList<String> uRLs;
+    private LinkedList<String> urls;
     private Iterator<String> it;
     private String rootDir;
     private String userName;
@@ -72,7 +75,7 @@ public class PictureGrabber implements IPictureGrabber {
         this.rootDir = rootPath;
         this.userName = userName;
         createURLList();
-        it = uRLs.iterator();
+        it = urls.iterator();
 
     }
 
@@ -129,14 +132,14 @@ public class PictureGrabber implements IPictureGrabber {
                     outStream.write(buf, 0, ByteRead);
                     ByteWritten += ByteRead;
                 }
-                System.out.println("Downloaded Successfully.");
-                System.out.println("File name:\"" + localFileName
+                logger.debug("Downloaded Successfully.");
+                logger.debug("File name:\"" + localFileName
                         + "\"\nNo ofbytes :" + ByteWritten);
                 return true;
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         } finally {
             try {
                 if (is != null)
@@ -144,7 +147,7 @@ public class PictureGrabber implements IPictureGrabber {
                 if (outStream != null)
                     outStream.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         return false;
@@ -175,10 +178,6 @@ public class PictureGrabber implements IPictureGrabber {
 
         String suffix = fAddress.substring(periodIndex);
 
-        if (!isValidSuffix(suffix)) {
-            suffix = ".null";
-        }
-
         String fileName = AlbumUtils.getUUID() + suffix;
 
         if (periodIndex >= 1 && slashIndex >= 0
@@ -191,16 +190,6 @@ public class PictureGrabber implements IPictureGrabber {
             return null;
         }
         return fileName;
-    }
-    
-    private boolean isValidSuffix(String suffix) {
-        File f = new File(suffix);
-        try {
-            f.getCanonicalPath();
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
     }
     
     private String getClearAdress(String url) {
@@ -216,7 +205,7 @@ public class PictureGrabber implements IPictureGrabber {
     private void createURLList() {
         InputStreamReader in = null;
         try {
-            uRLs = new LinkedList<String>();
+            urls = new LinkedList<String>();
             if ((url == null) || (url.isEmpty())) {
                 return;
             } else {
@@ -256,17 +245,17 @@ public class PictureGrabber implements IPictureGrabber {
                         match = getClearAdress(url) + match;
                     }
 
-                    uRLs.add(match);
+                    urls.add(match);
                 }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            logger.error(e);
         } finally {
             if (in != null) {
                 try {
                     in.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } catch (IOException e) {
+                    logger.error(e);
                 }
             }
         }

@@ -22,5 +22,9 @@ public interface IPictureService {
     public void removePicture(Integer id);
 
     public void savePicture(Pictures pic, MultipartFile file) throws Exception;
+    
+    public byte[] getPicByPath(String path);
+    
+    public byte[] getThumbPicByPath(String path);
 
 }

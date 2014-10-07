@@ -6,9 +6,20 @@ package com.bobko.album.service;
  * @see PictureService
  */
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -31,6 +42,12 @@ public class PictureService implements IPictureService {
 
     @Value("${data.root.path}")
     String rootPath;
+
+    private static final String JPG = "jpg";
+
+    private static final int SUFFIX_LENGTH = 3;
+    
+    private static final Logger logger = Logger.getLogger(PictureService.class);
     
     public List<Pictures> list(int shift, int count) {
         return pictureDao.rankList(shift, count);
@@ -99,6 +116,65 @@ public class PictureService implements IPictureService {
             userName = authentication.getName();
         }
         return userName;
+    }
+
+    @Override
+    public byte[] getPicByPath(String path) {
+        
+        byte[] fileData = new byte[0];
+        
+        Path p = FileSystems.getDefault().getPath(rootPath, path);
+        try {
+            fileData = Files.readAllBytes(p);
+        } catch (IOException e) {
+            logger.error(e);
+        }
+
+        return fileData;
+        
+    }
+
+    @Override
+    public byte[] getThumbPicByPath(String path) {
+
+        byte[] fileData = new byte[0];
+
+        Path p = FileSystems.getDefault().getPath(rootPath, path);
+
+        String suffix = path.substring(path.length() - SUFFIX_LENGTH);
+        InputStream stream = null;
+        try {
+            
+            fileData = Files.readAllBytes(p);
+            
+            if (suffix.equalsIgnoreCase(JPG)) {
+
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(
+                        fileData));
+
+                if (image != null) {
+
+                    image = AlbumUtils.correctingSize(image);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(image, suffix, baos);
+                    fileData = baos.toByteArray();
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        
+        return fileData;
+        
     }
 
 

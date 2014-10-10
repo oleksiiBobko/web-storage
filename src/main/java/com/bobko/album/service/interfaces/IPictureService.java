@@ -25,6 +25,6 @@ public interface IPictureService {
     
     public byte[] getPicByPath(String path);
     
-    public byte[] getThumbPicByPath(String path);
+    public void createPicture(String url);
 
 }

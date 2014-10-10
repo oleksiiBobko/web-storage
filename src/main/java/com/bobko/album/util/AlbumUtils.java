@@ -10,6 +10,8 @@ package com.bobko.album.util;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.UUID;
 
 public class AlbumUtils {
@@ -49,5 +51,14 @@ public class AlbumUtils {
         return dimg;
     }
     
+    public static String getPureAdress(String url) {
+        try {
+            URI uri = new URI(url);
+            String result = uri.getScheme() + "://" + uri.getHost();
+            return result.startsWith("www.") ? result.substring(4) : result;
+        } catch (URISyntaxException ex) {
+            return "";
+        }
+    }    
     
 }

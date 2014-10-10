@@ -20,19 +20,13 @@ public class DataController {
     @ResponseBody
     @RequestMapping(value = "/images/**", method = RequestMethod.GET)
     private byte[] getFile(HttpServletRequest request) {
-        String path = ((String) request
-                .getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE))
-                .substring("/images".length());
-        return picService.getPicByPath(path);
+        return picService.getPicByPath((String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
     }
 
-    @RequestMapping(value = "/thumbimage/**")
+    @RequestMapping(value = "/thumbnail/**")
     @ResponseBody
-    private byte[] getThumbImage(HttpServletRequest request) {
-        String path = ((String) request
-                .getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE))
-                .substring("/thumbimage".length());        
-        return picService.getThumbPicByPath(path);
+    private byte[] getThumbImage(HttpServletRequest request) {       
+        return picService.getPicByPath((String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
     }
 
 }

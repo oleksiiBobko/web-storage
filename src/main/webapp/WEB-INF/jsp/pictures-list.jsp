@@ -111,9 +111,9 @@
 											code="label.delete" /></a>
 								</c:if>
 							</div>
-							<a href='<c:url value="/images/${picture.path}"/>'
+							<a href='<c:url value="${picture.path}"/>'
 								class="highslide" onclick="return hs.expand(this)"> <img
-								src="${pageContext.servletContext.contextPath}/thumbimage/${picture.path}"
+								src="${pageContext.servletContext.contextPath}${picture.path}"
 								alt="${picture.filename}" title="Click to enlarge" />
 							</a>
 							<div class="highslide-caption">${picture.description}</div>

@@ -1,19 +1,13 @@
 package com.bobko.album.service;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,12 +40,7 @@ public class PictureGrabber implements IPictureGrabber {
     
     private static final String PATTERN_STRING = "((https?|ftp|file)://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*(.jpg|.png|.gif|.tiff|.ico)";    
 
-    private String url;
-    private LinkedList<String> urls;
-    private Iterator<String> it;
-    private String rootDir;
-    private String userName;
-    private final static int size = 1024;
+    private List<String> urls;
 
     @Override
     public void grub(IncomingURL url) throws Exception {
@@ -62,21 +51,16 @@ public class PictureGrabber implements IPictureGrabber {
             dir.mkdirs();
         }
 
-        init(url.getURL(), rootPath, userName);
-        Pictures coin = null;
-        while ((coin = getNextPicture()) != null) {
-            picService.addPicture(coin);
+        init(url.getURL());
+        
+        for (String s : urls) {
+            picService.createPicture(s);
         }
 
     }
 
-    private void init(String url, String rootPath, String userName) {
-        this.url = url;
-        this.rootDir = rootPath;
-        this.userName = userName;
-        createURLList();
-        it = urls.iterator();
-
+    private void init(String url) {
+        urls = createURLList(url);
     }
 
     /**
@@ -84,131 +68,22 @@ public class PictureGrabber implements IPictureGrabber {
      * */
     private String getLoginedUserName() {
         String userName = "anonimouse";
-        Authentication authentication = SecurityContextHolder.getContext()
-                .getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             userName = authentication.getName();
         }
         return userName;
-    }
+    } 
 
-    private Pictures getNextPicture() {
-        Pictures nextPicture = null;
-        while (it.hasNext()) {
-            String imgUrl = (String) it.next();
-            nextPicture = getPicture(imgUrl);
-            if (nextPicture != null) {
-                return nextPicture;
-            }
-        }
-        return null;
-    }
-
-    private boolean performDownloading(String fAddress, String localFileName,
-            String destinationDir) {
-        OutputStream outStream = null;
-        HttpURLConnection connection = null;
-
-        InputStream is = null;
-        try {
-            URL urlToPicture;
-            byte[] buf;
-            int ByteRead, ByteWritten = 0;
-            urlToPicture = new URL(fAddress);
-            outStream = new BufferedOutputStream(new FileOutputStream(destinationDir + File.separator + localFileName));
-
-            // Proxy proxy = new Proxy(Proxy.Type.HTTP, new
-            // InetSocketAddress("172.30.0.2", 3128));
-
-            connection = (HttpURLConnection) urlToPicture.openConnection();
-
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                System.out.println(connection.getErrorStream());
-                return false;
-            } else {
-                is = connection.getInputStream();
-                buf = new byte[size];
-                while ((ByteRead = is.read(buf)) != -1) {
-                    outStream.write(buf, 0, ByteRead);
-                    ByteWritten += ByteRead;
-                }
-                logger.debug("Downloaded Successfully.");
-                logger.debug("File name:\"" + localFileName
-                        + "\"\nNo ofbytes :" + ByteWritten);
-                return true;
-            }
-
-        } catch (Exception e) {
-            logger.error(e);
-        } finally {
-            try {
-                if (is != null)
-                    is.close();
-                if (outStream != null)
-                    outStream.close();
-            } catch (IOException e) {
-                logger.error(e);
-            }
-        }
-        return false;
-    }    
-    
-    private Pictures getPicture(String imgUrl) {
-        Pictures pic = new Pictures();
-        String fileName = downloadFile(imgUrl, rootDir + "/" + userName + "/");
-        if (fileName == null) {
-            return null;
-        }
-        pic.setPath(userName + File.separator + fileName);
-        pic.setDescription(getClearAdress(url));
-        int slashIndex = imgUrl.lastIndexOf('/');
-        String originalFileName = imgUrl.substring(slashIndex + 1);
-        if ((originalFileName != null) && !originalFileName.isEmpty()) {
-            pic.setFilename(originalFileName);
-        } else {
-            pic.setFilename("imgUrl");
-        }
-        pic.setOwner(userName);
-        return pic;
-    }
-    
-    private String downloadFile(String fAddress, String destinationDir) {
-        int slashIndex = fAddress.lastIndexOf('/');
-        int periodIndex = fAddress.lastIndexOf('.');
-
-        String suffix = fAddress.substring(periodIndex);
-
-        String fileName = AlbumUtils.getUUID() + suffix;
-
-        if (periodIndex >= 1 && slashIndex >= 0
-                && slashIndex < fAddress.length() - 1) {
-            if(!performDownloading(fAddress, fileName, destinationDir)) {
-                return null;
-            }
-        } else {
-            System.err.println("path or file name.");
-            return null;
-        }
-        return fileName;
-    }
-    
-    private String getClearAdress(String url) {
-        try {
-            URI uri = new URI(url);
-            String result = uri.getScheme() + "://" + uri.getHost();
-            return result.startsWith("www.") ? result.substring(4) : result;
-        } catch (URISyntaxException ex) {
-            return "";
-        }
-    }    
-
-    private void createURLList() {
+    private List<String> createURLList(String url) {
         InputStreamReader in = null;
-        try {
-            urls = new LinkedList<String>();
-            if ((url == null) || (url.isEmpty())) {
-                return;
-            } else {
+        List<String> result = new LinkedList<String>();
+
+        if (url == null || url.isEmpty()) {
+            return result;
+        } else {
+            
+            try {
                 URL url1 = new URL(url);
                 // if it's need to
                 // Proxy proxy = new Proxy(Proxy.Type.HTTP, new
@@ -242,23 +117,26 @@ public class PictureGrabber implements IPictureGrabber {
                     }
 
                     if (match.startsWith("/")) {
-                        match = getClearAdress(url) + match;
+                        match = AlbumUtils.getPureAdress(url) + match;
                     }
 
-                    urls.add(match);
+                    result.add(match);
                 }
-            }
-        } catch (Exception e) {
-            logger.error(e);
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    logger.error(e);
+            } catch (Exception e) {
+                logger.error(e);
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        logger.error(e);
+                    }
                 }
             }
         }
-    }    
+
+        return result;
+
+    }
     
 }

@@ -32,8 +32,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bobko.album.common.AlbumConst;
+import com.bobko.album.dao.base.IGenericDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
+import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPictureService;
 import com.bobko.album.util.AlbumUtils;
 
@@ -44,10 +47,14 @@ public class PictureService implements IPictureService {
     @Autowired
     IPictureDao<Pictures, Integer> pictureDao;
 
+    @Autowired
+    IGenericDao<Users, Integer> userDao;
+    
     @Value("${data.root.path}")
     String rootPath;
 
     private static final String JPG = "jpg";
+    private static final String DATA = "data";   
     private static final String IMAGES = "images";
     private static final String THUMBNAIL = "thumbnail";
     private static final int SUFFIX_LENGTH = 3;
@@ -92,12 +99,16 @@ public class PictureService implements IPictureService {
             pic.setDescription(pic.getDescription().substring(0, AlbumConst.MAX_DESCRIPTION_SIZE));
         }
 
-        File dir = new File(rootPath + File.separator + username + File.separator + IMAGES + File.separator);
+        String pathToFile = DATA + File.separator + username + File.separator + IMAGES;
+        
+        File dir = new File(rootPath + pathToFile);
         if (!dir.exists()) {
             dir.mkdirs();
         }
         
-        File thumbnailDir = new File(rootPath + File.separator + username + File.separator + THUMBNAIL + File.separator);
+        String pathToThumbnail = DATA + File.separator + username + File.separator + THUMBNAIL;
+        
+        File thumbnailDir = new File(rootPath + pathToThumbnail);
         if (!thumbnailDir.exists()) {
             thumbnailDir.mkdirs();
         }        
@@ -108,18 +119,27 @@ public class PictureService implements IPictureService {
 
         int i = fileName.lastIndexOf('.');
         if (i > 0) {
-            suffix = fileName.substring(i + 1);
+            suffix = fileName.substring(i);
         }
         String uuid = AlbumUtils.getUUID();
-        File image = new File(dir + File.separator + uuid + "." + suffix);
+        
+        String name = File.separator + uuid + suffix;
+        
+        File image = new File(dir + name);
         multipartFile.transferTo(image);
         
-        File thumbnail = new File(thumbnailDir + File.separator + uuid + "." + suffix);
+        File thumbnail = new File(thumbnailDir + name);
         BufferedImage bufferedImage = ImageIO.read(image);
         bufferedImage = AlbumUtils.correctingSize(bufferedImage);
-        ImageIO.write(bufferedImage, suffix, thumbnail);
+        ImageIO.write(bufferedImage, suffix.substring(1), thumbnail);
         
-        pic.setPath(username + File.separator + uuid + "." + suffix);
+        pic.setPath(pathToFile + name);
+        pic.setThumbnail(pathToThumbnail + name);
+        
+        Users user = userDao.getByField("login", username).get(0);
+        user.getPictures();
+        pic.setUser(user);
+        
         addPicture(pic);
         
     }

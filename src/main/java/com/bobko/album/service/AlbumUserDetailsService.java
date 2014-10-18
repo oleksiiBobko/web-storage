@@ -48,7 +48,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails buildUserFromUserEntity(Users user, List<GrantedAuthority> authorities) {
-        return new User(user.getUsrName(), user.getPw(), user.isActive(), true, true, true, authorities);
+        return new User(user.getLogin(), user.getPw(), user.isActive(), true, true, true, authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority() {

@@ -44,7 +44,7 @@ public class RegistrationController {
 
         // check empty fields
         if ((user == null) || user.getPw().isEmpty()
-                || user.getUsrName().isEmpty()) {
+                || user.getLogin().isEmpty()) {
             return "redirect:/registration?error=true";
         }
 
@@ -72,11 +72,10 @@ public class RegistrationController {
         user.setPw(hashedPass);
 
         Users checkUser = null;
-        checkUser = userService.getUserByName(user.getUsrName());
+        checkUser = userService.getUserByName(user.getLogin());
 
         // check if new user already exists in base
-        if ((checkUser != null)
-                && (checkUser.getUsrName().equalsIgnoreCase(user.getUsrName()))) {
+        if ((checkUser != null) && (checkUser.getLogin().equalsIgnoreCase(user.getLogin()))) {
             return "redirect:/registration?error=true";
         }
         try {

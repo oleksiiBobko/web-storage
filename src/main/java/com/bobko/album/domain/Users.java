@@ -29,7 +29,7 @@ public class Users {
     private Integer id;
     
     @Column(name = "LOGIN")
-    private String usrName;
+    private String login;
     
     @Column(name = "PASS")
     private String pw;    
@@ -38,7 +38,7 @@ public class Users {
     private String role;
 
     @Column(name = "ACTIVE")
-    private boolean isActive;
+    private boolean active;
     
     @OneToMany(targetEntity = Pictures.class)
     @JoinColumn(name = "id")
@@ -52,12 +52,12 @@ public class Users {
         this.id = id;
     }
     
-    public String getUsrName() {
-        return usrName;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsrName(String usrName) {
-        this.usrName = usrName;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPw() {
@@ -67,19 +67,19 @@ public class Users {
     public void setPw(String pw) {
         this.pw = pw;
     }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
-    }
     
     public String getRole() {
         return role;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }    
+    
     public void setRole(String role) {
         this.role = role;
     }

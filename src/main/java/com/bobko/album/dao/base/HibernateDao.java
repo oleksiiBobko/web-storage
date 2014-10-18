@@ -1,22 +1,19 @@
 package com.bobko.album.dao.base;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-
-import java.lang.reflect.ParameterizedType;
-
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Basic DAO operations dependent with Hibernate's specific classes
@@ -88,19 +85,19 @@ public class HibernateDao<E, K extends Serializable> implements
     @SuppressWarnings("unchecked")
     @Override
     public List<E> getByField(String field, String value) {
-        
+
         List<E> result = new ArrayList<E>();
-        
+
         try {
-        Criteria criteria = currentSession().createCriteria(daoType);
-        criteria.add(Restrictions.eq(field, value));
-        result = criteria.list();
+            Criteria criteria = currentSession().createCriteria(daoType);
+            criteria.add(Restrictions.eq(field, value));
+            result = criteria.list();
         } catch (Exception e) {
             logger.error(e);
         }
-        
+
         return result;
-        
+
     }
     
 }

@@ -38,7 +38,7 @@ public class UserService implements IUserService {
 
     @Override
     public Users getUserByName(String name) {
-        List<Users> result = userDao.getByField("usrName", name);
+        List<Users> result = userDao.getByField("login", name);
         return (result != null && !result.isEmpty()) ? result.get(0) : null;
     }
 

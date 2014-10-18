@@ -54,6 +54,10 @@ public class Pictures {
         return this.user;
     }
 
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
     public Timestamp getCreated() {
         return created;
     }

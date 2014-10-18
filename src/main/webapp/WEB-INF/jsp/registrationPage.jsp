@@ -69,12 +69,12 @@
                         <td>
                             <p class="mtop0 mbottom025">
                                 <strong>
-                                    <label for="usrName">
+                                    <label for="login">
                                         <spring:message code="label.login"/>
                                     </label>
                                 </strong>
                             </p>
-                            <form:input class="inputtext" id="usrName" path="usrName"/>
+                            <form:input class="inputtext" id="login" path="login"/>
                             <input class="public-button" type="button" onclick="check_login();" value=<spring:message code="label.login"/>>
                         </td>
                     </tr>

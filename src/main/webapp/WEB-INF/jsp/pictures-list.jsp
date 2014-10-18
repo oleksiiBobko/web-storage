@@ -107,22 +107,20 @@
 
 							<div>
 								<c:if test="${authorized}">
-									<a href="<c:url value="/delete/${picture.id}" />"><spring:message
-											code="label.delete" /></a>
+									<a href="<c:url value="/delete/${picture.id}" />">
+									   <spring:message code="label.delete" />
+									</a>
 								</c:if>
 							</div>
-							<a href='<c:url value="${picture.path}"/>'
-								class="highslide" onclick="return hs.expand(this)"> <img
-								src="${pageContext.servletContext.contextPath}${picture.path}"
-								alt="${picture.filename}" title="Click to enlarge" />
+							<a href='<c:url value="${picture.path}"/>' class="highslide" onclick="return hs.expand(this)"> 
+								<img src="${pageContext.servletContext.contextPath}${picture.thumbnail}" alt="${picture.filename}" title="Click to enlarge" />
 							</a>
 							<div class="highslide-caption">${picture.description}</div>
 							<br>
 							<table>
 								<tr>
 									<td>Original</td>
-									<td><a href='<c:url value="/images/${picture.path}"/>'
-										target="_blank">Download</a></td>
+									<td><a href='<c:url value="/images/${picture.path}"/>' target="_blank">Download</a></td>
 								<tr>
 								<tr>
 									<td>Resolution</td>
@@ -138,10 +136,10 @@
 					</div>
 				</c:if>
 				<div class="pagination">
-					<a class="page" href="<c:url value="/goto/0" />"><spring:message
-							code="label.begin" /></a> <a class="page"
-						href="<c:url value="/prevPage" />"><spring:message
-							code="label.prev" /></a>
+					<a class="page" href="<c:url value="/goto/0" />"><spring:message code="label.begin" /></a> <a class="page" href="<c:url value="/prevPage" />">
+					   <spring:message code="label.prev" />
+					</a>
+					
 					<c:if test="${!empty pages}">
 						<c:forEach items="${pages}" var="depositPage">
 							<c:choose>
@@ -149,13 +147,13 @@
 									<span class="page active">${depositPage.index}</span>
 								</c:when>
 								<c:otherwise>
-									<a class="page"
-										href="<c:url value="/goto/${depositPage.index}" />">${depositPage.index}</a>
+									<a class="page" href="<c:url value="/goto/${depositPage.index}" />">${depositPage.index}</a>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<a class="page" href="<c:url value="/nextPage" />"><spring:message
-								code="label.next" /></a>
+						<a class="page" href="<c:url value="/nextPage" />">
+						  <spring:message code="label.next" />
+						</a>
 					</c:if>
 				</div>
 			</div>
@@ -164,8 +162,7 @@
 	<div id="footer">
 		<div class="wrapper">
 			<p id="copyright">
-				Copyright © 2014 <a href="skellag@gmail.com">Oleksii Bobko</a>. All
-				rights reserved.
+				Copyright © 2014 <a href="skellag@gmail.com">Oleksii Bobko</a>. All rights reserved.
 			</p>
 		</div>
 	</div>

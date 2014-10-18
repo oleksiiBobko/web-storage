@@ -18,14 +18,8 @@ public class DataController {
     private IPictureService picService;
 
     @ResponseBody
-    @RequestMapping(value = "/images/**", method = RequestMethod.GET)
+    @RequestMapping(value = "/data/**", method = RequestMethod.GET)
     private byte[] getFile(HttpServletRequest request) {
-        return picService.getPicByPath((String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
-    }
-
-    @RequestMapping(value = "/thumbnail/**")
-    @ResponseBody
-    private byte[] getThumbImage(HttpServletRequest request) {       
         return picService.getPicByPath((String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
     }
 

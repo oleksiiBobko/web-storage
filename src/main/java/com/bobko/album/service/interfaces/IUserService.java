@@ -24,6 +24,8 @@ public interface IUserService {
     /**
      * retrieve user from db bt unique user name
      * */
-    public Users getUser(String name);    
+    public Users getUser(String name); 
+    
+    public Users getUserByName(String name);
     
 }

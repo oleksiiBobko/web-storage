@@ -15,5 +15,5 @@ public interface IUserDao<E, K> {
     public List<E> list();
 
     public List<E> rankList(int shift, int count);
-
+    
 }

@@ -72,7 +72,7 @@ public class RegistrationController {
         user.setPw(hashedPass);
 
         Users checkUser = null;
-        checkUser = userService.getUser(user.getUsrName());
+        checkUser = userService.getUserByName(user.getUsrName());
 
         // check if new user already exists in base
         if ((checkUser != null)

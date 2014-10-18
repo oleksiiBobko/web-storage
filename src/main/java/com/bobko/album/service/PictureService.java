@@ -8,16 +8,12 @@ package com.bobko.album.service;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -35,6 +31,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bobko.album.common.AlbumConst;
 import com.bobko.album.dao.interfaces.IPictureDao;
 import com.bobko.album.domain.Pictures;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -51,13 +48,9 @@ public class PictureService implements IPictureService {
     String rootPath;
 
     private static final String JPG = "jpg";
-    
     private static final String IMAGES = "images";
-    
     private static final String THUMBNAIL = "thumbnail";
-
     private static final int SUFFIX_LENGTH = 3;
-    
     private final static int size = 1024;    
     
     private static final Logger logger = Logger.getLogger(PictureService.class);
@@ -95,9 +88,8 @@ public class PictureService implements IPictureService {
         String username = getLoginedUserName();
 
         // normalize description length
-        if (pic.getDescription().length() >= Pictures.MAX_DESCRIPTION_SIZE) {
-            pic.setDescription(pic.getDescription().substring(0,
-                    Pictures.MAX_DESCRIPTION_SIZE));
+        if (pic.getDescription().length() >= AlbumConst.MAX_DESCRIPTION_SIZE) {
+            pic.setDescription(pic.getDescription().substring(0, AlbumConst.MAX_DESCRIPTION_SIZE));
         }
 
         File dir = new File(rootPath + File.separator + username + File.separator + IMAGES + File.separator);
@@ -123,15 +115,13 @@ public class PictureService implements IPictureService {
         multipartFile.transferTo(image);
         
         File thumbnail = new File(thumbnailDir + File.separator + uuid + "." + suffix);
-        
         BufferedImage bufferedImage = ImageIO.read(image);
-        
         bufferedImage = AlbumUtils.correctingSize(bufferedImage);
-        
-        ImageIO.write(bufferedImage, suffix, thumbnail);        
+        ImageIO.write(bufferedImage, suffix, thumbnail);
         
         pic.setPath(username + File.separator + uuid + "." + suffix);
         addPicture(pic);
+        
     }
     
     private String downloadFile(String url) {
@@ -166,7 +156,6 @@ public class PictureService implements IPictureService {
             if (i > 0) {
                 suffix = url.substring(i + 1);
             }
-            
             
             File image = new File(dir + File.separator + uuid + "." + suffix);
             

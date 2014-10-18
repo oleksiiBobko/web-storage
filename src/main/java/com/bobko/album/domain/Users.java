@@ -6,9 +6,16 @@ package com.bobko.album.domain;
  */
 
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -17,6 +24,10 @@ import javax.persistence.Table;
 public class Users {
     
     @Id
+    @GeneratedValue
+    @Column(name="ID")
+    private Integer id;
+    
     @Column(name = "LOGIN")
     private String usrName;
     
@@ -28,7 +39,19 @@ public class Users {
 
     @Column(name = "ACTIVE")
     private boolean isActive;
-        
+    
+    @OneToMany(targetEntity = Pictures.class)
+    @JoinColumn(name = "id")
+    private List<Pictures> pictures;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     public String getUsrName() {
         return usrName;
     }
@@ -61,4 +84,8 @@ public class Users {
         this.role = role;
     }
 
+    public List<Pictures> getPictures() {
+        return pictures;
+    }
+    
 }

@@ -38,7 +38,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String user)
             throws UsernameNotFoundException, DataAccessException {
 
-        Users userEntity = userService.getUser(user);
+        Users userEntity = userService.getUserByName(user);
         if (userEntity == null)
             throw new UsernameNotFoundException("user not found");
 

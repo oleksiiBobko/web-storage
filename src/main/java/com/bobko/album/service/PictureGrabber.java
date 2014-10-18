@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.bobko.album.domain.IncomingURL;
-import com.bobko.album.domain.Pictures;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
 import com.bobko.album.util.AlbumUtils;
@@ -51,16 +50,12 @@ public class PictureGrabber implements IPictureGrabber {
             dir.mkdirs();
         }
 
-        init(url.getURL());
+        urls = createURLList(url.getURL());
         
         for (String s : urls) {
             picService.createPicture(s);
         }
 
-    }
-
-    private void init(String url) {
-        urls = createURLList(url);
     }
 
     /**

@@ -18,6 +18,8 @@ import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -34,7 +36,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bobko.album.common.AlbumConst;
 import com.bobko.album.dao.base.IGenericDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
-import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.Pictures;
 import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -79,6 +80,7 @@ public class PictureService implements IPictureService {
         pictureDao.remove(entity);
     }
 
+    @Override
     public void savePicture(Pictures pic, MultipartFile multipartFile) throws Exception {
         
         pic.setFilename(multipartFile.getOriginalFilename());
@@ -101,18 +103,9 @@ public class PictureService implements IPictureService {
 
         String pathToFile = DATA + File.separator + username + File.separator + IMAGES;
         
-        File dir = new File(rootPath + pathToFile);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        
+        File dir = createDirs(rootPath + pathToFile);
         String pathToThumbnail = DATA + File.separator + username + File.separator + THUMBNAIL;
-        
-        File thumbnailDir = new File(rootPath + pathToThumbnail);
-        if (!thumbnailDir.exists()) {
-            thumbnailDir.mkdirs();
-        }        
-        
+        File thumbnailDir = createDirs(rootPath + pathToThumbnail);
         String fileName = pic.getFilename();
 
         String suffix = "";
@@ -137,47 +130,45 @@ public class PictureService implements IPictureService {
         pic.setThumbnail(pathToThumbnail + name);
         
         Users user = userDao.getByField("login", username).get(0);
-        user.getPictures();
+
         pic.setUser(user);
+        
+        pic.setCreated(new Timestamp(new Date().getTime()));
         
         addPicture(pic);
         
     }
     
-    private String downloadFile(String url) {
+    @Override
+    public void savePicture(String url) {
         
+        Pictures pic = new Pictures();
         String username = getLoginedUserName();
-        
-        File dir = new File(rootPath + File.separator + username + File.separator + IMAGES + File.separator);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        
-        File thumbnailDir = new File(rootPath + File.separator + username + File.separator + THUMBNAIL + File.separator);
-        if (!thumbnailDir.exists()) {
-            thumbnailDir.mkdirs();
-        }
-        
+        String pathToFile = DATA + File.separator + username + File.separator + IMAGES;
+        File dir = createDirs(rootPath + pathToFile);
+        String pathToThumbnail = DATA + File.separator + username + File.separator + THUMBNAIL;
+        File thumbnailDir = createDirs(rootPath + pathToThumbnail);
+        String uuid = AlbumUtils.getUUID();        
         OutputStream outStream = null;
         HttpURLConnection connection = null;
-
         InputStream is = null;
+        String suffix = "";
+        String name = "";
+        
         try {
             URL urlToPicture;
             byte[] buf;
             int byteRead, byteWritten = 0;
             urlToPicture = new URL(url);
-            
-            String uuid = AlbumUtils.getUUID();
-            
-            String suffix = "";
 
             int i = url.lastIndexOf('.');
             if (i > 0) {
                 suffix = url.substring(i + 1);
             }
             
-            File image = new File(dir + File.separator + uuid + "." + suffix);
+            name = File.separator + uuid + "." + suffix;
+            
+            File image = new File(dir + name);
             
             outStream = new BufferedOutputStream(new FileOutputStream(image));
 
@@ -188,8 +179,9 @@ public class PictureService implements IPictureService {
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 System.out.println(connection.getErrorStream());
-                return "";
+                return;
             } else {
+                
                 is = connection.getInputStream();
                 buf = new byte[size];
                 while ((byteRead = is.read(buf)) != -1) {
@@ -197,7 +189,7 @@ public class PictureService implements IPictureService {
                     byteWritten += byteRead;
                 }
                 
-                File thumbnail = new File(thumbnailDir + File.separator + uuid + "." + suffix);
+                File thumbnail = new File(thumbnailDir + name);
                 
                 BufferedImage bufferedImage = ImageIO.read(image);
                 
@@ -205,10 +197,8 @@ public class PictureService implements IPictureService {
                 
                 ImageIO.write(bufferedImage, suffix, thumbnail);
                 
-                logger.debug("Downloaded Successfully.");
-                logger.debug("File name:\"" + uuid + "." + suffix
+                logger.debug("Downloaded Successfully. File name:\"" + uuid + "." + suffix
                         + "\"\nNo ofbytes :" + byteWritten);
-                return image.toString();
             }
 
         } catch (Exception e) {
@@ -223,9 +213,29 @@ public class PictureService implements IPictureService {
                 logger.error(e);
             }
         }
-        return "";
-    }        
-    
+        
+        
+        
+        pic.setPath(pathToFile + name);
+        pic.setThumbnail(pathToThumbnail + name);
+        Users user = userDao.getByField("login", username).get(0);
+        pic.setUser(user);
+        pic.setDescription(AlbumUtils.getPureAdress(url));
+        
+        int slashIndex = url.lastIndexOf('/');
+        String originalFileName = url.substring(slashIndex + 1);
+        if ((originalFileName != null) && !originalFileName.isEmpty()) {
+            pic.setFilename(originalFileName);
+        } else {
+            pic.setFilename("imgUrl");
+        }
+        pic.setOwner(username);
+        
+        pic.setCreated(new Timestamp(new Date().getTime()));        
+        
+        addPicture(pic);
+    }    
+        
     /**
      * @return authenticated user name
      * */
@@ -254,28 +264,13 @@ public class PictureService implements IPictureService {
         return fileData;
         
     }
-    
-    @Override
-    public void createPicture(String url) {
-        
-        String userName = getLoginedUserName();
-        
-        Pictures pic = new Pictures();
-        String path = downloadFile(url);
-        if (path == null || path.isEmpty()) {
-            return;
+
+    private File createDirs(String path) {
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
-        pic.setPath(path);
-        pic.setDescription(AlbumUtils.getPureAdress(url));
-        int slashIndex = url.lastIndexOf('/');
-        String originalFileName = url.substring(slashIndex + 1);
-        if ((originalFileName != null) && !originalFileName.isEmpty()) {
-            pic.setFilename(originalFileName);
-        } else {
-            pic.setFilename("imgUrl");
-        }
-        pic.setOwner(userName);
-        addPicture(pic);
+        return dir;
     }
     
 }

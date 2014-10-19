@@ -53,7 +53,7 @@ public class PictureGrabber implements IPictureGrabber {
         urls = createURLList(url.getURL());
         
         for (String s : urls) {
-            picService.createPicture(s);
+            picService.savePicture(s);
         }
 
     }

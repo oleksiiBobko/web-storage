@@ -25,6 +25,6 @@ public interface IPictureService {
     
     public byte[] getPicByPath(String path);
     
-    public void createPicture(String url);
+    public void savePicture(String url);
 
 }

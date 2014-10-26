@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 
 @Entity
@@ -46,8 +47,11 @@ public class Pictures {
     @Column(name="THUMBNAIL")
     private String thumbnail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="USER_ID")
+    @Column(name="USER_ID")
+    private Integer userId;    
+    
+    @ManyToOne(targetEntity = Users.class, fetch = FetchType.LAZY)
+    @JoinColumn(name="userId")
     private Users user;
     
     public Users getUser() {
@@ -117,5 +121,14 @@ public class Pictures {
 	public String getThumbPath() {
 		return path;
 	}
-        
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+	
+	
 }

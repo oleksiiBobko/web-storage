@@ -7,8 +7,10 @@ package com.bobko.album.service;
  */
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,6 +57,7 @@ public class PictureService implements IPictureService {
     String rootPath;
 
     private static final String JPG = "jpg";
+    private static final String PNG = "png";
     private static final String DATA = "data";   
     private static final String IMAGES = "images";
     private static final String THUMBNAIL = "thumbnail";
@@ -131,7 +134,7 @@ public class PictureService implements IPictureService {
         
         Users user = userDao.getByField("login", username).get(0);
 
-        pic.setUser(user);
+        pic.setUserId(user.getId());
         
         pic.setCreated(new Timestamp(new Date().getTime()));
         
@@ -158,7 +161,7 @@ public class PictureService implements IPictureService {
         try {
             URL urlToPicture;
             byte[] buf;
-            int byteRead, byteWritten = 0;
+            int byteRead;
             urlToPicture = new URL(url);
 
             int i = url.lastIndexOf('.');
@@ -186,19 +189,30 @@ public class PictureService implements IPictureService {
                 buf = new byte[size];
                 while ((byteRead = is.read(buf)) != -1) {
                     outStream.write(buf, 0, byteRead);
-                    byteWritten += byteRead;
                 }
+                
+                outStream.close();
                 
                 File thumbnail = new File(thumbnailDir + name);
                 
                 BufferedImage bufferedImage = ImageIO.read(image);
                 
-                bufferedImage = AlbumUtils.correctingSize(bufferedImage);
+                if(suffix.equalsIgnoreCase(JPG)
+                        || suffix.equalsIgnoreCase(PNG)) {
+                    bufferedImage = AlbumUtils.correctingSize(bufferedImage);
+                    ImageIO.write(bufferedImage, suffix, thumbnail);
+                } else {
+                    BufferedInputStream in = new BufferedInputStream(new FileInputStream(image));
+                    BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(thumbnail));
+                    while ((byteRead = in.read(buf)) != -1) {
+                        out.write(buf, 0, byteRead);
+                    }
+                    
+                    in.close();
+                    out.close();
+                    
+                }
                 
-                ImageIO.write(bufferedImage, suffix, thumbnail);
-                
-                logger.debug("Downloaded Successfully. File name:\"" + uuid + "." + suffix
-                        + "\"\nNo ofbytes :" + byteWritten);
             }
 
         } catch (Exception e) {
@@ -219,7 +233,7 @@ public class PictureService implements IPictureService {
         pic.setPath(pathToFile + name);
         pic.setThumbnail(pathToThumbnail + name);
         Users user = userDao.getByField("login", username).get(0);
-        pic.setUser(user);
+        pic.setUserId(user.getId());
         pic.setDescription(AlbumUtils.getPureAdress(url));
         
         int slashIndex = url.lastIndexOf('/');
@@ -231,9 +245,12 @@ public class PictureService implements IPictureService {
         }
         pic.setOwner(username);
         
-        pic.setCreated(new Timestamp(new Date().getTime()));        
-        
+        pic.setCreated(new Timestamp(new Date().getTime()));
+        try {
         addPicture(pic);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }    
         
     /**

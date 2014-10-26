@@ -38,8 +38,7 @@ public class Users {
     @Column(name = "ACTIVE")
     private boolean active;
     
-    @OneToMany(targetEntity = Pictures.class)
-    @JoinColumn(name = "id")
+    @OneToMany(targetEntity = Pictures.class, mappedBy = "userId")
     private List<Pictures> pictures;
 
     public int getId() {

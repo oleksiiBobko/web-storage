@@ -6,11 +6,13 @@ package com.bobko.album.service;
  * @see UserService
  */
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bobko.album.dao.interfaces.IUserDao;
+import com.bobko.album.dao.base.IGenericDao;
 import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IUserService;
 
@@ -19,8 +21,8 @@ import com.bobko.album.service.interfaces.IUserService;
 public class UserService implements IUserService {
 
     @Autowired
-    IUserDao<Users, String> userDao;
-
+    IGenericDao<Users, String> userDao;
+    
     public void addUser(Users user) {
         userDao.add(user);
     }
@@ -32,6 +34,12 @@ public class UserService implements IUserService {
 
     public Users getUser(String name) {
         return userDao.find(name);
+    }
+
+    @Override
+    public Users getUserByName(String name) {
+        List<Users> result = userDao.getByField("login", name);
+        return (result != null && !result.isEmpty()) ? result.get(0) : null;
     }
 
 }

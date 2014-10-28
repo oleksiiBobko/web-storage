@@ -38,7 +38,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String user)
             throws UsernameNotFoundException, DataAccessException {
 
-        Users userEntity = userService.getUser(user);
+        Users userEntity = userService.getUserByName(user);
         if (userEntity == null)
             throw new UsernameNotFoundException("user not found");
 
@@ -48,7 +48,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails buildUserFromUserEntity(Users user, List<GrantedAuthority> authorities) {
-        return new User(user.getUsrName(), user.getPw(), user.isActive(), true, true, true, authorities);
+        return new User(user.getLogin(), user.getPw(), user.isActive(), true, true, true, authorities);
     }
 
     private List<GrantedAuthority> buildUserAuthority() {

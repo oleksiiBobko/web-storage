@@ -20,38 +20,38 @@ import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="PICTURES")
+@Table(name="pictures")
 public class Pictures {
 
-    @Column(name="ID")
+    @Column(name="id")
     @Id
     @GeneratedValue
     private Integer id;
     
-    @Column(name="PIC_OWNER")
+    @Column(name="pic_owner")
     private String owner;
 
-    @Column(name="FILENAME")
+    @Column(name="filename")
     private String filename;
 
-    @Column(name="DESCRIPTION")
+    @Column(name="description")
     private String description;
     
-    @Column(name="PATH")
+    @Column(name="path")
     private String path;
     
-    @Column(name="CREATED")
+    @Column(name="created")
     @Type(type="timestamp")
     private Timestamp created;
     
-    @Column(name="THUMBNAIL")
+    @Column(name="thumbnail")
     private String thumbnail;
 
-    @Column(name="USER_ID")
-    private Integer userId;    
+    @Column(name="userid")
+    private Integer userid;    
     
     @ManyToOne(targetEntity = Users.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="userId")
+    @JoinColumn(name="id", insertable = false, updatable = false)
     private Users user;
     
     public Users getUser() {
@@ -122,13 +122,12 @@ public class Pictures {
 		return path;
 	}
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-	
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }	
 	
 }

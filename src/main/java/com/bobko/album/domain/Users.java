@@ -18,27 +18,27 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class Users {
     
     @Id
     @GeneratedValue
-    @Column(name="ID")
+    @Column(name="id")
     private Integer id;
     
-    @Column(name = "LOGIN")
+    @Column(name = "login")
     private String login;
     
-    @Column(name = "PASS")
+    @Column(name = "pass")
     private String pw;    
     
-    @Column(name = "ROLE")
+    @Column(name = "role")
     private String role;
 
-    @Column(name = "ACTIVE")
+    @Column(name = "active")
     private boolean active;
     
-    @OneToMany(targetEntity = Pictures.class, mappedBy = "userId")
+    @OneToMany(targetEntity = Pictures.class, mappedBy = "userid")
     private List<Pictures> pictures;
 
     public int getId() {

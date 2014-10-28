@@ -58,7 +58,7 @@
 			<value>org.hibernate.cfg.AnnotationConfiguration</value>
 		</property>
 		<property name="namingStrategy">
-			<bean class="org.hibernate.cfg.DefaultNamingStrategy" />
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
 		</property>
 		<property name="hibernateProperties">
 			<props>
@@ -67,7 +67,6 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
 				<prop key="hibernate.auto_close_session">${hibernate.auto_close_session}</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
 			</props>
 		</property>
 		

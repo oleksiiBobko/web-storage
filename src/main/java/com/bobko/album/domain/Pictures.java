@@ -7,9 +7,9 @@ package com.bobko.album.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -47,11 +47,8 @@ public class Pictures {
     @Column(name="thumbnail")
     private String thumbnail;
 
-    @Column(name="userid")
-    private Integer userid;    
-    
-    @ManyToOne(targetEntity = Users.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid")
     private Users user;
     
     public Users getUser() {
@@ -121,13 +118,5 @@ public class Pictures {
 	public String getThumbPath() {
 		return path;
 	}
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }	
 	
 }

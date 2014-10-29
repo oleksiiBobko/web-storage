@@ -7,6 +7,7 @@ package com.bobko.album.web;
  * @data 12.08.2013
  */
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -53,7 +55,6 @@ public class UploadController {
     @RequestMapping("/pictures")
     public String listPictures(Map<String, Object> map,
             HttpServletRequest request) {
-
         map.put("url", new IncomingURL());
         map.put("pages", pagesService.list());
         map.put("pictures", picService.list(pagesService.getShift(),

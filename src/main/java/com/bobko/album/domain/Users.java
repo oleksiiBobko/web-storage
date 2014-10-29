@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -38,7 +37,7 @@ public class Users {
     @Column(name = "active")
     private boolean active;
     
-    @OneToMany(targetEntity = Pictures.class, mappedBy = "userid")
+    @OneToMany(targetEntity = Pictures.class, mappedBy = "user")
     private List<Pictures> pictures;
 
     public int getId() {

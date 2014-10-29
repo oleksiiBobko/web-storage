@@ -39,7 +39,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
             throws UsernameNotFoundException, DataAccessException {
 
         Users userEntity = userService.getUserByName(user);
-        if (userEntity == null)
+        if (userEntity == null)         
             throw new UsernameNotFoundException("user not found");
 
         List<GrantedAuthority> authorities = buildUserAuthority();

@@ -18,6 +18,9 @@ public class AlbumUtils {
     
     private static final int MAX_PICTURE_SIZE = 400;
     
+    private AlbumUtils() {
+    }
+    
     public static String getUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }

@@ -3,11 +3,6 @@ package com.bobko.album.common;
 public class AlbumConst {
 
     public static final int MAX_DESCRIPTION_SIZE = 100;
-<<<<<<< HEAD
-    
-    private AlbumConst() {
-    } 
-=======
 
     /**
      * value PICTURE_COUNT define number of pictures per one page
@@ -20,6 +15,5 @@ public class AlbumConst {
     
     private AlbumConst() {
     }
->>>>>>> ffba31be60ac86d39a35422e4c1681ad47b6d7f1
 
 }

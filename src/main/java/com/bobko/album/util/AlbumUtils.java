@@ -29,9 +29,6 @@ public class AlbumUtils {
     private AlbumUtils() {
     }
     
-    private AlbumUtils() {
-    }
-    
     public static String getUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }

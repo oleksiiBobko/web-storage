@@ -18,10 +18,10 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bobko.album.common.AlbumConst;
 import com.bobko.album.dao.interfaces.IPagesHolderDao;
 import com.bobko.album.domain.AlbumPage;
 import com.bobko.album.domain.Pictures;
-import com.bobko.album.service.interfaces.IPagesService;
 
 @Repository
 public class PageHolderDao implements IPagesHolderDao {
@@ -47,11 +47,12 @@ public class PageHolderDao implements IPagesHolderDao {
                 .setProjection(Projections.rowCount()).uniqueResult())
                 .intValue();
         pagesCount = ((int) Math.ceil(rowCount
-                / (double) IPagesService.PICTURE_COUNT)) - 1;
+                / (double) AlbumConst.PICTURE_COUNT)) - 1;
         int finalCount = pagesCount;
-        List<AlbumPage> pages = new ArrayList<AlbumPage>(6);
-        if (pagesCount > IPagesService.MAX_PAGES_COUNT) {
-            finalCount = IPagesService.MAX_PAGES_COUNT;
+        List<AlbumPage> pages = new ArrayList<AlbumPage>();
+
+        if (pagesCount > AlbumConst.MAX_PAGES_COUNT) {
+            finalCount = AlbumConst.MAX_PAGES_COUNT;
         }
 
         for (int i = 0; i <= finalCount; i++) {
@@ -64,7 +65,6 @@ public class PageHolderDao implements IPagesHolderDao {
                 pages.add(new AlbumPage(shift + i, false));
             }
         }
-
         return pages;
     }
 

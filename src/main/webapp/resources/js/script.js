@@ -4,6 +4,7 @@ function validate(form) {
 			alert('Your passwords do not match. Please type more carefully.');
 			return false;
 		}
+		
 		return true;
 	}
 

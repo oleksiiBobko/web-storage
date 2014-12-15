@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class HibernateDao<E, K extends Serializable> implements
         IGenericDao<E, K> {
 
-    private static final Logger logger = Logger.getLogger(HibernateDao.class); 
+    private static final Logger LOGGER = Logger.getLogger(HibernateDao.class);
     
     @Autowired
     private SessionFactory sessionFactory;
@@ -93,7 +93,7 @@ public class HibernateDao<E, K extends Serializable> implements
             criteria.add(Restrictions.eq(field, value));
             result = criteria.list();
         } catch (Exception e) {
-            logger.error(e);
+            LOGGER.error(e);
         }
 
         return result;

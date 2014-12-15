@@ -27,6 +27,7 @@ import com.bobko.album.common.AlbumConst;
 import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -57,11 +58,14 @@ public class UploadController {
     @RequestMapping("/pictures")
     public String listPictures(Map<String, Object> map,
             HttpServletRequest request) {
+<<<<<<< HEAD
 
         List<Pictures> pictures = picService.list(pagesService.getShift(), AlbumConst.PICTURE_COUNT);
         
         AlbumUtils.correctPaths(pictures);
         
+=======
+>>>>>>> 14288af73c8f801fa5f23737f27afadb5d5e2240
         map.put("url", new IncomingURL());
         map.put("pages", pagesService.list());
         map.put("pictures", pictures);

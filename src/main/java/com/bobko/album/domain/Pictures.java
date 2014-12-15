@@ -7,9 +7,9 @@ package com.bobko.album.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,38 +19,35 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="PICTURES")
+@Table(name="pictures")
 public class Pictures {
 
-    @Column(name="ID")
+    @Column(name="id")
     @Id
     @GeneratedValue
     private Integer id;
     
-    @Column(name="PIC_OWNER")
+    @Column(name="pic_owner")
     private String owner;
 
-    @Column(name="FILENAME")
+    @Column(name="filename")
     private String filename;
 
-    @Column(name="DESCRIPTION")
+    @Column(name="description")
     private String description;
     
-    @Column(name="PATH")
+    @Column(name="path")
     private String path;
     
-    @Column(name="CREATED")
+    @Column(name="created")
     @Type(type="timestamp")
     private Timestamp created;
     
-    @Column(name="THUMBNAIL")
+    @Column(name="thumbnail")
     private String thumbnail;
 
-    @Column(name="USER_ID")
-    private Integer userId;    
-    
-    @ManyToOne(targetEntity = Users.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="userId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid")
     private Users user;
     
     public Users getUser() {
@@ -120,14 +117,5 @@ public class Pictures {
 	public String getThumbPath() {
 		return path;
 	}
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-	
 	
 }

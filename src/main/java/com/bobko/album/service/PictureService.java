@@ -134,7 +134,7 @@ public class PictureService implements IPictureService {
         
         Users user = userDao.getByField("login", username).get(0);
 
-        pic.setUserId(user.getId());
+        pic.setUser(user);
         
         pic.setCreated(new Timestamp(new Date().getTime()));
         
@@ -234,7 +234,7 @@ public class PictureService implements IPictureService {
         pic.setPath(pathToFile + name);
         pic.setThumbnail(pathToThumbnail + name);
         Users user = userDao.getByField("login", username).get(0);
-        pic.setUserId(user.getId());
+        pic.setUser(user);
         pic.setDescription(AlbumUtils.getPureAdress(url));
         
         int slashIndex = url.lastIndexOf('/');

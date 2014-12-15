@@ -10,9 +10,9 @@ package com.bobko.album.web;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,13 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bobko.album.common.AlbumConst;
 import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.domain.Pictures;
-import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
+import com.bobko.album.util.AlbumUtils;
 
 @Controller
 public class UploadController {
@@ -42,10 +43,11 @@ public class UploadController {
 
     @Autowired
     private IPictureGrabber pictureGrubber;
-    
-    @Autowired
-    private ServletContext context;
 
+    private static final Logger LOGGER = Logger.getLogger(UploadController.class);
+    
+    private static final String REDIRECT_PICTURES_PAGE = "redirect:/pictures"; 
+    
     /**
      * rootPath contains path which will be use to save uploaded pictures
      * */
@@ -55,10 +57,14 @@ public class UploadController {
     @RequestMapping("/pictures")
     public String listPictures(Map<String, Object> map,
             HttpServletRequest request) {
+
+        List<Pictures> pictures = picService.list(pagesService.getShift(), AlbumConst.PICTURE_COUNT);
+        
+        AlbumUtils.correctPaths(pictures);
+        
         map.put("url", new IncomingURL());
         map.put("pages", pagesService.list());
-        map.put("pictures", picService.list(pagesService.getShift(),
-                IPagesService.PICTURE_COUNT));
+        map.put("pictures", pictures);
         map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
         return "pictures-list";
     }
@@ -68,7 +74,7 @@ public class UploadController {
      * */
     @RequestMapping("/")
     public String home() {
-        return "redirect:/pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
     /**
@@ -90,11 +96,11 @@ public class UploadController {
         try {
             picService.savePicture(pic, file);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error on save occured", e);
             return "redirect:/pictures?error=true";
         }
 
-        return "redirect:/pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
     /**
@@ -103,7 +109,7 @@ public class UploadController {
     @RequestMapping(value = "/delete/{picId}")
     public String deletePicture(@PathVariable("picId") Integer picId) {
         picService.removePicture(picId);
-        return "redirect:/pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
     /**
@@ -123,11 +129,11 @@ public class UploadController {
         try {
             pictureGrubber.grub(url);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("error during grub occured", e);
             return "redirect:/error";
         }
         
-        return "redirect:/pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
     /**
@@ -136,7 +142,7 @@ public class UploadController {
     @RequestMapping(value = "/nextPage")
     public String nextPage() {
         pagesService.nextPage();
-        return "redirect:pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
     /**
@@ -145,7 +151,7 @@ public class UploadController {
     @RequestMapping(value = "/prevPage")
     public String prevPage() {
         pagesService.prevPage();
-        return "redirect:pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
     /**
@@ -154,7 +160,7 @@ public class UploadController {
     @RequestMapping(value = "/goto/{index}")
     public String gotoPage(@PathVariable("index") Integer index) {
         pagesService.setShift(index);
-        return "redirect:/pictures";
+        return REDIRECT_PICTURES_PAGE;
     }
 
 }

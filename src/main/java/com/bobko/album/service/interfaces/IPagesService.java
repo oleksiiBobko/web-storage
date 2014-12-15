@@ -13,15 +13,6 @@ import com.bobko.album.domain.AlbumPage;
 public interface IPagesService {
     
     /**
-     * value PICTURE_COUNT define number of pictures per one page
-     * */
-    public static final int PICTURE_COUNT = 5;
-    /**
-     * value MAX_PAGES_COUNT define max number of pages link on pagination  
-     * */
-    public static final int MAX_PAGES_COUNT = 6;
-    
-    /**
      * @return List of <tt>AlbumPage</tt>
      * */
     public List<AlbumPage> list();

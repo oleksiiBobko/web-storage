@@ -1,8 +1,10 @@
+/**
+ * 
+ * */
 package com.bobko.album.component;
 
 /**
  * This class provides logout event handling and redirect page to login page
- * 
  * @author oleksii bobko
  * @data 12.08.2013
  * @see SimpleUrlLogoutSuccessHandler
@@ -15,14 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.
+SimpleUrlLogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-@Component
+/**
+ * 
+ * */@Component
 public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request,
-            HttpServletResponse response, Authentication authentication)
+            final HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
         if (authentication != null) {

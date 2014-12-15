@@ -9,13 +9,13 @@ package com.bobko.album.domain;
 
 public class IncomingURL {
 
-    private String URL;
+    private String url;
 
     public String getURL() {
-        return URL;
+        return url;
     }
 
-    public void setURL(String uRL) {
-        URL = uRL;
+    public void setURL(String url) {
+        this.url= url;
     }
 }

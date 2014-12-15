@@ -15,4 +15,6 @@ import com.bobko.album.domain.Pictures;
 
 @Component
 @Repository
-public class PictureDao extends HibernateDao<Pictures, Integer> implements IPictureDao<Pictures, Integer> {}
+public class PictureDao extends HibernateDao<Pictures, Integer> implements
+        IPictureDao<Pictures, Integer> {
+}

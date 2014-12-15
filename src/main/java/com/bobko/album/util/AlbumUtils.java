@@ -12,11 +12,22 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.UUID;
+
+import org.apache.log4j.Logger;
+
+import com.bobko.album.domain.Pictures;
 
 public class AlbumUtils {
     
     private static final int MAX_PICTURE_SIZE = 400;
+    private static final int PREFIX_SIZE = 4;
+    
+    private static final Logger LOGGER = Logger.getLogger(AlbumUtils.class);
+    
+    private AlbumUtils() {
+    }
     
     private AlbumUtils() {
     }
@@ -30,8 +41,9 @@ public class AlbumUtils {
      * then MAX_PICTURE_SIZE
      * */
     public static BufferedImage correctingSize(BufferedImage img) {
-        if (img == null)
+        if (img == null) {
             return null;
+        }
         int oldWidth = img.getWidth();
         int oldHeight = img.getHeight();
 
@@ -58,10 +70,18 @@ public class AlbumUtils {
         try {
             URI uri = new URI(url);
             String result = uri.getScheme() + "://" + uri.getHost();
-            return result.startsWith("www.") ? result.substring(4) : result;
+            return result.startsWith("www.") ? result.substring(PREFIX_SIZE) : result;
         } catch (URISyntaxException ex) {
+            LOGGER.warn("bad URI syntax", ex);
             return "";
         }
-    }    
+    }
+
+    public static void correctPaths(List<Pictures> pictures) {
+        for (Pictures picture : pictures) {
+            picture.setPath(picture.getPath().replace("\\", "/"));
+        }
+        
+    }
     
 }

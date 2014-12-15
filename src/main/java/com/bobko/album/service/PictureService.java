@@ -48,23 +48,22 @@ import com.bobko.album.util.AlbumUtils;
 public class PictureService implements IPictureService {
 
     @Autowired
-    IPictureDao<Pictures, Integer> pictureDao;
+    private IPictureDao<Pictures, Integer> pictureDao;
 
     @Autowired
-    IGenericDao<Users, Integer> userDao;
+    private IGenericDao<Users, Integer> userDao;
     
     @Value("${data.root.path}")
-    String rootPath;
+    private String rootPath;
 
     private static final String JPG = "jpg";
     private static final String PNG = "png";
-    private static final String DATA = "data";   
+    private static final String DATA = "data";
     private static final String IMAGES = "images";
     private static final String THUMBNAIL = "thumbnail";
-    private static final int SUFFIX_LENGTH = 3;
-    private final static int size = 1024;    
+    private static final int SIZE = 1024;
     
-    private static final Logger logger = Logger.getLogger(PictureService.class);
+    private static final Logger LOGGER = Logger.getLogger(PictureService.class);
     
     public List<Pictures> list(int shift, int count) {
         return pictureDao.rankList(shift, count);
@@ -88,13 +87,14 @@ public class PictureService implements IPictureService {
         
         pic.setFilename(multipartFile.getOriginalFilename());
 
-        // check if field is correct
         //TODO: validate model
-        if ((pic.getOwner() == null) || (pic.getOwner().isEmpty())
+        if ((pic.getOwner() == null)
+                || (pic.getOwner().isEmpty())
                 || (pic.getDescription() == null)
                 || (pic.getDescription().isEmpty())
-                || (pic.getFilename() == null) || (pic.getFilename().isEmpty())) {
-            throw new Exception();
+                || (pic.getFilename() == null)
+                || (pic.getFilename().isEmpty())) {
+            throw new Exception("Validation failed");
         }
 
         String username = getLoginedUserName();
@@ -151,7 +151,7 @@ public class PictureService implements IPictureService {
         File dir = createDirs(rootPath + pathToFile);
         String pathToThumbnail = DATA + File.separator + username + File.separator + THUMBNAIL;
         File thumbnailDir = createDirs(rootPath + pathToThumbnail);
-        String uuid = AlbumUtils.getUUID();        
+        String uuid = AlbumUtils.getUUID();
         OutputStream outStream = null;
         HttpURLConnection connection = null;
         InputStream is = null;
@@ -181,12 +181,12 @@ public class PictureService implements IPictureService {
             connection = (HttpURLConnection) urlToPicture.openConnection();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                System.out.println(connection.getErrorStream());
+                LOGGER.error(connection.getErrorStream());
                 return;
             } else {
                 
                 is = connection.getInputStream();
-                buf = new byte[size];
+                buf = new byte[SIZE];
                 while ((byteRead = is.read(buf)) != -1) {
                     outStream.write(buf, 0, byteRead);
                 }
@@ -204,6 +204,7 @@ public class PictureService implements IPictureService {
                 } else {
                     BufferedInputStream in = new BufferedInputStream(new FileInputStream(image));
                     BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(thumbnail));
+                    
                     while ((byteRead = in.read(buf)) != -1) {
                         out.write(buf, 0, byteRead);
                     }
@@ -216,19 +217,19 @@ public class PictureService implements IPictureService {
             }
 
         } catch (Exception e) {
-            logger.error(e);
+            LOGGER.error(e);
         } finally {
             try {
-                if (is != null)
+                if (is != null) {
                     is.close();
-                if (outStream != null)
+                }
+                if (outStream != null) {
                     outStream.close();
+                }
             } catch (IOException e) {
-                logger.error(e);
+                LOGGER.error(e);
             }
         }
-        
-        
         
         pic.setPath(pathToFile + name);
         pic.setThumbnail(pathToThumbnail + name);
@@ -243,13 +244,15 @@ public class PictureService implements IPictureService {
         } else {
             pic.setFilename("imgUrl");
         }
+        
         pic.setOwner(username);
         
         pic.setCreated(new Timestamp(new Date().getTime()));
+        
         try {
-        addPicture(pic);
+            addPicture(pic);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("some error occured", e);
         }
     }    
         
@@ -263,6 +266,7 @@ public class PictureService implements IPictureService {
         if (authentication != null) {
             userName = authentication.getName();
         }
+        
         return userName;
     }
 
@@ -275,7 +279,7 @@ public class PictureService implements IPictureService {
         try {
             fileData = Files.readAllBytes(p);
         } catch (IOException e) {
-            logger.error(e);
+            LOGGER.error(e);
         }
 
         return fileData;

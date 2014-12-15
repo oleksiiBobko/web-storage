@@ -58,14 +58,11 @@ public class UploadController {
     @RequestMapping("/pictures")
     public String listPictures(Map<String, Object> map,
             HttpServletRequest request) {
-<<<<<<< HEAD
 
         List<Pictures> pictures = picService.list(pagesService.getShift(), AlbumConst.PICTURE_COUNT);
         
         AlbumUtils.correctPaths(pictures);
         
-=======
->>>>>>> 14288af73c8f801fa5f23737f27afadb5d5e2240
         map.put("url", new IncomingURL());
         map.put("pages", pagesService.list());
         map.put("pictures", pictures);

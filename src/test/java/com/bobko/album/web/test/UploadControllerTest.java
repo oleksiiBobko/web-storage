@@ -27,6 +27,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 
 
+
+import com.bobko.album.common.AlbumConst;
 import com.bobko.album.domain.*;
 import com.bobko.album.web.*;
 import com.bobko.album.service.*;
@@ -90,7 +92,7 @@ public class UploadControllerTest {
         pictures.add(picture);
         pictures.add(picture2);
        
-        Mockito.when(pictureService.list(0, IPagesService.PICTURE_COUNT)).thenReturn(pictures);
+        Mockito.when(pictureService.list(0, AlbumConst.PICTURE_COUNT)).thenReturn(pictures);
         
         pages = new ArrayList<AlbumPage>();
         pages.add(new AlbumPage(0, true));

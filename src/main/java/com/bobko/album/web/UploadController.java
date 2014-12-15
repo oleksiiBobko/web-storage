@@ -27,7 +27,6 @@ import com.bobko.album.common.AlbumConst;
 import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.domain.Pictures;
-import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;

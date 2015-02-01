@@ -1,48 +1,42 @@
-package com.bobko.album.web.test;
+package com.bobko.album.web;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.*;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
-
-
-
-
-
-
-
-
-
 import com.bobko.album.common.AlbumConst;
-import com.bobko.album.domain.*;
-import com.bobko.album.web.*;
-import com.bobko.album.service.*;
+import com.bobko.album.domain.AlbumPage;
+import com.bobko.album.domain.Pictures;
+import com.bobko.album.service.PictureService;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IUserService;
 
-import org.mockito.*; 
-import org.junit.*;
-
-import java.util.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:META-INF/test-context.xml", "classpath:META-INF/application-context.xml"})
+@ContextConfiguration(locations = {"classpath:test-context.xml", "classpath:application-context.xml"})
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class})
 public class UploadControllerTest {
    
@@ -108,32 +102,24 @@ public class UploadControllerTest {
         
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/pictures");
        
-        this.mockMvc.perform(requestBuilder).
-                andExpect(MockMvcResultMatchers.status().isOk()).
-                andExpect(MockMvcResultMatchers.model().attribute("pictures", pictures)).
-                andExpect(MockMvcResultMatchers.model().attribute("pages", pages)).
-                andExpect(MockMvcResultMatchers.model().size(3)).
-                andExpect(MockMvcResultMatchers.view().name("picturesList"));
+        mockMvc.perform(requestBuilder).
+                andExpect(status().isOk()).
+                andExpect(model().attribute("pictures", pictures)).
+                andExpect(model().attribute("pages", pages)).
+                andExpect(model().size(4)).
+                andExpect(view().name("pictures-list"));
     }
     
     @Test
     public void testHome() throws Exception {
-        
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/");
-
-        this.mockMvc.perform(requestBuilder).
-                andExpect(MockMvcResultMatchers.status().isFound()).
-                andExpect(MockMvcResultMatchers.view().name("redirect:/pictures"));
+        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/pictures"));
     }
     
     @Test
     public void testAddNew() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/add");
-        this.mockMvc
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(
-                        MockMvcResultMatchers.view().name("addPicture"));
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andExpect(view().name("add-picture"));
     }
     
     @Test
@@ -142,21 +128,14 @@ public class UploadControllerTest {
         MockMultipartHttpServletRequest multipartRequest = new MockMultipartHttpServletRequest();
         MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "orig", null, "bar".getBytes());
         multipartRequest.addFile(mockMultipartFile);
-        
         MockMultipartHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.fileUpload("/save").file(mockMultipartFile);
 
-       
         requestBuilder.
         param("owner", "alex").
         param("description", "on vocation").
         param("filename", "1.jpg");
         
-        this.mockMvc
-        .perform(requestBuilder)
-        .andExpect(MockMvcResultMatchers.status().isFound())
-        .andExpect(
-                MockMvcResultMatchers.view().name("redirect:/pictures"));        
-
+        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/pictures"));
     }
     
     @Test

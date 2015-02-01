@@ -6,12 +6,8 @@ package com.bobko.album.web;
  * @data 12.08.2013
  */
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,45 +38,9 @@ public class RegistrationController {
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public String createNewUser(@ModelAttribute("user") Users user) {
 
-        // check empty fields
-        if ((user == null) || user.getPw().isEmpty()
-                || user.getLogin().isEmpty()) {
-            return "redirect:/registration?error=true";
-        }
-
-        // set default user role
-        user.setRole(IUserService.ROLE_ADMIN);
-        user.setActive(true);
-
-        MessageDigest messageDigest = null;
-        String hashedPass = "";
-
-        // encode pw to md5 hash
-        try {
-            messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(user.getPw().getBytes(), 0, user.getPw()
-                    .length());
-            hashedPass = new BigInteger(1, messageDigest.digest()).toString(16);
-            if (hashedPass.length() < 32) {
-                hashedPass = "0" + hashedPass;
-            }
-
-        } catch (NoSuchAlgorithmException e) {
-            return "redirect:/registration?error=true";
-        }
-
-        user.setPw(hashedPass);
-
-        Users checkUser = null;
-        checkUser = userService.getUserByName(user.getLogin());
-
-        // check if new user already exists in base
-        if ((checkUser != null) && (checkUser.getLogin().equalsIgnoreCase(user.getLogin()))) {
-            return "redirect:/registration?error=true";
-        }
         try {
             userService.addUser(user);
-        } catch (ConstraintViolationException ex) {
+        } catch (Exception ex) {
             return "redirect:/registration?error=true";
         }
         // redirect to login page on success

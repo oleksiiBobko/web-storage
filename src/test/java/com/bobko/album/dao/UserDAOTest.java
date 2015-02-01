@@ -1,4 +1,4 @@
-package com.bobko.album.dao.test;
+package com.bobko.album.dao;
 
 import static org.junit.Assert.*;
 

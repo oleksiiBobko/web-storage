@@ -21,7 +21,7 @@ import com.bobko.album.service.interfaces.IPagesService;
 public class PagesService implements IPagesService {
 
     @Autowired
-    IPagesHolderDao pagesDao;
+    private IPagesHolderDao pagesDao;
     
     @Transactional
     public List<AlbumPage> list() {

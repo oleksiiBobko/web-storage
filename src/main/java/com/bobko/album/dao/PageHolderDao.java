@@ -43,12 +43,12 @@ public class PageHolderDao implements IPagesHolderDao {
      * */
     private List<AlbumPage> createPagesList() {
         Session session = sessionFactory.getCurrentSession();
-        rowCount = ((Number) session.createCriteria(Pictures.class)
-                .setProjection(Projections.rowCount()).uniqueResult())
-                .intValue();
-        pagesCount = ((int) Math.ceil(rowCount
-                / (double) AlbumConst.PICTURE_COUNT)) - 1;
+        rowCount = ((Number) session.createCriteria(Pictures.class).setProjection(Projections.rowCount()).uniqueResult()).intValue();
+        
+        pagesCount = ((int) Math.ceil(rowCount / (double) AlbumConst.PICTURE_COUNT)) - 1;
+        
         int finalCount = pagesCount;
+        
         List<AlbumPage> pages = new ArrayList<AlbumPage>();
 
         if (pagesCount > AlbumConst.MAX_PAGES_COUNT) {

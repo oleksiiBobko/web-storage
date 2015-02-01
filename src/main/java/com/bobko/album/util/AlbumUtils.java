@@ -10,8 +10,11 @@ package com.bobko.album.util;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,6 +81,24 @@ public class AlbumUtils {
         for (Pictures picture : pictures) {
             picture.setPath(picture.getPath().replace("\\", "/"));
         }
+        
+    }
+    
+    public static String getMD5(String input) throws Exception {
+
+        MessageDigest messageDigest = null;        
+        String encoded = "";
+        
+        // encode pw to md5 hash
+        try {
+            messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(input.getBytes(), 0, input.length());
+            encoded = new BigInteger(1, messageDigest.digest()).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            throw new Exception("Encription failure", e);
+        }
+
+        return encoded;
         
     }
     

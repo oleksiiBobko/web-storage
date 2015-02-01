@@ -9,18 +9,22 @@
       http://www.springframework.org/schema/security
       http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <bean id="pictureService" name="pictureService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.bobko.album.service.PictureService"/>
+    <bean id="picService" name="picService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="com.bobko.album.service.interfaces.IPictureService"/>
     </bean>
     
     <bean id="pagesService" name="pagesService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.bobko.album.service.PagesService"/>
+        <constructor-arg value="com.bobko.album.service.interfaces.IPagesService"/>
     </bean>
     
+    <bean id="pictureGrubber" name="pictureGrubber" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="com.bobko.album.service.interfaces.IPictureGrabber"/>
+    </bean>    
+    
     <bean id="userService" name="userService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.bobko.album.service.UserService"/>
+        <constructor-arg value="com.bobko.album.service.interfaces.IUserService"/>
     </bean>
 
-    <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+<!--     <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/> -->
 
 </beans>

@@ -14,7 +14,7 @@ public interface IUserService {
     /**
      * add new user to db
      * */
-    public void addUser(Users user);
+    public void addUser(Users user) throws Exception;
     
     /**
      * remove user from db by unique user name

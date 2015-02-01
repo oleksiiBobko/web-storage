@@ -91,8 +91,7 @@ public class UploadController {
      * system
      * */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("picture") Pictures pic,
-            @RequestParam("file") MultipartFile file) {
+    public String save(@ModelAttribute("picture") Pictures pic, @RequestParam("file") MultipartFile file) {
         try {
             picService.savePicture(pic, file);
         } catch (Exception e) {

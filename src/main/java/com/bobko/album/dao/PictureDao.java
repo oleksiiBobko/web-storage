@@ -13,7 +13,6 @@ import com.bobko.album.dao.base.HibernateDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
 import com.bobko.album.domain.Pictures;
 
-@Component
 @Repository
 public class PictureDao extends HibernateDao<Pictures, Integer> implements
         IPictureDao<Pictures, Integer> {

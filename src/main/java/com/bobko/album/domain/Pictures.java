@@ -46,7 +46,7 @@ public class Pictures {
     @Column(name="thumbnail")
     private String thumbnail;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "userid")
     private Users user;
     

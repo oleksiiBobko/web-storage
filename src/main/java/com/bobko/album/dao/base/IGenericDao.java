@@ -1,21 +1,22 @@
 package com.bobko.album.dao.base;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface IGenericDao<E, K> {
+public interface IGenericDao<T, PK extends Serializable> {
 
-    public void add(E entity);
+    public void add(T entity);
 
-    public void update(E entity);
+    public void update(T entity);
 
-    public void remove(E entity);
+    public void remove(T entity);
 
-    public E find(K key);
+    public T find(PK key);
 
-    public List<E> list();
+    public List<T> list();
 
-    public List<E> rankList(int shift, int count);
+    public List<T> rankList(int shift, int count);
     
-    public List<E> getByField(String field, String value);
+    public List<T> getByField(String field, String value);
 
 }

@@ -11,7 +11,7 @@ public class AlbumConst {
     /**
      * value MAX_PAGES_COUNT define max number of pages link on pagination  
      * */
-    public static final int MAX_PAGES_COUNT = 6;
+    public static final int MAX_PAGES_COUNT = 2;
     
     private AlbumConst() {
     }

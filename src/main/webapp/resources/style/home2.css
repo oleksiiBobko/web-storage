@@ -64,9 +64,8 @@ div.clear {
 	position: relative;
 }
 
-#container,#header {
-	/*width: 1040px;*/
-	margin: 0 auto;
+#container, #header {
+	margin: 100px auto;
 }
 
 #footer {
@@ -78,40 +77,8 @@ div.clear {
 	white-space: nowrap;
 }
 
-/*
-00 - e3e1ce ececdf
-15 - e7e5d5 efefe4
-30 - ebeadd f2f2e9
-45 - f0eee4 f4f4ed
-60 - f4f3eb f7f7f2
-
-background: linear-gradient(#efefe4, #e7e5d5);
-*/
 body {
 	background: #FF7260;
-}
-
-#container {
-	
-}
-
-#top {
-	
-}
-
-#content {
-	
-}
-
-#footer {
-	
-}
-
-/* ***************************
-       Header
-**************************** */
-#header {
-	
 }
 
 #header .wrapper {
@@ -3054,8 +3021,7 @@ ul {
 		to(#e9e9e9));
 	background: -moz-linear-gradient(0% 0% 270deg, #f8f8f8, #e9e9e9);
 }
-/*navigation*/
-/* Begin Navigation Bar Styling */
+
 #nav {
 	width: 100%;	
 	float: left;
@@ -3101,8 +3067,4 @@ ul {
 	width: 750px;
 	margin: 0 auto;
 	background-color: #fff;
-}
-
-#content {
-	padding: 0 70px 70px;
 }

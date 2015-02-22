@@ -1,19 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title><spring:message code="label.title"/></title>
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="resources/js/script.js"></script>
-
-</head>
-
-<body>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <div class="container">
     <div class="row">
         <sf:form method="POST" modelAttribute="user" role="form">
@@ -72,8 +58,6 @@
         </div>
     </div>
 </div>
-</body>
-</html>
 <!-- <body> -->
 
 <!--     <span><a href="?lang=en">en</a>|<a href="?lang=ru">ru</a></span> -->
@@ -174,7 +158,7 @@
 <!--     <div> -->
 <!--         <div> -->
 <!--             <p id="copyright"> -->
-<!--                 Copyright Â© 2014 <a href="#">Oleksii Bobko</a>. All rights reserved. -->
+<!--                 Copyright © 2014 <a href="#">Oleksii Bobko</a>. All rights reserved. -->
 <!--             </p> -->
 <!--         </div> -->
 <!-- </div> -->

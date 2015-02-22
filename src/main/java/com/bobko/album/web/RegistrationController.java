@@ -11,6 +11,8 @@ import java.util.Map;
 //import javax.validation.Valid;
 
 
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +64,7 @@ public class RegistrationController {
      * perform adding new user to db
      * */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createNewUser(@Valid Users user, BindingResult bindingResult, Model model) {
+    public String createNewUser(@Valid @ModelAttribute("user") Users user, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "registration-page";
@@ -72,6 +74,6 @@ public class RegistrationController {
         } catch (Exception ex) {
             return "registration-page";
         }
-        return "redirect:login";
+        return "login";
     }
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+<beans
+    xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
              http://www.springframework.org/schema/mvc
@@ -16,14 +18,25 @@
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<beans:bean id="qweqweqweqweqweqweqwe" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
-		<beans:property name="prefix" value="/WEB-INF/jsp/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass">
+            <value>
+                org.springframework.web.servlet.view.tiles2.TilesView
+            </value>
+        </property>
+    </bean>
+    <bean id="tilesConfigurer"
+        class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/config/tiles.xml</value>
+            </list>
+        </property>
+    </bean>
 
 	<context:property-placeholder location="WEB-INF/jdbc.properties" />
 
 	<context:component-scan base-package="com.bobko.album.web" />
 
-</beans:beans>
+</beans>

@@ -8,70 +8,22 @@
 <html>
 <head>
     <title>Album</title>
-    <link href="resources/style/home2.css" rel="stylesheet" type="text/css"/>
-
-    <style type="text/css">
-        .ll-content-notification * {
-            letter-spacing: normal !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: none !important;
-            border: 0 !important;
-            float: none !important;
-            text-align: left !important;
-            text-decoration: none !important;
-            font: normal 15px 'Lucida Grande', 'Lucida Sans Unicode', Lucida, Arial, Helvetica, sans-serif !important;
-        }
-
-        .ll-content-notification-header-pic img {
-            border: 0 !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            line-height: 1px !important;
-        }
-
-    </style>
-
-
+    <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 </head>
-<body  class="small login">
+<body>
 
-<div id="header">
-    <div class="wrapper">
-        <h1><a href="https://www.survs.com/">Survs – Collaborative Online Survey Tool, Web Survey Software</a></h1>
-    </div>
-</div>
-
-<div id="container">
-    <div id="content">
-        <div class="wrapper">
-            <a href="<c:url value="/pictures" />">
-            <spring:message code="label.album"/>
-            </a>
+<div class="container">
+            <a href="<c:url value="/pictures" />"><spring:message code="label.album"/></a>
             <form:form method="post" action="save.html" commandName="picture" enctype="multipart/form-data">
                 <!--form:errors path="*" cssClass="error"/-->
-                <table>
-                    <tbody>
-                    <tr>
-                        <td><form:label path="owner"><spring:message code="label.author"/></form:label></td>
-                        <td><form:input path="owner" class="inputtext"/></td>
-                    </tr>
-                    <tr>
-                        <td><form:label path="description"><spring:message code="label.description"/></form:label></td>
-                        <td><form:textarea path="description" class="inputtext"/></td>
-                    </tr>
-                    <tr>
-                        <td><form:label path="path"><spring:message code="label.picture"/></form:label></td>
-                        <td><input type="file" name="file" id="file" ></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="submit" value="<spring:message code="label.add" />" class="public-button"/></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <form:label path="owner"><spring:message code="label.author"/></form:label>
+                <form:input path="owner" class="inputtext"/>
+                <form:label path="description"><spring:message code="label.description"/></form:label>
+                <form:textarea path="description" class="inputtext"/>
+                <form:label path="path"><spring:message code="label.picture"/></form:label>
+                <input type="file" name="file" id="file" >
+                <input type="submit" value="<spring:message code="label.add" />" class="public-button"/>
             </form:form>
     </div>
-</div>
-</div>
 </body>
 </html>

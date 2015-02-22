@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -24,9 +25,12 @@ public class Users {
     @GeneratedValue
     @Column(name="id")
     private Integer id;
-    
+    @Size(min = 6, max = 32, message = "The login must be at least 6 characters long.")
     @Column(name = "login")
     private String login;
+    
+    @Column(name = "email")
+    private String email;    
     
     @Column(name = "pass")
     private String pw;    
@@ -56,6 +60,14 @@ public class Users {
         this.login = login;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }    
+    
     public String getPw() {
         return pw;
     }

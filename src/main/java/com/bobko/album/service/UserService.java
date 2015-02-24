@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,8 @@ public class UserService implements IUserService {
         // set default user role
         user.setRole(IUserService.ROLE_ADMIN);
         user.setActive(true);
-        user.setPw(AlbumUtils.getMD5(user.getPw()));
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();        
+        user.setPw(encoder.encodePassword(user.getPw(), null));
 
         Users checkUser = getUserByName(user.getLogin());
         // check if new user already exists in base

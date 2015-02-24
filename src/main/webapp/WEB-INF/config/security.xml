@@ -16,7 +16,7 @@
 		<intercept-url pattern="/pictures" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/registration" access="permitAll" />
 		<intercept-url pattern="/adduser" access="permitAll" />
-		<form-login login-page="/login" authentication-failure-url="/login" />
+		<form-login login-page="/login" authentication-failure-url="/login?error=true" />
 	<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
 	</security:http>
 

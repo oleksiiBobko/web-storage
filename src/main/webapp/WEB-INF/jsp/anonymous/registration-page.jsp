@@ -1,5 +1,6 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="container">
     <div class="row">
         <sf:form method="POST" modelAttribute="user" role="form">
@@ -45,6 +46,7 @@
                 
                 <input type="submit" value="<spring:message code="label.registration"/>" class="btn btn-info pull-right" />
             </div>
+            <a href="<c:url value='/login'/>"><spring:message code="label.login" /></a>
         </sf:form>
         <div class="col-lg-5 col-md-push-1">
             <div class="col-md-12">

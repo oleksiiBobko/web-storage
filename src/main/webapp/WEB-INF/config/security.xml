@@ -13,10 +13,10 @@
 		<intercept-url pattern="/delete/*" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="grub.html" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/" access="permitAll" />
-		<intercept-url pattern="/pictures" access="permitAll" />
+		<intercept-url pattern="/pictures" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/registration" access="permitAll" />
 		<intercept-url pattern="/adduser" access="permitAll" />
-		<form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" />
+		<form-login login-page="/login" authentication-failure-url="/login" />
 	<security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
 	</security:http>
 

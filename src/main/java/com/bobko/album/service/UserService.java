@@ -29,11 +29,6 @@ public class UserService implements IUserService {
     
     @Override
     public void addUser(Users user) throws Exception {
-        
-//        // TODO create appropriate validation
-//        if ((user == null) || user.getPw().isEmpty() || user.getLogin().isEmpty()) {
-//            throw new Exception("Registration failure");
-//        }
 
         // set default user role
         user.setRole(IUserService.ROLE_ADMIN);

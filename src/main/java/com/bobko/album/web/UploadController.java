@@ -116,7 +116,7 @@ public class UploadController {
      * */
     @RequestMapping(value = "/login")
     public String login() {
-        return "redirect:login.jsp";
+        return "login";
     }
 
     /**

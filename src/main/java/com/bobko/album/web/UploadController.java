@@ -46,7 +46,7 @@ public class UploadController {
 
     private static final Logger LOGGER = Logger.getLogger(UploadController.class);
     
-    private static final String REDIRECT_PICTURES_PAGE = "redirect:/pictures"; 
+    private static final String REDIRECT_PICTURES_PAGE = "redirect:/content"; 
     
     /**
      * rootPath contains path which will be use to save uploaded pictures
@@ -54,7 +54,7 @@ public class UploadController {
     @Value("${data.root.path}")
     String rootPath;
 
-    @RequestMapping("/pictures")
+    @RequestMapping("/content")
     public String listPictures(Map<String, Object> map,
             HttpServletRequest request) {
 
@@ -66,7 +66,7 @@ public class UploadController {
         map.put("pages", pagesService.list());
         map.put("pictures", pictures);
         map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
-        return "pictures-list";
+        return "content";
     }
 
     /**
@@ -116,7 +116,7 @@ public class UploadController {
      * */
     @RequestMapping(value = "/login")
     public String login() {
-        return "redirect:login.jsp";
+        return "login";
     }
 
     /**

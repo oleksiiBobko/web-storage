@@ -4,20 +4,30 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
-    <definition name="anonymousBaseTemplate" template="/WEB-INF/jsp/anonymous/layout.jsp">
+    <definition name="anonymousBaseTemplate" template="/WEB-INF/jsp/common/layout.jsp">
         <put-attribute name="title" value=""/>
         <put-attribute name="header" value=""/>
         <put-attribute name="body" value=""/>
     </definition>
 
-    <definition name="registration-page" extends="anonymousBaseTemplate">
-        <put-attribute name="title" value="Spitter | Registration form"/>
+    <definition name="registration" extends="anonymousBaseTemplate">
+        <put-attribute name="title" value="Album | Registration form"/>
         <put-attribute name="body" value="/WEB-INF/jsp/anonymous/registration-page.jsp"/>
     </definition>
     
     <definition name="login" extends="anonymousBaseTemplate">
-        <put-attribute name="title" value="Spitter | Registration form"/>
+        <put-attribute name="title" value="Album | Registration login"/>
         <put-attribute name="body" value="/WEB-INF/jsp/anonymous/login.jsp"/>
+    </definition>
+    
+    <definition name="content" extends="anonymousBaseTemplate">
+        <put-attribute name="title" value="Content"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/anonymous/pictures.jsp"/>
+    </definition>
+    
+    <definition name="error" extends="anonymousBaseTemplate">
+        <put-attribute name="title" value="Content"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/anonymous/error.jsp"/>
     </definition>    
     
 </tiles-definitions>

@@ -25,14 +25,14 @@ public class Users {
     @GeneratedValue
     @Column(name="id")
     private Integer id;
-    @Size(min = 6, max = 32, message = "The login must be at least 6 characters long.")
+    @Size(min = 5, max = 32, message = "The login must be at least 6 characters long.")
     @Column(name = "login")
     private String login;
     
     @Column(name = "email")
     private String email;    
     
-    @Column(name = "pass")
+    @Column(name = "pw")
     private String pw;    
     
     @Column(name = "role")

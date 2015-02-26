@@ -64,7 +64,7 @@
             <li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>
             </ul>
             <c:if test="${authorized}">
-            <form:form method="post" action="grab.html" commandName="url" enctype="multipart/form-data" id="grub" class="navbar-form navbar-right">
+            <form:form method="post" action="grab" commandName="url" enctype="multipart/form-data" id="grub" class="navbar-form navbar-right">
             <form:input type="text" placeholder="Search..." class="form-control" path="URL" />
             <input type="submit" class="btn btn-success" value="<spring:message code="label.grab" />" />
             </form:form>  

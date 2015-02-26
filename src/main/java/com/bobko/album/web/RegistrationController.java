@@ -32,7 +32,7 @@ public class RegistrationController {
     @RequestMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("user", new Users());
-        return "registration-page";
+        return "registration";
     }  
     
     /**
@@ -47,7 +47,7 @@ public class RegistrationController {
         try {
             userService.addUser(user);
         } catch (Exception ex) {
-            return "registration-page";
+            return "registration";
         }
         return "login";
     }

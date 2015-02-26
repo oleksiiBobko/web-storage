@@ -6,21 +6,16 @@ package com.bobko.album.service;
  * @see UserService
  */
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bobko.album.dao.base.IGenericDao;
 import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IUserService;
-import com.bobko.album.util.AlbumUtils;
 
 @Service
 @Transactional

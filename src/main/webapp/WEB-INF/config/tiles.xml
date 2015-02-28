@@ -8,6 +8,8 @@
         <put-attribute name="title" value=""/>
         <put-attribute name="header" value=""/>
         <put-attribute name="body" value=""/>
+        <put-attribute name="pagenation" value=""/>
+        <put-attribute name="footer" value=""/>
     </definition>
 
     <definition name="registration" extends="anonymousBaseTemplate">
@@ -22,7 +24,10 @@
     
     <definition name="content" extends="anonymousBaseTemplate">
         <put-attribute name="title" value="Content"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>
+        <put-attribute name="pagenation" value="/WEB-INF/jsp/anonymous/pagenation.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/anonymous/pictures.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
     </definition>
     
     <definition name="error" extends="anonymousBaseTemplate">

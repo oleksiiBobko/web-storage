@@ -74,22 +74,22 @@
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="10000000" />
+<!-- 		<property name="maxUploadSize" value="10000000" /> -->
 	</bean>
 
 	<bean
 		class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
-				<value>image/gif</value>
-				<value>image/jpeg</value>
-				<value>image/pjpeg</value>
-				<value>image/png</value>
-				<value>image/svg+xml</value>
-				<value>image/tiff</value>
-				<value>image/vnd.microsoft.icon</value>
-				<value>image/vnd.wap.wbmp</value>
-				<value>image/jpg</value>
+				<value>*/*</value>
+<!-- 				<value>image/jpeg</value> -->
+<!-- 				<value>image/pjpeg</value> -->
+<!-- 				<value>image/png</value> -->
+<!-- 				<value>image/svg+xml</value> -->
+<!-- 				<value>image/tiff</value> -->
+<!-- 				<value>image/vnd.microsoft.icon</value> -->
+<!-- 				<value>image/vnd.wap.wbmp</value> -->
+<!-- 				<value>image/jpg</value> -->
 			</list>
 		</property>
 	</bean>

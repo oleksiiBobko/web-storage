@@ -19,6 +19,7 @@
             <li><a href="<c:url value="#"/>">About Us</a></li>
             <li><a href="<c:url value="#" />">Messages</a></li>
             <li><a href="<c:url value="#" />">Audio</a></li>
+            <li><a href="<c:url value="/add" />">Upload</a></li>
             <li><a href="<c:url value="/login" />"><spring:message code="label.login" /></a></li>
             <c:if test="${authorized}">
             <li>            

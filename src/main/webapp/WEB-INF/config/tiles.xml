@@ -27,6 +27,14 @@
         <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>
         <put-attribute name="pagenation" value="/WEB-INF/jsp/anonymous/pagenation.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/anonymous/pictures.jsp"/>
+        <put-attribute name="pagenation" value="/WEB-INF/jsp/anonymous/pagenation.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
+    </definition>
+    
+    <definition name="upload" extends="anonymousBaseTemplate">
+        <put-attribute name="title" value="Upload"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/user/upload-file.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
     </definition>
     

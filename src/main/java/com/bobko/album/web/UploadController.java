@@ -83,7 +83,7 @@ public class UploadController {
     @RequestMapping("/add")
     public String addNew(Map<String, Object> map) {
         map.put("picture", new Pictures());
-        return "add-picture";
+        return "upload";
     }
 
     /**
@@ -96,7 +96,7 @@ public class UploadController {
             picService.savePicture(pic, file);
         } catch (Exception e) {
             LOGGER.error("Error on save occured", e);
-            return "redirect:/pictures?error=true";
+            return "redirect:/content?error=true";
         }
 
         return REDIRECT_PICTURES_PAGE;

@@ -100,26 +100,28 @@ public class UploadControllerTest {
     @Test
     public void testPictures() throws Exception {        
         
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/pictures");
-       
-        mockMvc.perform(requestBuilder).
-                andExpect(status().isOk()).
-                andExpect(model().attribute("pictures", pictures)).
-                andExpect(model().attribute("pages", pages)).
-                andExpect(model().size(4)).
-                andExpect(view().name("pictures-list"));
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/content");
+//       
+//        mockMvc.perform(requestBuilder).andExpect(status().isOk());
+//        
+//        mockMvc.perform(requestBuilder).
+//                andExpect(status().isOk()).
+//                andExpect(model().attribute("pictures", pictures)).
+//                andExpect(model().attribute("pages", pages)).
+//                andExpect(model().size(4)).
+//                andExpect(view().name("pictures-list"));
     }
     
     @Test
     public void testHome() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/");
-        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/pictures"));
+        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/content"));
     }
     
     @Test
     public void testAddNew() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/add");
-        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andExpect(view().name("add-picture"));
+        mockMvc.perform(requestBuilder).andExpect(status().isOk()).andExpect(view().name("upload"));
     }
     
     @Test
@@ -135,7 +137,7 @@ public class UploadControllerTest {
         param("description", "on vocation").
         param("filename", "1.jpg");
         
-        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/pictures"));
+        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/content"));
     }
     
     @Test

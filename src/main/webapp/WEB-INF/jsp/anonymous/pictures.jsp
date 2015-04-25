@@ -23,7 +23,7 @@
 <!-- 			</a> -->
 			<div class="highslide-caption">${picture.description}</div>
 <!-- 					target="_blank" -->
-					<a href='<c:url value="${picture.path}"/>' >${picture.path}</a>
+					<a href='<c:url value="${picture.path}"/>' >${picture.filename}</a>
 					<h2>Resolution</h2>
 					<h2>Format</h2>
 		</c:forEach>

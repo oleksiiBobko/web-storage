@@ -20,7 +20,8 @@
             <li><a href="<c:url value="#" />">Messages</a></li>
             <li><a href="<c:url value="#" />">Audio</a></li>
             <li><a href="<c:url value="/add" />">Upload</a></li>
-            <li><a href="<c:url value="/login" />"><spring:message code="label.login" /></a></li>
+<%--             <li><a href="<c:url value="/login" />"><spring:message code="label.login" /></a></li> --%>
+            <li><a href="/login">Upload</a></li>
             <c:if test="${authorized}">
             <li>            
                 <form:form method="post" action="grab" commandName="url" enctype="multipart/form-data" id="grub" class="navbar-form navbar-right">

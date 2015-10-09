@@ -37,7 +37,8 @@ public class PictureGrabber implements IPictureGrabber {
 
     private static final Logger logger = Logger.getLogger(PictureGrabber.class);
     
-    private static final String PATTERN_STRING = "((https?|ftp|file)://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*(.jpg|.png|.gif|.tiff|.ico)";    
+    
+    private static final String PATTERN_STRING = "(https?|ftp|file)://[A-Za-z0-9%./]+(\\.jpg|\\.jpeg|\\.png|\\.gif|\\.tiff|\\.ico)";    
 
     private List<String> urls;
 

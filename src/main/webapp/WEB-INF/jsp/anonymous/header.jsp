@@ -20,23 +20,22 @@
             <li><a href="<c:url value="#" />">Messages</a></li>
             <li><a href="<c:url value="#" />">Audio</a></li>
             <li><a href="<c:url value="/add" />">Upload</a></li>
-<%--             <li><a href="<c:url value="/login" />"><spring:message code="label.login" /></a></li> --%>
-            <li><a href="/login">Upload</a></li>
+            <c:if test="${not authorized}">
+            <li><a href="<c:url value="/login" />">Login</a></li>
+            </c:if>
             <c:if test="${authorized}">
-            <li>            
+            <li>
                 <form:form method="post" action="grab" commandName="url" enctype="multipart/form-data" id="grub" class="navbar-form navbar-right">
                 <form:input type="text" placeholder="Search..." class="form-control" path="URL" />
                 <input type="submit" class="btn btn-success" value="<spring:message code="label.grab" />" />
                 </form:form>
-            </li>            
-            </c:if>
-            <c:if test="${authorized}">
+            </li>
             <li><a href="<c:url value="#" />"><sec:authentication property="principal.username" /></a></li>
             <li>
                 <a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a>            
-            </li>            
+            </li>
             </c:if>
-            </ul>            
+            </ul>
             </div>
         </div>
     </nav>

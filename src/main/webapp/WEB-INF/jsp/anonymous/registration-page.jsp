@@ -42,7 +42,7 @@
                         <textfield type="password" id="InputPasswordSecond" class="form-control"></textfield>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
-                </div>                
+                </div>
                 
                 <input type="submit" value="<spring:message code="label.registration"/>" class="btn btn-info pull-right" />
             </div>

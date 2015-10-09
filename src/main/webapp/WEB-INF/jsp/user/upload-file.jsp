@@ -13,17 +13,47 @@
 <body>
 
 <div class="container">
+    <div class="row">
             <a href="<c:url value="/pictures" />"><spring:message code="label.album"/></a>
             <form:form method="post" action="save.html" commandName="picture" enctype="multipart/form-data">
+            <div class="col-lg-6">
                 <!--form:errors path="*" cssClass="error"/-->
-                <form:label path="owner"><spring:message code="label.author"/></form:label>
-                <form:input path="owner" class="inputtext"/>
-                <form:label path="description"><spring:message code="label.description"/></form:label>
-                <form:textarea path="description" class="inputtext"/>
-                <form:label path="path"><spring:message code="label.picture"/></form:label>
-                <input type="file" name="file" id="file" >
-                <input type="submit" value="<spring:message code="label.add" />" class="public-button"/>
+                <div class="form-group">
+                    <label for="InputName">Enter name</label>
+                    <div class="input-group">
+                        <form:input type="text" class="form-control" path="owner" placeholder="author" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        <form:errors path="owner" cssClass="error"/>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="InputName">Enter description</label>
+                    <div class="input-group">
+                        <form:textarea type="text" class="form-control" path="description" placeholder="description" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        <form:errors path="description" cssClass="error"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="InputName">Enter path</label>
+                    <div class="input-group">
+                        <form:input type="text" class="form-control" path="path" placeholder="path" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        <form:errors path="path" cssClass="error"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputName">Enter path</label>
+                    <div class="input-group">
+                <input type="file" name="file" id="file" class="btn btn-info pull-left">
+                </div>
+                </div>
+                <input type="submit" value="<spring:message code="label.add"/>" class="btn btn-info pull-left" />
+            </div>
             </form:form>
     </div>
+</div>
 </body>
 </html>

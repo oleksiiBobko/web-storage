@@ -1,5 +1,8 @@
 package com.bobko.album.web;
 
+import java.net.URL;
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,7 @@ public class DataController {
 
     @Autowired
     private IPictureService picService;
-
+    
     @ResponseBody
     @RequestMapping(value = "/data/**", method = RequestMethod.GET)
     private byte[] getFile(HttpServletRequest request) {

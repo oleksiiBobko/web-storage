@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -127,10 +128,11 @@ public class PictureService implements IPictureService {
         File thumbnail = new File(thumbnailDir + name);
         BufferedImage bufferedImage = ImageIO.read(image);
         bufferedImage = AlbumUtils.correctingSize(bufferedImage);
-        ImageIO.write(bufferedImage, suffix.substring(1), thumbnail);
+        //TODO create thumbnail creator
+        //ImageIO.write(bufferedImage, suffix.substring(1), thumbnail);
         
         pic.setPath(pathToFile + name);
-        pic.setThumbnail(pathToThumbnail + name);
+//        pic.setThumbnail(pathToThumbnail + name);
         
         Users user = userDao.getByField("login", username).get(0);
 

@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+
 
 @Entity
 @Table(name = "users")
@@ -24,16 +26,17 @@ public class Users {
     @Id
     @GeneratedValue
     @Column(name="id")
-    private Integer id;
+    private int id;
     @Size(min = 5, max = 32, message = "The login must be at least 6 characters long.")
     @Column(name = "login")
     private String login;
     
+    @Email(regexp="^((?!\\.).*)@(.*)$", message = "Incorrect email format")
     @Column(name = "email")
-    private String email;    
+    private String email;
     
     @Column(name = "pw")
-    private String pw;    
+    private String pw;
     
     @Column(name = "role")
     private String role;
@@ -41,8 +44,8 @@ public class Users {
     @Column(name = "active")
     private boolean active;
     
-    @OneToMany(targetEntity = Pictures.class, mappedBy = "user")
-    private List<Pictures> pictures;
+    @OneToMany(targetEntity = Picture.class, mappedBy = "user")
+    private List<Picture> pictures;
 
     public int getId() {
         return id;
@@ -92,7 +95,7 @@ public class Users {
         this.role = role;
     }
 
-    public List<Pictures> getPictures() {
+    public List<Picture> getPictures() {
         return pictures;
     }
     

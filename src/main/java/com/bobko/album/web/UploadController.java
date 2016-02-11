@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bobko.album.common.AlbumConst;
 import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.IncomingURL;
-import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Picture;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -46,7 +46,7 @@ public class UploadController {
 
     private static final Logger LOGGER = Logger.getLogger(UploadController.class);
     
-    private static final String REDIRECT_PICTURES_PAGE = "redirect:/content"; 
+    private static final String REDIRECT_CONTENT_PAGE = "redirect:/content"; 
     
     /**
      * rootPath contains path which will be use to save uploaded pictures
@@ -55,10 +55,10 @@ public class UploadController {
     String rootPath;
 
     @RequestMapping("/content")
-    public String listPictures(Map<String, Object> map,
+    public String getContent(Map<String, Object> map,
             HttpServletRequest request) {
 
-        List<Pictures> pictures = picService.list(pagesService.getShift(), AlbumConst.PICTURE_COUNT);
+        List<Picture> pictures = picService.list(pagesService.getShift(), AlbumConst.PICTURE_COUNT);
         
         AlbumUtils.correctPaths(pictures);
         
@@ -70,19 +70,11 @@ public class UploadController {
     }
 
     /**
-     * default request mapping redirect requests to pictures page
-     * */
-    @RequestMapping("/")
-    public String home() {
-        return REDIRECT_PICTURES_PAGE;
-    }
-
-    /**
      * redirect to add picture page method
      * */
     @RequestMapping("/add")
     public String addNew(Map<String, Object> map) {
-        map.put("picture", new Pictures());
+        map.put("picture", new Picture());
         return "upload";
     }
 
@@ -91,7 +83,7 @@ public class UploadController {
      * system
      * */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("picture") Pictures pic, @RequestParam("file") MultipartFile file) {
+    public String save(@ModelAttribute("picture") Picture pic, @RequestParam("file") MultipartFile file) {
         try {
             picService.savePicture(pic, file);
         } catch (Exception e) {
@@ -99,7 +91,7 @@ public class UploadController {
             return "redirect:/content?error=true";
         }
 
-        return REDIRECT_PICTURES_PAGE;
+        return REDIRECT_CONTENT_PAGE;
     }
 
     /**
@@ -108,7 +100,7 @@ public class UploadController {
     @RequestMapping(value = "/delete/{picId}")
     public String deletePicture(@PathVariable("picId") Integer picId) {
         picService.removePicture(picId);
-        return REDIRECT_PICTURES_PAGE;
+        return REDIRECT_CONTENT_PAGE;
     }
 
     /**
@@ -132,7 +124,7 @@ public class UploadController {
             return "redirect:/error";
         }
         
-        return REDIRECT_PICTURES_PAGE;
+        return REDIRECT_CONTENT_PAGE;
     }
 
     /**
@@ -141,7 +133,7 @@ public class UploadController {
     @RequestMapping(value = "/nextPage")
     public String nextPage() {
         pagesService.nextPage();
-        return REDIRECT_PICTURES_PAGE;
+        return REDIRECT_CONTENT_PAGE;
     }
 
     /**
@@ -150,7 +142,7 @@ public class UploadController {
     @RequestMapping(value = "/prevPage")
     public String prevPage() {
         pagesService.prevPage();
-        return REDIRECT_PICTURES_PAGE;
+        return REDIRECT_CONTENT_PAGE;
     }
 
     /**
@@ -159,7 +151,7 @@ public class UploadController {
     @RequestMapping(value = "/goto/{index}")
     public String gotoPage(@PathVariable("index") Integer index) {
         pagesService.setShift(index);
-        return REDIRECT_PICTURES_PAGE;
+        return REDIRECT_CONTENT_PAGE;
     }
 
 }

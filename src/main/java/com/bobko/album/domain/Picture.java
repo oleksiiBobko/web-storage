@@ -19,7 +19,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="pictures")
-public class Pictures {
+public class Picture {
 
     @Column(name="id")
     @Id

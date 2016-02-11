@@ -39,7 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bobko.album.common.AlbumConst;
 import com.bobko.album.dao.base.IGenericDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
-import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Picture;
 import com.bobko.album.domain.Users;
 import com.bobko.album.service.interfaces.IPictureService;
 import com.bobko.album.util.AlbumUtils;
@@ -49,7 +49,7 @@ import com.bobko.album.util.AlbumUtils;
 public class PictureService implements IPictureService {
 
     @Autowired
-    private IPictureDao<Pictures, Integer> pictureDao;
+    private IPictureDao<Picture, Integer> pictureDao;
 
     @Autowired
     private IGenericDao<Users, Integer> userDao;
@@ -66,25 +66,25 @@ public class PictureService implements IPictureService {
     
     private static final Logger LOGGER = Logger.getLogger(PictureService.class);
     
-    public List<Pictures> list(int shift, int count) {
+    public List<Picture> list(int shift, int count) {
         return pictureDao.rankList(shift, count);
     }
 
-    public Pictures getPicture(Integer id) {
+    public Picture getPicture(Integer id) {
         return pictureDao.find(id);
     }
 
-    public void addPicture(Pictures pic) {
+    public void addPicture(Picture pic) {
         pictureDao.add(pic);
     }
 
     public void removePicture(Integer id) {
-        Pictures entity = pictureDao.find(id);
+        Picture entity = pictureDao.find(id);
         pictureDao.remove(entity);
     }
 
     @Override
-    public void savePicture(Pictures pic, MultipartFile multipartFile) throws Exception {
+    public void savePicture(Picture pic, MultipartFile multipartFile) throws Exception {
         
         pic.setFilename(multipartFile.getOriginalFilename());
 
@@ -147,7 +147,7 @@ public class PictureService implements IPictureService {
     @Override
     public void savePicture(String url) {
         
-        Pictures pic = new Pictures();
+        Picture pic = new Picture();
         String username = getLoginedUserName();
         String pathToFile = DATA + File.separator + username + File.separator + IMAGES;
         File dir = createDirs(rootPath + pathToFile);

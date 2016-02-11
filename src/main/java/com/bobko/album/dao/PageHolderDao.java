@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 import com.bobko.album.common.AlbumConst;
 import com.bobko.album.dao.interfaces.IPagesHolderDao;
 import com.bobko.album.domain.AlbumPage;
-import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Picture;
 
 @Repository
 public class PageHolderDao implements IPagesHolderDao {
@@ -43,7 +43,7 @@ public class PageHolderDao implements IPagesHolderDao {
      * */
     private List<AlbumPage> createPagesList() {
         Session session = sessionFactory.getCurrentSession();
-        rowCount = ((Number) session.createCriteria(Pictures.class).setProjection(Projections.rowCount()).uniqueResult()).intValue();
+        rowCount = ((Number) session.createCriteria(Picture.class).setProjection(Projections.rowCount()).uniqueResult()).intValue();
         
         pagesCount = ((int) Math.ceil(rowCount / (double) AlbumConst.PICTURE_COUNT)) - 1;
         

@@ -3,11 +3,16 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="url">${req.requestURL}</c:set>
+<c:set var="uri" value="${req.requestURI}" />
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="shortcut icon" href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/resources/favicon.ico" />
 <link type="text/css" rel="stylesheet" href="<spring:url value="resources/css/bootstrap.min.css"/>" />
 <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/sticky-footer-navbar.css" rel="stylesheet">
@@ -52,13 +57,13 @@
 			}
 		});
 </script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53f3b27b3fa051c3"></script>        
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53f3b27b3fa051c3"></script>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 
 <body>
 	<a href="https://github.com/oleksiiBobko/album"><img
-		style="position: absolute; top: 50px; right: 0; border: 0;"
+		style="position: fixed; top: 50px; right: 0; border: 0;"
 		src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
 		alt="Fork me on GitHub"
 		data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>

@@ -34,7 +34,7 @@ public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
             authentication.getName();
         }
 
-        setDefaultTargetUrl("/login");
+        setDefaultTargetUrl("/content");
         super.onLogoutSuccess(request, response, authentication);
     }
 }

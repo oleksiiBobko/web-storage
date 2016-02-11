@@ -17,7 +17,7 @@ public class AlbumPage {
     /**
      * isActive = true when page is active. and vice versa   
      * */
-    private boolean isActive;    
+    private boolean isActive;
     
     public AlbumPage(int index, boolean isActive) {
         this.index = index;

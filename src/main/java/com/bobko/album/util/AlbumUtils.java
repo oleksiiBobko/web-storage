@@ -20,7 +20,7 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
-import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Picture;
 
 public class AlbumUtils {
     
@@ -77,8 +77,8 @@ public class AlbumUtils {
         }
     }
 
-    public static void correctPaths(List<Pictures> pictures) {
-        for (Pictures picture : pictures) {
+    public static void correctPaths(List<Picture> pictures) {
+        for (Picture picture : pictures) {
             picture.setPath(picture.getPath().replace("\\", "/"));
         }
         

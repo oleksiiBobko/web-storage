@@ -42,7 +42,7 @@ public class RegistrationController {
     public String createNewUser(@Valid @ModelAttribute("user") Users user, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "registration-page";
+            return "registration";
         }
         try {
             userService.addUser(user);

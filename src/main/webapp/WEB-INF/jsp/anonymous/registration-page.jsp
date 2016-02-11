@@ -22,13 +22,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="InputEmail">Confirm Email</label>
-                    <div class="input-group">
-                        <sf:input type="email" path="email" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Confirm Email" />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="passwd">Enter Password</label>
                     <div class="input-group">
                         <sf:input type="password" path="pw" id="InputPasswordFirst" class="form-control"/>
@@ -39,7 +32,7 @@
                 <div class="form-group">
                     <label for="passwd">Confirm Password</label>
                     <div class="input-group">
-                        <textfield type="password" id="InputPasswordSecond" class="form-control"></textfield>
+                        <sf:input type="password" path="pw" id="InputPasswordSecond" class="form-control" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>

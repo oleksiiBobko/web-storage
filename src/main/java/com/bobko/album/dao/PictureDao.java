@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import com.bobko.album.dao.base.HibernateDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
-import com.bobko.album.domain.Pictures;
+import com.bobko.album.domain.Picture;
 
 @Repository
-public class PictureDao extends HibernateDao<Pictures, Integer> implements
-        IPictureDao<Pictures, Integer> {
+public class PictureDao extends HibernateDao<Picture, Integer> implements
+        IPictureDao<Picture, Integer> {
 }

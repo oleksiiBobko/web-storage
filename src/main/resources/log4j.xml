@@ -10,28 +10,6 @@
                 </layout>
         </appender>
 
-        <!-- Application Loggers -->
-        <logger name="net.schastny.contactmanager">
-                <level value="info" />
-        </logger>
-
-        <!-- 3rdparty Loggers -->
-        <logger name="org.springframework.core">
-                <level value="info" />
-        </logger>
-
-        <logger name="org.springframework.beans">
-                <level value="info" />
-        </logger>
-
-        <logger name="org.springframework.context">
-                <level value="info" />
-        </logger>
-
-        <logger name="org.springframework.web">
-                <level value="info" />
-        </logger>
-
         <appender name="album_log" class="org.apache.log4j.RollingFileAppender">
                 <param name="append" value="true" />
                 <param name="maxFileSize" value="20MB" />
@@ -44,7 +22,6 @@
 
         <root>
                 <level value="debug" />
-                <appender-ref ref="console" />
                 <appender-ref ref="album_log" />
         </root>
 

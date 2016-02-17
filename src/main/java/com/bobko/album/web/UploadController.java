@@ -46,7 +46,7 @@ public class UploadController {
 
     private static final Logger LOGGER = Logger.getLogger(UploadController.class);
     
-    private static final String REDIRECT_CONTENT_PAGE = "redirect:/content"; 
+    private static final String REDIRECT_CONTENT_PAGE = "redirect:/"; 
     
     /**
      * rootPath contains path which will be use to save uploaded pictures
@@ -54,7 +54,7 @@ public class UploadController {
     @Value("${data.root.path}")
     String rootPath;
 
-    @RequestMapping("/content")
+    @RequestMapping("/")
     public String getContent(Map<String, Object> map,
             HttpServletRequest request) {
 

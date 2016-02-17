@@ -12,22 +12,30 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Album</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-            <li><a href="<c:url value="#"/>">About Us</a></li>
+            <ul class="nav navbar-nav">
+            <!--li><a href="<c:url value="#"/>">About Us</a></li>
             <li><a href="<c:url value="#" />">Messages</a></li>
-            <li><a href="<c:url value="#" />">Audio</a></li>
-            <li><a href="<c:url value="/add" />"><spring:message code="label.add" /></a></li>
-            <li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>
-            </ul>
+            <li><a href="<c:url value="#" />">Audio</a></li-->
+            <c:if test="${not authorized}">
+            <li><a href="<c:url value="/login" />">Login</a></li>
+            </c:if>
             <c:if test="${authorized}">
-            <form:form method="post" action="grab" commandName="url" enctype="multipart/form-data" id="grub" class="navbar-form navbar-right">
-            <form:input type="text" placeholder="Search..." class="form-control" path="URL" />
-            <input type="submit" class="btn btn-success" value="<spring:message code="label.grab" />" />
-            </form:form>  
-            </c:if>        
+            <li>
+                <form:form method="post" action="grab" commandName="url" enctype="multipart/form-data" id="grub" class="navbar-form navbar-right">
+                <form:input type="text" placeholder="Search..." class="form-control" path="URL" />
+                <input type="submit" class="btn btn-success" value="<spring:message code="label.grab" />" />
+                </form:form>
+            </li>
+<li><a href="<c:url value="/add" />">Upload</a></li>
+
+<li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>
+<li><span>You logined as:<b><sec:authentication property="principal.username" /></b></span></li>
+
+            </li>
+            </c:if>
+            </ul>
             </div>
-            </div>
+        </div>
     </nav>

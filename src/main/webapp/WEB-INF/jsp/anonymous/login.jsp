@@ -11,25 +11,27 @@
 <link rel="stylesheet" href="resources/css/signin.css" />
 </head>
 <body>
-	<div class="container">
-				<form class="form-signin" name="login" method="post" action="<c:url value="/j_spring_security_check" />">
-                <c:if test="${not empty param.error}">
-                    <font color="red"> <spring:message code="label.loginerror" /> : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-                    </font>
-                </c:if>				
-					<input value="false" name="returning" id="returning" type="hidden">
-					<label class="sr-only" for="email"> <spring:message code="label.login" /></label>
-					<input id="email" placeholder="Email address" name="j_username" type="text" class="form-control">
-					<label class="sr-only" for="password">Password</label>
-					<input class="form-control"  placeholder="Password" name="j_password" id="inputPassword" type="password">
-					<a href="#">Forgot password?</a>
-					<span>|</span>
-					<a href="<c:url value="/registration" />"><spring:message code="label.registration" /></a>
-					<div class="checkbox">
-					   <label><input type="checkbox" value="remember-me">Remember me</label>
-					</div>
-					<input class="btn btn-lg btn-primary btn-block" type="submit" value="<spring:message code="label.login" />" />
-				</form>
-	</div>
+<div class="container">
+<form class="form-signin" name="login" method="post" action="<c:url value="/j_spring_security_check" />">
+<c:if test="${not empty param.error}">
+<font color="red"> <spring:message code="label.loginerror" /> : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+</font>
+</c:if>				
+<input value="false" name="returning" id="returning" type="hidden">
+<label class="sr-only" for="email"> <spring:message code="label.login" /></label>
+<input id="email" placeholder="Email address" name="j_username" type="text" class="form-control">
+<label class="sr-only" for="password">Password</label>
+<input class="form-control"  placeholder="Password" name="j_password" id="inputPassword" type="password">
+<a href="#">Forgot password?</a>
+<span>|</span>
+<a href="<c:url value="/registration" />"><spring:message code="label.registration" /></a>
+<span>|</span>
+<a href="<c:url value="/content" />"><spring:message code="label.content" /></a>
+<div class="checkbox">
+<label><input type="checkbox" value="remember-me">Remember me</label>
+</div>
+<input class="btn btn-lg btn-primary btn-block" type="submit" value="<spring:message code="label.login" />" />
+</form>
+</div>
 </body>
 </html>

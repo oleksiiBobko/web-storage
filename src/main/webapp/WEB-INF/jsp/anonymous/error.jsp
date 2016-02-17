@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>404 Page</title>
 </head>
 <body>
 <h1>Page not found</h1>
-<a href="<c:url value="/content" />"><spring:message code="label.album"/></a>
+<a href="<c:url value="/" />"><spring:message code="label.album"/></a>
 </body>
 </html>

@@ -32,14 +32,16 @@
                 <div class="form-group">
                     <label for="passwd">Confirm Password</label>
                     <div class="input-group">
-                        <sf:input type="password" path="pw" id="InputPasswordSecond" class="form-control" />
+                        <textfield type="password" id="InputPasswordSecond" class="form-control"></textfield>
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 
                 <input type="submit" value="<spring:message code="label.registration"/>" class="btn btn-info pull-right" />
             </div>
-            <a href="<c:url value='/login'/>"><spring:message code="label.login" /></a>
+<a href="<c:url value='/login'/>"><spring:message code="label.login" /></a>
+|</span>
+<a href="<c:url value="/" />"><spring:message code="label.content" /></a>
         </sf:form>
 <!--         <div class="col-lg-5 col-md-push-1"> -->
 <!--             <div class="col-md-12"> -->

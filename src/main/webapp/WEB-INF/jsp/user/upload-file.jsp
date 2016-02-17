@@ -14,7 +14,7 @@
 
 <div class="container">
     <div class="row">
-            <a href="<c:url value="/pictures" />"><spring:message code="label.album"/></a>
+            <a href="<c:url value="/" />"><spring:message code="label.content"/></a>
             <form:form method="post" action="save.html" commandName="picture" enctype="multipart/form-data">
             <div class="col-lg-6">
                 <!--form:errors path="*" cssClass="error"/-->

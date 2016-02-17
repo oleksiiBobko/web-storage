@@ -3868,6 +3868,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
   padding: 10px 15px;
 }
+.nav > li > span {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
@@ -4214,6 +4221,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-bottom: 10px;
   line-height: 20px;
 }
+.navbar-nav > li > span{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 20px;
+}
+@
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
@@ -4249,6 +4262,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding-top: 15px;
     padding-bottom: 15px;
   }
+  .navbar-nav > li > span {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
 }
 .navbar-form {
   padding: 10px 15px;

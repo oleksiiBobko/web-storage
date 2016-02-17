@@ -8,19 +8,19 @@
 <meta name="author" content="oleksii.bobko">
 <title>Login</title>
 <link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="resources/css/signin.css" />
+<link rel="stylesheet" href="resources/css/default.css" />
 </head>
 <body>
-	<div class="container">
-				<form class="form-signin" name="login" method="post" action="<c:url value="/j_spring_security_check" />">
+    <div class="container">
+                <form class="form-signin" name="login" method="post" action="<c:url value="/j_spring_security_check" />">
                 <c:if test="${not empty param.error}">
                     <font color="red"> <spring:message code="label.loginerror" /> : ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
                     </font>
-                </c:if>				
-					<input value="false" name="returning" id="returning" type="hidden">
-					<label class="sr-only" for="email"> <spring:message code="label.login" /></label>
-					<input id="email" placeholder="Email address" name="j_username" type="text" class="form-control">
-					<label class="sr-only" for="password">Password</label>
+                </c:if>
+                    <input value="false" name="returning" id="returning" type="hidden">
+                    <label class="sr-only" for="email"> <spring:message code="label.login" /></label>
+                    <input id="email" placeholder="Email address" name="j_username" type="text" class="form-control">
+                    <label class="sr-only" for="password">Password</label>
 					<input class="form-control"  placeholder="Password" name="j_password" id="inputPassword" type="password">
 					<a href="#">Forgot password?</a>
 					<span>|</span>

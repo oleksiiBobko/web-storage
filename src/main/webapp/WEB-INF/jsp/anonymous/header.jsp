@@ -12,14 +12,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Album</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-            <li><a href="<c:url value="#"/>">About Us</a></li>
+            <!--li><a href="<c:url value="#"/>">About Us</a></li>
             <li><a href="<c:url value="#" />">Messages</a></li>
-            <li><a href="<c:url value="#" />">Audio</a></li>
-            <li><a href="<c:url value="/add" />">Upload</a></li>
+            <li><a href="<c:url value="#" />">Audio</a></li-->
             <c:if test="${not authorized}">
             <li><a href="<c:url value="/login" />">Login</a></li>
             </c:if>
@@ -30,9 +28,11 @@
                 <input type="submit" class="btn btn-success" value="<spring:message code="label.grab" />" />
                 </form:form>
             </li>
-            <li><a href="<c:url value="#" />"><sec:authentication property="principal.username" /></a></li>
-            <li>
-                <a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a>            
+<li><a href="<c:url value="/add" />">Upload</a></li>
+
+<li><a href="<c:url value="/logout" />"><spring:message code="label.logout" /></a></li>     
+<li><span>You logined as:<b><sec:authentication property="principal.username" /></b></span></li>
+ 
             </li>
             </c:if>
             </ul>

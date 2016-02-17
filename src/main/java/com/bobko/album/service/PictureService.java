@@ -127,12 +127,14 @@ public class PictureService implements IPictureService {
         
         File thumbnail = new File(thumbnailDir + name);
         BufferedImage bufferedImage = ImageIO.read(image);
-        bufferedImage = AlbumUtils.correctingSize(bufferedImage);
-        //TODO create thumbnail creator
-        //ImageIO.write(bufferedImage, suffix.substring(1), thumbnail);
         
-        pic.setPath(pathToFile + name);
-//        pic.setThumbnail(pathToThumbnail + name);
+        if (bufferedImage != null) { 
+            bufferedImage = AlbumUtils.correctingSize(bufferedImage);
+            //TODO create thumbnail creator
+            ImageIO.write(bufferedImage, suffix.substring(1), thumbnail);
+            pic.setPath(pathToFile + name);
+            pic.setThumbnail(pathToThumbnail + name);
+        }
         
         Users user = userDao.getByField("login", username).get(0);
 

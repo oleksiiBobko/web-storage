@@ -115,7 +115,7 @@ public class UploadControllerTest {
 //    @Test
     public void testHome() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/");
-        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/content"));
+        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/"));
     }
     
     @Test
@@ -137,7 +137,7 @@ public class UploadControllerTest {
         param("description", "on vocation").
         param("filename", "1.jpg");
         
-        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/content"));
+        mockMvc.perform(requestBuilder).andExpect(status().isFound()).andExpect(view().name("redirect:/"));
     }
     
     @Test

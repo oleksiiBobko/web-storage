@@ -1,0 +1,7 @@
+/target
+/.settings
+.classpath
+.project
+src/main/resources/log4j.xml
+src/main/webapp/WEB-INF/jdbc.properties
+

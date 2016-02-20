@@ -12,9 +12,16 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="http://tomcat-bobkofiles.rhcloud.com"/>
+<meta property="og:title" content="Store your files here"/>
+<meta property="og:site_name" content="Free File storage"/>
+<meta property="og:image" content="resources/images/logo.png"/>
+<meta property="og:description" content="This is the best place to find yourself as a puppy artist. JK)"/>
 <link rel="shortcut icon" href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/resources/favicon.ico" />
 <link type="text/css" rel="stylesheet" href="<spring:url value="resources/css/bootstrap.min.css"/>" />
 <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="resources/css/social-sharing.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/sticky-footer-navbar.css" rel="stylesheet">
 <link href="resources/style/highslide.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="resources/js/script.js"></script>
@@ -58,7 +65,6 @@
 			}
 		});
 </script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53f3b27b3fa051c3"></script>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 

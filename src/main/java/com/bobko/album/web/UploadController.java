@@ -88,7 +88,7 @@ public class UploadController {
             picService.savePicture(pic, file);
         } catch (Exception e) {
             LOGGER.error("Error on save occured", e);
-            return "redirect:/content?error=true";
+            return "redirect:/?error=true";
         }
 
         return REDIRECT_CONTENT_PAGE;

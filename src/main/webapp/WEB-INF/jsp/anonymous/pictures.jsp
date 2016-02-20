@@ -11,7 +11,7 @@
 	<font color="red"> <spring:message code="label.addError" /></font>
 </c:if>
 <c:if test="${!empty pictures}">
-	<div>
+    <div class="container">
 		<c:forEach items="${pictures}" var="picture">
 			<div>
 				<c:if test="${authorized}">
@@ -19,12 +19,16 @@
 				</c:if>
 			</div>
 			<c:if test="${not empty picture.thumbnail}">
+			<div align="center">
 			<a href='<c:url value="${picture.path}"/>' class="highslide" onclick="return hs.expand(this)">
-				<img src="${picture.thumbnail}" alt="${picture.filename}" title="Click to enlarge" />
-			</a><br>
+				<img src="${picture.thumbnail}" class="img-responsive img-rounded" alt="${picture.filename}" title="Click to enlarge" />
+			</a>
+			</div>
 			</c:if>
+			<div>
 			<a href='<c:url value="${picture.path}"/>' target="_blank" >${picture.filename}</a>
-			<div class="highslide-caption">${picture.description}</div><br>
+			</div>
+			<div class="highslide-caption">${picture.description}</div>
 			<hr/>
 		</c:forEach>
 	</div>

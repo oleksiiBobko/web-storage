@@ -122,7 +122,7 @@ public class PictureService implements IPictureService {
         
         String name = File.separator + uuid + suffix;
         
-        File image = new File(dir + name);
+        File image = new File(dir + File.separator + fileName);
         multipartFile.transferTo(image);
         
         File thumbnail = new File(thumbnailDir + name);
@@ -132,9 +132,10 @@ public class PictureService implements IPictureService {
             bufferedImage = AlbumUtils.correctingSize(bufferedImage);
             //TODO create thumbnail creator
             ImageIO.write(bufferedImage, suffix.substring(1), thumbnail);
-            pic.setPath(pathToFile + name);
             pic.setThumbnail(pathToThumbnail + name);
         }
+        
+        pic.setPath(pathToFile + File.separator + fileName);
         
         Users user = userDao.getByField("login", username).get(0);
 

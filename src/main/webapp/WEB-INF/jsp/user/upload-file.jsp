@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
             <a href="<c:url value="/" />"><spring:message code="label.content"/></a>
-            <form:form method="post" action="save.html" commandName="picture" enctype="multipart/form-data">
+            <form:form method="post" action="save" commandName="picture" enctype="multipart/form-data">
             <div class="col-lg-6">
                 <!--form:errors path="*" cssClass="error"/-->
                 <div class="form-group">

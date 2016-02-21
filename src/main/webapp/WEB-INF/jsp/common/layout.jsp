@@ -7,18 +7,27 @@
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="url">${req.requestURL}</c:set>
 <c:set var="uri" value="${req.requestURI}" />
+<c:set var="ctxt" value="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}" />
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="http://tomcat-bobkofiles.rhcloud.com"/>
 <meta property="og:title" content="Store your files here"/>
 <meta property="og:site_name" content="Free File storage"/>
-<meta property="og:image" content="resources/images/logo.png"/>
 <meta property="og:description" content="This is the best place to find yourself as a puppy artist. JK)"/>
-<link rel="shortcut icon" href="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/resources/favicon.ico" />
+<meta property="og:image" content="${ctxt}/resources/images/logo.png" />
+<meta property="og:url" content="${ctxt}"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="@files"/>
+<meta name="twitter:title" content="Store your files here"/>
+<meta name="twitter:description" content="This is the best place to find yourself as a puppy artist. JK)"/>
+<meta name="twitter:image" content="${ctxt}/resources/images/logo.png"/>
+<meta name="twitter:url" content="${ctxt}"/>
+
+<link rel="shortcut icon" href="${ctxt}/resources/favicon.ico" />
 <link type="text/css" rel="stylesheet" href="<spring:url value="resources/css/bootstrap.min.css"/>" />
 <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="resources/css/social-sharing.css" rel="stylesheet" type="text/css" />
@@ -30,6 +39,7 @@
 <script type="text/javascript" src="resources/js/script.js"></script>
 <script type="text/javascript" src="resources/js/highslide-with-gallery.js"></script>
 <meta http-equiv="Content-Type" content="text/html;">
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53f3b27b3fa051c3"></script>
 <style type="text/css">
 @media ( min-width : 768px) {
 	.navbar .navbar-nav {

@@ -50,6 +50,11 @@ public class PictureGrabber implements IPictureGrabber {
         if (!dir.exists()) {
             dir.mkdirs();
         }
+        
+        if(!url.getURL().endsWith(".htm") && !url.getURL().endsWith(".html")) {
+            picService.savePicture(url.getURL());
+            return;
+        }
 
         urls = createURLList(url.getURL());
         
@@ -90,7 +95,7 @@ public class PictureGrabber implements IPictureGrabber {
 
                 // read contents into string buffer
                 StringBuffer input = new StringBuffer();
-
+                
                 int ch;
                 while ((ch = in.read()) != -1) {
                     input.append((char) ch);

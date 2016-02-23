@@ -151,6 +151,15 @@ public class PictureService implements IPictureService {
     public void savePicture(String url) {
         
         Picture pic = new Picture();
+        
+        int slashIndex = url.lastIndexOf('/');
+        String originalFileName = url.substring(slashIndex + 1);
+        if ((originalFileName != null) && !originalFileName.isEmpty()) {
+            pic.setFilename(originalFileName);
+        } else {
+            pic.setFilename("imgUrl");
+        }
+        
         String username = getLoginedUserName();
         String pathToFile = DATA + File.separator + username + File.separator + IMAGES;
         File dir = createDirs(rootPath + pathToFile);
@@ -176,7 +185,7 @@ public class PictureService implements IPictureService {
             
             name = File.separator + uuid + "." + suffix;
             
-            File image = new File(dir + name);
+            File image = new File(dir + File.separator + pic.getFilename());
             
             outStream = new BufferedOutputStream(new FileOutputStream(image));
 
@@ -202,8 +211,8 @@ public class PictureService implements IPictureService {
                 
                 BufferedImage bufferedImage = ImageIO.read(image);
                 
-                if(suffix.equalsIgnoreCase(JPG)
-                        || suffix.equalsIgnoreCase(PNG)) {
+                if(bufferedImage != null) {
+                if(suffix.equalsIgnoreCase(JPG) || suffix.equalsIgnoreCase(PNG)) {
                     bufferedImage = AlbumUtils.correctingSize(bufferedImage);
                     ImageIO.write(bufferedImage, suffix, thumbnail);
                 } else {
@@ -219,6 +228,9 @@ public class PictureService implements IPictureService {
                     
                 }
                 
+                pic.setThumbnail(pathToThumbnail + name);
+                
+                }
             }
 
         } catch (Exception e) {
@@ -236,19 +248,11 @@ public class PictureService implements IPictureService {
             }
         }
         
-        pic.setPath(pathToFile + name);
-        pic.setThumbnail(pathToThumbnail + name);
         Users user = userDao.getByField("login", username).get(0);
         pic.setUser(user);
         pic.setDescription(AlbumUtils.getPureAdress(url));
         
-        int slashIndex = url.lastIndexOf('/');
-        String originalFileName = url.substring(slashIndex + 1);
-        if ((originalFileName != null) && !originalFileName.isEmpty()) {
-            pic.setFilename(originalFileName);
-        } else {
-            pic.setFilename("imgUrl");
-        }
+        pic.setPath(pathToFile + File.separator + pic.getFilename());
         
         pic.setOwner(username);
         

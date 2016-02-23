@@ -17,14 +17,14 @@
 <meta property="og:title" content="Store your files here"/>
 <meta property="og:site_name" content="Free File storage"/>
 <meta property="og:description" content="This is the best place to find yourself as a puppy artist. JK)"/>
-<meta property="og:image" content="${ctxt}/resources/images/logo.png" />
+<meta property="og:image" content="${ctxt}/resources/images/logo.jpg" />
 <meta property="og:url" content="${ctxt}"/>
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:site" content="@files"/>
+<meta name="twitter:site" content="@FILES"/>
 <meta name="twitter:title" content="Store your files here"/>
 <meta name="twitter:description" content="This is the best place to find yourself as a puppy artist. JK)"/>
-<meta name="twitter:image" content="${ctxt}/resources/images/logo.png"/>
+<meta name="twitter:image" content="${ctxt}/resources/images/logo.jpg"/>
 <meta name="twitter:url" content="${ctxt}"/>
 
 <link rel="shortcut icon" href="${ctxt}/resources/favicon.ico" />

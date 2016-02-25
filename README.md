@@ -7,7 +7,7 @@ Generic dao + Hibernate + c3p0
 
 Mock testing not implemented yet.
 
-http://tomcat-bobkofiles.rhcloud.com/content
+http://tomcat-bobkofiles.rhcloud.com
 
 
 do not forget to add jdbc.properties file into WEB-INF directory

@@ -13,7 +13,7 @@ http://tomcat-bobkofiles.rhcloud.com
 do not forget to add jdbc.properties file into WEB-INF directory
 
 example:
-
+```
 jdbc.driverClassName=com.mysql.jdbc.Driver
 jdbc.url=jdbc:mysql://127.0.0.1:3306/album
 jdbc.username=root
@@ -30,3 +30,4 @@ hibernate.auto_close_session = true
 
 data.root.path=/home/oleksii/pictures/
 pagination.page.size=3
+```

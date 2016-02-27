@@ -14,8 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="pictures")
@@ -29,6 +31,8 @@ public class Picture {
     @Column(name="pic_owner")
     private String owner;
 
+    @NotNull
+    @NotEmpty
     @Column(name="filename")
     private String filename;
 

@@ -89,14 +89,14 @@ public class PictureService implements IPictureService {
         pic.setFilename(multipartFile.getOriginalFilename());
 
         //TODO: validate model
-        if ((pic.getOwner() == null)
-                || (pic.getOwner().isEmpty())
-                || (pic.getDescription() == null)
-                || (pic.getDescription().isEmpty())
-                || (pic.getFilename() == null)
-                || (pic.getFilename().isEmpty())) {
-            throw new Exception("Validation failed");
-        }
+//        if ((pic.getOwner() == null)
+//                || (pic.getOwner().isEmpty())
+//                || (pic.getDescription() == null)
+//                || (pic.getDescription().isEmpty())
+//                || (pic.getFilename() == null)
+//                || (pic.getFilename().isEmpty())) {
+//            throw new Exception("Validation failed");
+//        }
 
         String username = getLoginedUserName();
 

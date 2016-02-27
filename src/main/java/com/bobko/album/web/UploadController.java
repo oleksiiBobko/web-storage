@@ -73,8 +73,11 @@ public class UploadController {
      * redirect to add picture page method
      * */
     @RequestMapping("/add")
-    public String addNew(Map<String, Object> map) {
+    public String addNew(Map<String, Object> map,
+            HttpServletRequest request) {
         map.put("picture", new Picture());
+        map.put("url", new IncomingURL());
+        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
         return "upload";
     }
 
@@ -88,7 +91,7 @@ public class UploadController {
             picService.savePicture(pic, file);
         } catch (Exception e) {
             LOGGER.error("Error on save occured", e);
-            return "redirect:/?error=true";
+            return "redirect:/add?error=true";
         }
 
         return REDIRECT_CONTENT_PAGE;

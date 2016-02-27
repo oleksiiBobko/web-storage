@@ -15,9 +15,9 @@
 
     <context:annotation-config />
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
-                                         
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
@@ -61,9 +61,9 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+<!-- 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop> -->
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+<!-- 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop> -->
 				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
 				<prop key="hibernate.auto_close_session">${hibernate.auto_close_session}</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>

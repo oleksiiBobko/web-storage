@@ -1,47 +1,19 @@
 @CHARSET "UTF-8";
 
-.error {
-    color: red;
-    font-size: 12px;
+.navbar-btn {
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+.container .text-muted {
+margin: 13px 0;
 }
 
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+.centered-form{
+    margin-top: 60px;
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
+
+/* .centered-form .panel{ */
+/*     background: rgba(255, 255, 255, 0.8); */
+/*     box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px; */
+/* } */

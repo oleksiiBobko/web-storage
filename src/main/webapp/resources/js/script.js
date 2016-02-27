@@ -8,6 +8,7 @@ function validate(form) {
 		return true;
 	}
 
+
 /*function setRelativelySize(img) {
 	if(img.height > 300) {
 		img.style.height = '300px';

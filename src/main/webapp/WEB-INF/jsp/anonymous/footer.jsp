@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<!-- <p style="text-align: center;" class="text-muted"> -->
+<!-- 	Copyright © 2014 <a href="mailto:skellag@gmail.com">Oleksii Bobko</a>. -->
+<!-- 	All rights reserved. -->
+<!-- </p> -->
 <p style="text-align: center;" class="text-muted">
-	Copyright © 2014 <a href="mailto:skellag@gmail.com">Oleksii Bobko</a>.
-	All rights reserved.
 <!-- Twitter -->
 <a href="https://twitter.com/home?status=http%3A//tomcat-bobkofiles.rhcloud.com/" title="Share on Twitter"
 	target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i>

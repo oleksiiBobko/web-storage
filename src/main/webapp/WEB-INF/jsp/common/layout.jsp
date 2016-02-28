@@ -43,59 +43,59 @@
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53f3b27b3fa051c3"></script>
 <style type="text/css">
 @media ( min-width : 768px) {
-	.navbar .navbar-nav {
-		display: inline-block;
-		float: none;
-		vertical-align: top;
-	}
-	.navbar .navbar-collapse {
-		text-align: center;
-	}
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
 }
 </style>
 <script type="text/javascript">
-	hs.graphicsDir = '${pageContext.servletContext.contextPath}/resources/images/';
-	hs.align = 'center';
-	hs.transitions = [ 'expand', 'crossfade' ];
-	hs.outlineType = 'glossy-dark';
-	hs.wrapperClassName = 'dark';
-	hs.fadeInOut = true;
-	//hs.dimmingOpacity = 0.75;
-	// Add the controlbar
-	if (hs.addSlideshow)
-		hs.addSlideshow({
-			//slideshowGroup: 'group1',
-			interval : 5000,
-			repeat : false,
-			useControls : true,
-			fixedControls : 'fit',
-			overlayOptions : {
-				opacity : .6,
-				position : 'bottom center',
-				hideOnMouseOut : true
-			}
-		});
+    hs.graphicsDir = '${pageContext.servletContext.contextPath}/resources/images/';
+    hs.align = 'center';
+    hs.transitions = [ 'expand', 'crossfade' ];
+    hs.outlineType = 'glossy-dark';
+    hs.wrapperClassName = 'dark';
+    hs.fadeInOut = true;
+    //hs.dimmingOpacity = 0.75;
+    // Add the controlbar
+    if (hs.addSlideshow)
+        hs.addSlideshow({
+            //slideshowGroup: 'group1',
+            interval : 5000,
+            repeat : false,
+            useControls : true,
+            fixedControls : 'fit',
+            overlayOptions : {
+                opacity : .6,
+                position : 'bottom center',
+                hideOnMouseOut : true
+            }
+        });
 </script>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 
 <body>
-	<a href="https://github.com/oleksiiBobko/album"><img
-		style="position: fixed; top: 50px; right: 0; border: 0;"
-		src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-		alt="Fork me on GitHub"
-		data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
-	<tiles:insertAttribute name="header" />
-	<div class="container" style="text-align: center;">
-		<tiles:insertAttribute name="pagenation" />
-		<tiles:insertAttribute name="body" />
-		<tiles:insertAttribute name="pagenation" />
-	</div>
-	<footer class="footer">
-	<div class="container">
-		<tiles:insertAttribute name="footer" />
-	</div>
-	</footer>
+    <a href="https://github.com/oleksiiBobko/album"><img
+        style="position: fixed; top: 50px; right: 0; border: 0;"
+        src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
+        alt="Fork me on GitHub"
+        data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    <tiles:insertAttribute name="header" />
+    <div class="container" style="text-align: center;">
+        <tiles:insertAttribute name="pagenation" />
+        <tiles:insertAttribute name="body" />
+        <tiles:insertAttribute name="pagenation" />
+    </div>
+    <footer class="footer">
+    <div class="container">
+        <tiles:insertAttribute name="footer" />
+    </div>
+    </footer>
     <script src="resources/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="resources/js/script.js"></script>
 </body>

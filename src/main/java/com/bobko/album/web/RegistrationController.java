@@ -39,7 +39,7 @@ public class RegistrationController {
      * perform adding new user to db
      * */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String createNewUser(@Valid @ModelAttribute("user") Users user, BindingResult bindingResult, Model model) {
+    public String createNewUser(@Valid @ModelAttribute("user") Users user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -51,4 +51,5 @@ public class RegistrationController {
         }
         return "login";
     }
+    
 }

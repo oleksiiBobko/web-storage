@@ -18,80 +18,80 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages" />
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
 
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-		p:location="/WEB-INF/jdbc.properties" />
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+        p:location="/WEB-INF/jdbc.properties" />
 
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass" value="${jdbc.driverClassName}" />
-		<property name="jdbcUrl" value="${jdbc.url}" />
-		<property name="user" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
-		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
-		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
-		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
-	</bean>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+        <property name="minPoolSize" value="${c3p0.minPoolSize}" />
+        <property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+        <property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+    </bean>
 
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
 
-		<property name="packagesToScan">
-			<list>
-				<value>com.bobko.album.domain</value>
-			</list>
-		</property>
-		
-		<property name="namingStrategy">
-			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
-		</property>
-		<property name="hibernateProperties">
-			<props>
-<!-- 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop> -->
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-<!-- 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop> -->
-				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
-				<prop key="hibernate.auto_close_session">${hibernate.auto_close_session}</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-			</props>
-		</property>
+        <property name="packagesToScan">
+            <list>
+                <value>com.bobko.album.domain</value>
+            </list>
+        </property>
+        
+        <property name="namingStrategy">
+            <bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
+        </property>
+        <property name="hibernateProperties">
+            <props>
+<!--                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop> -->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+<!--                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop> -->
+                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.auto_close_session">${hibernate.auto_close_session}</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
 
-	</bean>
+    </bean>
 
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-<!-- 		<property name="maxUploadSize" value="10000000" /> -->
-	</bean>
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!--         <property name="maxUploadSize" value="10000000" /> -->
+    </bean>
 
-	<bean
-		class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>*/*</value>
-<!-- 				<value>image/jpeg</value> -->
-<!-- 				<value>image/pjpeg</value> -->
-<!-- 				<value>image/png</value> -->
-<!-- 				<value>image/svg+xml</value> -->
-<!-- 				<value>image/tiff</value> -->
-<!-- 				<value>image/vnd.microsoft.icon</value> -->
-<!-- 				<value>image/vnd.wap.wbmp</value> -->
-<!-- 				<value>image/jpg</value> -->
-			</list>
-		</property>
-	</bean>
+    <bean
+        class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>*/*</value>
+<!--                 <value>image/jpeg</value> -->
+<!--                 <value>image/pjpeg</value> -->
+<!--                 <value>image/png</value> -->
+<!--                 <value>image/svg+xml</value> -->
+<!--                 <value>image/tiff</value> -->
+<!--                 <value>image/vnd.microsoft.icon</value> -->
+<!--                 <value>image/vnd.wap.wbmp</value> -->
+<!--                 <value>image/jpg</value> -->
+            </list>
+        </property>
+    </bean>
 
 </beans>

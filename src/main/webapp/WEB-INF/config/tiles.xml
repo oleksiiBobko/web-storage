@@ -52,9 +52,18 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
     </definition>
     
+    <definition name="reset_password" extends="anonymousBaseTemplate">
+        <put-attribute name="title" value="Reset password"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/anonymous/reset-password.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
+    </definition>
+    
     <definition name="error" extends="anonymousBaseTemplate">
-        <put-attribute name="title" value="Content"/>
+        <put-attribute name="title" value="Error"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>
         <put-attribute name="body" value="/WEB-INF/jsp/anonymous/error.jsp"/>
-    </definition>    
+        <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
+    </definition>
     
 </tiles-definitions>

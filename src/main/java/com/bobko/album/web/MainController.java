@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.bobko.album.domain.Picture;
 import com.bobko.album.domain.Topic;
 
-//@Controller
+@Controller
 public class MainController {
     /**
      * default request mapping redirect requests to pictures page
@@ -36,6 +36,11 @@ public class MainController {
         
         model.put("topics", topics);
         return "main";
+    }
+    
+    @RequestMapping(value = "/reset_password")
+    public String forgot() {
+        return "reset_password";
     }
     
 }

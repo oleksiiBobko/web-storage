@@ -3,7 +3,7 @@ album
 
 Spring MVC + Security + web project which aimed to store files in DB.
 
-Front-end twitter bootstrap + JQuery
+Twitter bootstrap + JQuery
 
 Generic dao + Hibernate + c3p0
 

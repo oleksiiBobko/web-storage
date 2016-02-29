@@ -1,14 +1,15 @@
 album
 =====
 
-Spring MVC + Security + web project which aimed to store photos in DB.
+Spring MVC + Security + web project which aimed to store files in DB.
+
+Front-end twitter bootstrap + JQuery
 
 Generic dao + Hibernate + c3p0
 
-Mock testing not implemented yet.
+JUnit Mockito testing.
 
 http://tomcat-bobkofiles.rhcloud.com
-
 
 do not forget to add jdbc.properties file into WEB-INF directory
 

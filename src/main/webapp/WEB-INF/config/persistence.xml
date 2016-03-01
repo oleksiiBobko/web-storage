@@ -27,9 +27,19 @@
         <property name="defaultEncoding" value="UTF-8" />
     </bean>
 
-    <bean id="propertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-        p:location="/WEB-INF/jdbc.properties" />
+<!--     <bean id="propertyConfigurer" -->
+<!--         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" -->
+<!--         p:location="/WEB-INF/jdbc.properties" /> -->
+
+    <bean id="propertyConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:email.properties</value>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
         destroy-method="close">

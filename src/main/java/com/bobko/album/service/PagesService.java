@@ -16,7 +16,6 @@ import com.bobko.album.dao.interfaces.IPagesHolderDao;
 import com.bobko.album.domain.AlbumPage;
 import com.bobko.album.service.interfaces.IPagesService;
 
-
 @Service
 public class PagesService implements IPagesService {
 

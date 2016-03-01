@@ -35,7 +35,7 @@
         </property>
     </bean>
 
-    <context:property-placeholder location="WEB-INF/jdbc.properties" />
+<!--     <context:property-placeholder location="WEB-INF/jdbc.properties" /> -->
 
     <context:component-scan base-package="com.bobko.album.web" />
 

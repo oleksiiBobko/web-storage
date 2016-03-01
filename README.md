@@ -11,7 +11,7 @@ JUnit Mockito testing.
 
 http://tomcat-bobkofiles.rhcloud.com
 
-do not forget to add jdbc.properties file into WEB-INF directory
+do not forget to add jdbc.properties file into classpath
 
 example:
 ```

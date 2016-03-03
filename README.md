@@ -1,4 +1,4 @@
-album
+web-storage
 =====
 
 Spring MVC + Security + web project which aimed to store files in DB.

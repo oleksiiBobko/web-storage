@@ -2,8 +2,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bobko</groupId>
-    <artifactId>album</artifactId>
-    <name>album</name>
+    <artifactId>web-storage</artifactId>
+    <name>web-storage</name>
     <packaging>war</packaging>
     <version>1.0.0-BUILD-SNAPSHOT</version>
     <properties>
@@ -274,7 +274,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warName>album</warName>
+                    <warName>web-storage</warName>
                 </configuration>
             </plugin>
             <plugin>

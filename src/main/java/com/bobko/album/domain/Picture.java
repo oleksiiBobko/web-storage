@@ -51,13 +51,13 @@ public class Picture {
 
     @ManyToOne
     @JoinColumn(name = "userid")
-    private Users user;
+    private UserEntity user;
     
-    public Users getUser() {
+    public UserEntity getUser() {
         return this.user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

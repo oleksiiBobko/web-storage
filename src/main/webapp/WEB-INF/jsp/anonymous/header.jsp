@@ -32,13 +32,13 @@
     </c:if>
       <ul class="nav navbar-nav navbar-right">
         <c:if test="${not authorized}">
-            <li><button type="button" class="btn btn-info navbar-btn" id="signup_button">Sign up</button></li>
+            <li><button type="button" class="btn btn-info navbar-btn signup-button" id="signup_button">Sign up</button></li>
             <script>
                 $('#signup_button').click(function() {
                     window.location = "/registration";
                 });
             </script>
-            <li><button type="button" class="btn btn-default navbar-btn" id="signin_button" >Sign in</button></li>
+            <li><button type="button" class="btn btn-default navbar-btn signin-button" id="signin_button" >Sign in</button></li>
             <script>
                 $('#signin_button').click(function() {
                     window.location = "/login";

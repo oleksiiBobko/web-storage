@@ -6,7 +6,6 @@ package com.bobko.album.dao;
  * @see PictureDAO
  */
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.bobko.album.dao.base.HibernateDao;

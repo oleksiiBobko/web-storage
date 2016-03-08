@@ -8,11 +8,14 @@ package com.bobko.album.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -21,22 +24,33 @@ import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class UserEntity {
     
     @Id
     @GeneratedValue
     @Column(name="id")
     private int id;
-    @Size(min = 5, max = 32, message = "The login must be at least 6 characters long.")
+    
+    @Size(min = 5, max = 32, message = "The login must be at least 5 characters long.")
     @Column(name = "login")
     private String login;
+    
+    @Size(max = 32, message = "First name is too long.")
+    @Column(name = "first_name")
+    private String firstName;
+    
+    @Size(max = 32, message = "Last name is too long.")
+    @Column(name = "last_name")
+    private String lastName;
     
     @Email(regexp="^((?!\\.).*)@(.*)$", message = "Incorrect email format")
     @Column(name = "email")
     private String email;
     
-    @Column(name = "pw")
+    @Column(name = "pass")
     private String pw;
+    
+    private String pwConfirmation;
     
     @Column(name = "role")
     private String role;
@@ -47,6 +61,10 @@ public class Users {
     @OneToMany(targetEntity = Picture.class, mappedBy = "user")
     private List<Picture> pictures;
 
+    @OneToOne(mappedBy="user", cascade=CascadeType.ALL)
+    @JoinColumn(nullable = false, name = "id")
+    private ActivationToken token;
+    
     public int getId() {
         return id;
     }
@@ -97,6 +115,46 @@ public class Users {
 
     public List<Picture> getPictures() {
         return pictures;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPwConfirmation() {
+        return pwConfirmation;
+    }
+    
+    public ActivationToken getToken() {
+        return token;
+    }
+
+    public void setToken(ActivationToken token) {
+        this.token = token;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPwConfirmation(String pwConfirmation) {
+        this.pwConfirmation = pwConfirmation;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
     }
     
 }

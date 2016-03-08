@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bobko.album.common.UserRolesTypes;
-import com.bobko.album.domain.Users;
+import com.bobko.album.domain.UserEntity;
 import com.bobko.album.service.interfaces.IUserService;
 
 @Service("albumUserDetailsService")
@@ -38,16 +38,17 @@ public class AlbumUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String user)
             throws UsernameNotFoundException, DataAccessException {
 
-        Users userEntity = userService.getUserByName(user);
-        if (userEntity == null)         
+        UserEntity userEntity = userService.getUserByName(user);
+        if (userEntity == null) {
             throw new UsernameNotFoundException("user not found");
+        }
 
         List<GrantedAuthority> authorities = buildUserAuthority();
         
         return buildUserFromUserEntity(userEntity, authorities);
     }
 
-    private UserDetails buildUserFromUserEntity(Users user, List<GrantedAuthority> authorities) {
+    private UserDetails buildUserFromUserEntity(UserEntity user, List<GrantedAuthority> authorities) {
         return new User(user.getLogin(), user.getPw(), user.isActive(), true, true, true, authorities);
     }
 

@@ -1,19 +1,8 @@
 package com.bobko.album.dao.interfaces;
 
-import java.util.List;
+import com.bobko.album.dao.base.IGenericDao;
+import com.bobko.album.domain.UserEntity;
 
-public interface IUserDao<E, K> {
+public interface IUserDao extends IGenericDao<UserEntity, String> {
 
-    public void add(E entity);
-
-    public void update(E entity);
-
-    public void remove(E entity);
-
-    public E find(K key);
-
-    public List<E> list();
-
-    public List<E> rankList(int shift, int count);
-    
 }

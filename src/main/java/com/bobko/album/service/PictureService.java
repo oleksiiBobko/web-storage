@@ -22,10 +22,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ import com.bobko.album.common.AlbumConst;
 import com.bobko.album.dao.base.IGenericDao;
 import com.bobko.album.dao.interfaces.IPictureDao;
 import com.bobko.album.domain.Picture;
-import com.bobko.album.domain.Users;
+import com.bobko.album.domain.UserEntity;
 import com.bobko.album.service.interfaces.IPictureService;
 import com.bobko.album.util.AlbumUtils;
 
@@ -52,7 +52,7 @@ public class PictureService implements IPictureService {
     private IPictureDao<Picture, Integer> pictureDao;
 
     @Autowired
-    private IGenericDao<Users, Integer> userDao;
+    private IGenericDao<UserEntity, Integer> userDao;
     
     @Value("${data.root.path}")
     private String rootPath;
@@ -84,7 +84,7 @@ public class PictureService implements IPictureService {
     }
 
     @Override
-    public void savePicture(Picture pic, MultipartFile multipartFile) throws Exception {
+    public void savePicture(@Valid Picture pic, MultipartFile multipartFile) throws Exception {
         
         pic.setFilename(multipartFile.getOriginalFilename());
 
@@ -137,7 +137,7 @@ public class PictureService implements IPictureService {
         
         pic.setPath(pathToFile + File.separator + fileName);
         
-        Users user = userDao.getByField("login", username).get(0);
+        UserEntity user = userDao.getByField("login", username).get(0);
 
         pic.setUser(user);
         
@@ -248,7 +248,7 @@ public class PictureService implements IPictureService {
             }
         }
         
-        Users user = userDao.getByField("login", username).get(0);
+        UserEntity user = userDao.getByField("login", username).get(0);
         pic.setUser(user);
         pic.setDescription(AlbumUtils.getPureAdress(url));
         

@@ -38,7 +38,7 @@ public class Topic {
     
     @ManyToOne
     @JoinColumn(name = "userid")
-    private Users user;
+    private UserEntity user;
 
     public String getTitle() {
         return title;
@@ -72,11 +72,11 @@ public class Topic {
         this.rate = rate;
     }
 
-    public Users getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

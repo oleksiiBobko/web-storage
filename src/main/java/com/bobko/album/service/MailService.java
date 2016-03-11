@@ -22,5 +22,5 @@ public class MailService implements IMailService {
         message.setText(body);
         mailSender.send(message);
     }
-
+    
 }

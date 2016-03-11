@@ -12,9 +12,17 @@
     <context:component-scan base-package="com.bobko.album.dao" />
     <context:component-scan base-package="com.bobko.album.service" />
     <context:component-scan base-package="com.bobko.album.component" />
+    <context:component-scan base-package="com.bobko.album.listeners" />
+
+    <bean id="applicationEventMulticaster"
+        class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor">
+            <bean
+                class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" />
+        </property>
+    </bean>
 
     <import resource="persistence.xml" />
     <import resource="security.xml" />
     <import resource="email.xml" />
-
 </beans>

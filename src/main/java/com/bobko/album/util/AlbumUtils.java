@@ -86,7 +86,7 @@ public class AlbumUtils {
     
     public static String getMD5(String input) throws Exception {
 
-        MessageDigest messageDigest = null;        
+        MessageDigest messageDigest = null;
         String encoded = "";
         
         // encode pw to md5 hash

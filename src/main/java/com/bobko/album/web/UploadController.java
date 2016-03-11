@@ -52,7 +52,7 @@ public class UploadController {
      * rootPath contains path which will be use to save uploaded pictures
      * */
     @Value("${data.root.path}")
-    String rootPath;
+    private String rootPath;
 
     @RequestMapping("/")
     public String getContent(Map<String, Object> map,

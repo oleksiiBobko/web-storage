@@ -10,7 +10,7 @@ import com.bobko.album.domain.UserEntity;
 
 public interface IUserService {
 
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
     /**
      * add new user to db
      * */
@@ -29,5 +29,7 @@ public interface IUserService {
     public UserEntity getUserByName(String name);
     
     public UserEntity getUserByEmail(String email);
+
+    public void activateUser(String token);
     
 }

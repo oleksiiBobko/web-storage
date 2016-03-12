@@ -65,7 +65,7 @@ public class UploadController {
         map.put("url", new IncomingURL());
         map.put("pages", pagesService.list());
         map.put("pictures", pictures);
-        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
+        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
         return "content";
     }
 
@@ -77,7 +77,7 @@ public class UploadController {
             HttpServletRequest request) {
         map.put("picture", new Picture());
         map.put("url", new IncomingURL());
-        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_ADMIN));
+        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
         return "upload";
     }
 

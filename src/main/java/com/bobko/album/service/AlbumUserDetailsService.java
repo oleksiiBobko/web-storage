@@ -58,7 +58,7 @@ public class AlbumUserDetailsService implements UserDetailsService {
 
         // Build user's authorities
         //for (UserRole userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(UserRolesTypes.ROLE_ADMIN));
+            setAuths.add(new SimpleGrantedAuthority(UserRolesTypes.ROLE_USER));
         //}
 
         List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);

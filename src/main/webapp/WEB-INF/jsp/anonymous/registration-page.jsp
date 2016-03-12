@@ -1,6 +1,6 @@
 <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
     <div class="panel-body">
-        <form method="POST" modelAttribute="user" role="form">
+        <form class="submit_form" name="registration" action="registration" method="POST" >
             <div class="form-group">
                 <input type="text" name="login" id="login"
                     class="form-control input-sm"
@@ -34,5 +34,6 @@
             <input type="submit" value="Create an account"
                 class="btn btn-info btn-block">
         </form>
+        <div class='result'></div>
     </div>
 </div>

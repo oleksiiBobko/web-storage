@@ -37,8 +37,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript" src="resources/js/script.js"></script>
-<script type="text/javascript" src="resources/js/highslide-with-gallery.js"></script>
+<script type="text/javascript" src="resources/js/default.js"></script>
+<script type="text/javascript" src="resources/js/highslide-with-gallery.packed.js"></script>
 <meta http-equiv="Content-Type" content="text/html;">
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53f3b27b3fa051c3"></script>
 <style type="text/css">
@@ -97,6 +97,5 @@
     </div>
     </footer>
     <script src="resources/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="resources/js/script.js"></script>
 </body>
 </html>

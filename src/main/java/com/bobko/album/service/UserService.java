@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,9 @@ import com.bobko.album.dao.interfaces.IActivationTokenDao;
 import com.bobko.album.dao.interfaces.IUserDao;
 import com.bobko.album.domain.ActivationToken;
 import com.bobko.album.domain.UserEntity;
+import com.bobko.album.exceptions.TokenExpiredException;
+import com.bobko.album.exceptions.TokenVerifyedException;
+import com.bobko.album.exceptions.UserNotFoundException;
 import com.bobko.album.service.interfaces.IUserService;
 import com.bobko.album.util.AlbumUtils;
 
@@ -43,6 +47,8 @@ public class UserService implements IUserService {
         Md5PasswordEncoder encoder = new Md5PasswordEncoder();
         user.setPw(encoder.encodePassword(user.getPw(), null));
         
+        user.setPwConfirmation(null);
+        
         ActivationToken token = new ActivationToken(AlbumUtils.getUUID(), user);
         user.setToken(token);
         
@@ -56,11 +62,17 @@ public class UserService implements IUserService {
     }
 
     public UserEntity getUser(String name) {
+        if (name == null || name.isEmpty()) {
+            return null;
+        }
         return userDao.find(name);
     }
 
     @Override
     public UserEntity getUserByName(String name) {
+        if (name == null || name.isEmpty()) {
+            return null;
+        }
         List<UserEntity> result = userDao.getByField("login", name);
         return (result != null && !result.isEmpty()) ? result.get(0) : null;
     }
@@ -72,14 +84,25 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void activateUser(String token) {
+    public UserEntity activateUser(String token) throws TokenExpiredException, TokenVerifyedException, UserNotFoundException {
         List<ActivationToken> result = tokenDao.getByField("token", token);
-        
+        UserEntity user = null;
         if(result != null && !result.isEmpty()) {
             ActivationToken tokenEntity = result.get(0);
-            tokenEntity.getUser().setActive(true);
+            if(tokenEntity.isVerified()) {
+                throw new TokenVerifyedException();
+            }
+            
+            if(tokenEntity.isExpired()) {
+                throw new TokenExpiredException();
+            }
+            tokenEntity.setVerified(true);
+            user = tokenEntity.getUser();
+            user.setActive(true);
+        } else {
+            throw new UserNotFoundException();
         }
-        
+        return user;
     }
     
 }

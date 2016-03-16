@@ -7,6 +7,9 @@ package com.bobko.album.service.interfaces;
  */
 
 import com.bobko.album.domain.UserEntity;
+import com.bobko.album.exceptions.TokenExpiredException;
+import com.bobko.album.exceptions.TokenVerifyedException;
+import com.bobko.album.exceptions.UserNotFoundException;
 
 public interface IUserService {
 
@@ -30,6 +33,6 @@ public interface IUserService {
     
     public UserEntity getUserByEmail(String email);
 
-    public void activateUser(String token);
+    public UserEntity activateUser(String token) throws TokenExpiredException, TokenVerifyedException, UserNotFoundException;
     
 }

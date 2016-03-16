@@ -35,7 +35,8 @@ public class RegistrationInitiateListener implements ApplicationListener<OnRegis
         
         String confirmUrl = event.getConfirmUrl();
         
-        mailservice.sendMail(from, event.getUser().getEmail(), "noreply", confirmUrl);
+        mailservice.sendMail(from, event.getUser().getEmail(), "noreply",
+                "Please follow the link to confirm registration " + confirmUrl);
         
     }
 

@@ -5,11 +5,10 @@
     <div class="panel-body">
         <form class="submit_form" name="reset_password_form" action="send_reset_password_mail" method="POST">
             <div class="form-group">
-                <small>email address</small>
-                <input id="email" placeholder="Email address" class="form-control input-sm" name="email" type="text">
+                <input id="email" placeholder="Email address or nickname" class="form-control input-sm" name="email" type="text">
             </div>
             <div class="form-group">
-                <input class="btn btn-default btn-block submit" type="submit" value="reset" />
+                <input class="btn btn-info btn-block submit" type="submit" value="reset" />
             </div>
         </form>
         <div class='result'></div>

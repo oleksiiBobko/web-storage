@@ -17,9 +17,7 @@
                     placeholder="Last Name">
             </div>
             <div class="form-group">
-                <input type="email" name="email" id="email"
-                    class="form-control input-sm"
-                    placeholder="Email Address">
+                <input  type="text" name="email" id="email" class="form-control input-sm" placeholder="Email address" >
             </div>
             <div class="form-group">
                 <input type="password" name="pw" id="password"

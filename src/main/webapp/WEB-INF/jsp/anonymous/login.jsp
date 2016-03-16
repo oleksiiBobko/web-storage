@@ -24,7 +24,7 @@
                 <input type="checkbox" value="remember-me"><small>Remember me</small>
             </div>
             <div class="form-group">
-                <input class="btn btn-default btn-block" type="submit" value="<spring:message code="label.login" />" />
+                <input class="btn btn-info btn-block" type="submit" value="<spring:message code="label.login" />" />
             </div>
         </form>
     </div>

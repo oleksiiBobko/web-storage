@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class ActivationToken {
     @Column(name="token")
     private String token;
    
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private UserEntity user;
     
@@ -96,6 +97,12 @@ public class ActivationToken {
 
     public void setExpire(Timestamp expire) {
         this.expire = expire;
+    }
+
+    public boolean isExpired() {
+        long current = System.currentTimeMillis();
+        long expiration = expire.getTime();
+        return current > expiration;
     }
 
 }

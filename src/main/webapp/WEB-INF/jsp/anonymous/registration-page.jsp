@@ -29,8 +29,10 @@
                     class="form-control input-sm"
                     placeholder="Confirm Password">
             </div>
-            <input type="submit" value="Create an account"
-                class="btn btn-info btn-block">
+            <div class="form-group">
+                <input type="submit" value="Create an account"
+                    class="btn btn-info btn-block">
+            </div>
         </form>
         <div class='result'></div>
     </div>

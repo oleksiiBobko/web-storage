@@ -64,6 +64,12 @@
         <put-attribute name="body" value="/WEB-INF/jsp/anonymous/thankyou.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
     </definition>
+    <definition name="new_password" extends="anonymousBaseTemplate">
+        <put-attribute name="title" value="Account activation"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/anonymous/new-password.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/anonymous/footer.jsp"/>
+    </definition>
     <definition name="error" extends="anonymousBaseTemplate">
         <put-attribute name="title" value="Error"/>
         <put-attribute name="header" value="/WEB-INF/jsp/anonymous/header.jsp"/>

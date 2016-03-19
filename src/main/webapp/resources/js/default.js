@@ -30,7 +30,7 @@ $(document).ready(function() {
           success: function(data, textStatus, jqXHR) {
               console.log('success');
               if(jqXHR.status === 200) {
-                  $('.result').html('<div class="alert alert-success" role="alert">email sent</div>');
+                  $('.result').html('<div class="alert alert-success" role="alert">'+ jqXHR.responseText + '</div>');
                   window.setTimeout(function () {
                       $(".alert").fadeTo(500, 0).slideUp(500, function () {
                           $(this).remove();
@@ -39,8 +39,8 @@ $(document).ready(function() {
               }
             },
           error: function(jqXHR, textStatus, errorThrown) {
-              console.log('error');
-              $('.result').html('<div class="alert alert-danger" role="alert">error</div>');
+              console.log(jqXHR);
+              $('.result').html('<div class="alert alert-danger" role="alert">' + jqXHR.responseText + '</div>');
               window.setTimeout(function () {
                   $(".alert").fadeTo(500, 0).slideUp(500, function () {
                       $(this).remove();

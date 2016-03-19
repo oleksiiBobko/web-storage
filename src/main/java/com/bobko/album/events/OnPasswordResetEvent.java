@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationEvent;
 
 import com.bobko.album.domain.UserEntity;
 
-public class OnRegistrationInitiatedEvent extends ApplicationEvent {
+public class OnPasswordResetEvent extends ApplicationEvent {
 
     /**
      * 
@@ -14,7 +14,7 @@ public class OnRegistrationInitiatedEvent extends ApplicationEvent {
     private UserEntity user;
     private String url;
     
-    public OnRegistrationInitiatedEvent(UserEntity user,
+    public OnPasswordResetEvent(UserEntity user,
             String url) {
         super(user);
         this.user = user;

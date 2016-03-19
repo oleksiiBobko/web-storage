@@ -22,6 +22,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
+import com.bobko.album.util.AlbumUtils;
+
 @Entity
 @Table(name = "activation_token")
 public class ActivationToken {
@@ -51,9 +53,9 @@ public class ActivationToken {
         super();
     }
     
-    public ActivationToken(String token, UserEntity user) {
+    public ActivationToken(UserEntity user) {
         super();
-        this.token = token;
+        this.token = AlbumUtils.getUUID();
         this.user = user;
         this.expire = calculateExpiryDate(EXPIRATION);
         this.verified = false;
@@ -103,6 +105,12 @@ public class ActivationToken {
         long current = System.currentTimeMillis();
         long expiration = expire.getTime();
         return current > expiration;
+    }
+
+    public void reset() {
+        this.expire = calculateExpiryDate(EXPIRATION);
+        this.verified = false;
+        this.token = AlbumUtils.getUUID();
     }
 
 }

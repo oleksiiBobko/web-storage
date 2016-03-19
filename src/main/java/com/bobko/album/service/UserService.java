@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +19,9 @@ import com.bobko.album.domain.ActivationToken;
 import com.bobko.album.domain.UserEntity;
 import com.bobko.album.exceptions.TokenExpiredException;
 import com.bobko.album.exceptions.TokenVerifyedException;
+import com.bobko.album.exceptions.UserActivationException;
 import com.bobko.album.exceptions.UserNotFoundException;
 import com.bobko.album.service.interfaces.IUserService;
-import com.bobko.album.util.AlbumUtils;
 
 @Service
 @Transactional
@@ -49,7 +48,7 @@ public class UserService implements IUserService {
         
         user.setPwConfirmation(null);
         
-        ActivationToken token = new ActivationToken(AlbumUtils.getUUID(), user);
+        ActivationToken token = new ActivationToken(user);
         user.setToken(token);
         
         userDao.add(user);
@@ -84,25 +83,45 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserEntity activateUser(String token) throws TokenExpiredException, TokenVerifyedException, UserNotFoundException {
+    public void resetUser(UserEntity user) {
+        user.setActive(false);
+        user.getToken().reset();
+        userDao.update(user);
+    }
+
+    @Override
+    public UserEntity getUserByToken(String token, boolean activate)
+            throws TokenExpiredException, TokenVerifyedException,
+            UserNotFoundException {
         List<ActivationToken> result = tokenDao.getByField("token", token);
         UserEntity user = null;
-        if(result != null && !result.isEmpty()) {
+        if (result != null && !result.isEmpty()) {
             ActivationToken tokenEntity = result.get(0);
-            if(tokenEntity.isVerified()) {
+            if (tokenEntity.isVerified()) {
                 throw new TokenVerifyedException();
             }
-            
-            if(tokenEntity.isExpired()) {
+
+            if (tokenEntity.isExpired()) {
                 throw new TokenExpiredException();
             }
             tokenEntity.setVerified(true);
             user = tokenEntity.getUser();
-            user.setActive(true);
+            user.setActive(activate);
+            return user;
         } else {
             throw new UserNotFoundException();
         }
-        return user;
+    }
+
+    @Override
+    public void changeUserPassword(UserEntity user, String pw) throws UserActivationException {
+        if(user.isActive()) {
+            throw new UserActivationException();
+        }
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+        user.setPw(encoder.encodePassword(pw, null));
+        user.setActive(true);
+        userDao.update(user);
     }
     
 }

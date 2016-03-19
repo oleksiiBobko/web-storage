@@ -6,7 +6,11 @@ package com.bobko.album.domain;
  */
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +24,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 
 @Entity
@@ -155,6 +161,26 @@ public class UserEntity {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+    
+    public List<GrantedAuthority> getAuthorities() {
+
+        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+
+        // Build user's authorities
+        for (String userRole : getRole().split(",")) {
+            setAuths.add(new SimpleGrantedAuthority(userRole));
+        }
+
+        List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
+        return result;
+    }
+
+    public List<GrantedAuthority> getAuthorities(String userRole) {
+        List<GrantedAuthority> result = new ArrayList<GrantedAuthority>();
+        result.add(new SimpleGrantedAuthority(userRole));
+        return result;
+
     }
     
 }

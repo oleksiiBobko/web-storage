@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,7 +50,7 @@ public class RegistrationController {
           (HttpServletRequest request, @PathVariable String token, Model model) {
         UserEntity user = null;
         try {
-            user = userService.activateUser(token);
+            user = userService.getUserByToken(token, true);
         } catch (TokenExpiredException e) {
             LOG.warn("token expired " + user);
             model.addAttribute("message", "token.expired");
@@ -87,5 +91,30 @@ public class RegistrationController {
         
         return "thankyou";
     } 
+    
+    @RequestMapping(value = "/reset_password/{token}", method = RequestMethod.GET)
+    public String resetPassword
+          (HttpServletRequest request, @PathVariable String token, Model model) {
+        UserEntity user = null;
+        try {
+            user = userService.getUserByToken(token, false);
+        } catch (Exception e) {
+            LOG.warn("some error during password reset" + e.getMessage());
+            return "redirect:/";
+        }
+        
+        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities("PASSWORD_UPDATE"));
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        
+        model.addAttribute("user", new UserEntity());
+        return "redirect:/new_password";
+    }
+    
+    @RequestMapping(value = "/new_password" , method = RequestMethod.GET)
+    @PreAuthorize("hasRole('PASSWORD_UPDATE')")
+    public String newPassword(Model model) {
+        model.addAttribute("user", new UserEntity());
+        return "new_password";
+    }
     
 }

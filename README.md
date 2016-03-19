@@ -32,3 +32,11 @@ hibernate.auto_close_session = true
 data.root.path=/home/oleksii/pictures/
 pagination.page.size=3
 ```
+email.properties file
+
+```
+email.host=smtp.gmail.com
+email.port=587
+email.username=your_nameo@gmail.com
+email.password=secret
+```

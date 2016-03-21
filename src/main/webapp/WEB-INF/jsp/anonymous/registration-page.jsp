@@ -1,4 +1,3 @@
-<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
     <div class="panel-body">
         <form class="submit_form" name="registration" action="registration" method="POST" >
             <div class="form-group">
@@ -17,7 +16,9 @@
                     placeholder="Last Name">
             </div>
             <div class="form-group">
-                <input  type="text" name="email" id="email" class="form-control input-sm" placeholder="Email address" >
+            <input type="email" name="email" id="email"
+                class="form-control input-sm"
+                placeholder="Email address">
             </div>
             <div class="form-group">
                 <input type="password" name="pw" id="password"
@@ -36,4 +37,3 @@
         </form>
         <div class='result'></div>
     </div>
-</div>

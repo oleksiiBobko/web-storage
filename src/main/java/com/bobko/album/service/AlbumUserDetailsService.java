@@ -32,7 +32,10 @@ public class AlbumUserDetailsService implements UserDetailsService {
 
         UserEntity userEntity = userService.getUserByName(userStr);
         if (userEntity == null) {
-            throw new UsernameNotFoundException("user not found");
+            userEntity = userService.getUserByEmail(userStr);
+            if (userEntity == null) {
+                throw new UsernameNotFoundException("user not found");
+            }
         }
         
         User user = new User(userEntity.getLogin(), userEntity.getPw(),

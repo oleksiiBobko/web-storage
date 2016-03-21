@@ -86,7 +86,7 @@
         alt="Fork me on GitHub"
         data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
     <tiles:insertAttribute name="header" />
-    <div class="container" style="text-align: center;">
+    <div class="container">
         <tiles:insertAttribute name="pagenation" />
         <tiles:insertAttribute name="body" />
         <tiles:insertAttribute name="pagenation" />

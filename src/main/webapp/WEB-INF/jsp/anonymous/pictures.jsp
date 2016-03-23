@@ -17,24 +17,32 @@
     <div class="panel panel-default">
         <div>
             <c:if test="${authorized}">
-                <a href="<c:url value="/delete/${picture.id}" />" style="float:right; margin-right:6px;"><spring:message code="label.delete" /></a>
+                <a href="#" data-href="<c:url value="/delete/${picture.id}" />" style="float:right; margin-right:6px;"
+                data-toggle="modal" data-target="#confirm-delete">
+                <spring:message code="label.delete" /></a>
+
             </c:if>
         </div>
-        <c:if test="${not empty picture.thumbnail}">
-            <div align="center">
-                <a href='<c:url value="${picture.path}"/>' class="highslide" onclick="return hs.expand(this)">
-                <img src="${picture.thumbnail}" class="img-responsive img-rounded" alt="${picture.filename}" title="Click to enlarge" />
-                </a>
-            </div>
-        </c:if>
+<c:choose>
+    <c:when test="${not empty picture.thumbnail}">
+        <a href='<c:url value="${picture.path}"/>' class="highslide" onclick="return hs.expand(this)">
+        <img src="${picture.thumbnail}" class="img-responsive img-rounded" alt="${picture.filename}" title="Click to enlarge" />
+        </a>
+    </c:when>
+    <c:otherwise>
+         <p style="margin-left:6px;"><b>${picture.filename}</b></p>
+    </c:otherwise>
+</c:choose>
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse${picture.id}">details</a>
+                <a data-toggle="collapse" href="#collapse${picture.id}">details...</a>
             </h4>
         </div>
         <div id="collapse${picture.id}" class="panel-collapse collapse">
             <div class="panel-body">
-                <a href='<c:url value="${picture.path}"/>' target="_blank">${picture.filename}</a>
+                File: <a href='<c:url value="${picture.path}"/>' target="_blank">${picture.filename}</a><hr>
+                Original: <a href="#" >http://originallink.com/document.suffix</a><hr>
+                Size: over 9000Gb
             </div>
         </div>
         </div>
@@ -42,5 +50,6 @@
 <div>
 </div>
 </c:forEach>
+
 </div>
 </c:if>

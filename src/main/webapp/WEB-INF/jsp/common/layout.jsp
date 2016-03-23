@@ -80,6 +80,35 @@
 </head>
 
 <body>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+</div>
+
+<div class="modal-body">
+    <p>You are about to delete a file this procedure is irreversible.</p>
+    <p>Do you want to proceed?</p>
+    <p class="debug-url"></p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <a class="btn btn-danger btn-ok">Delete</a>
+</div>
+</div>
+</div>
+</div>
+<script>
+$(document).ready(function() {
+$('#confirm-delete').on('show.bs.modal', function(e) {
+$(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+$('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+});
+});
+</script>
+
     <a href="https://github.com/oleksiiBobko/album" class=".visible-xs-block, hidden-xs"><img
         style="position: absolute; top: 50px; right: 0; border: 0;"
         src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"

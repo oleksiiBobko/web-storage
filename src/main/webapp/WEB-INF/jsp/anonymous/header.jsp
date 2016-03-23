@@ -27,7 +27,7 @@
         <div class="form-group">
         <form:input type="text" placeholder="URL" class="form-control" path="URL" />
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Save</button>
       </form:form>
     </c:if>
       <ul class="nav navbar-nav navbar-right">

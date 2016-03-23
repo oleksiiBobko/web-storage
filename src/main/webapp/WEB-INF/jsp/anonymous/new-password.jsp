@@ -4,7 +4,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ page session="false"%>
 <sec:authorize access="hasRole('PASSWORD_UPDATE')">
-<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
     <div class="panel-body">
         <form class="submit_form" name="save_password" action="save_password" method="POST">
             <div class="form-group">

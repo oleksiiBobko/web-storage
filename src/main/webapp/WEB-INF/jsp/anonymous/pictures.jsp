@@ -11,18 +11,10 @@
 <font color="red"> <spring:message code="label.addError" /></font>
 </c:if>
 <c:if test="${!empty pictures}">
-<div class="container">
 <c:forEach items="${pictures}" var="picture">
+<h2>${picture.filename}</h2>
 <div class="panel-group">
     <div class="panel panel-default">
-        <div>
-            <c:if test="${authorized}">
-                <a href="#" data-href="<c:url value="/delete/${picture.id}" />" style="float:right; margin-right:6px;"
-                data-toggle="modal" data-target="#confirm-delete">
-                <spring:message code="label.delete" /></a>
-
-            </c:if>
-        </div>
 <c:choose>
     <c:when test="${not empty picture.thumbnail}">
         <a href='<c:url value="${picture.path}"/>' class="highslide" onclick="return hs.expand(this)">
@@ -30,20 +22,29 @@
         </a>
     </c:when>
     <c:otherwise>
-         <p style="margin-left:6px;"><b>${picture.filename}</b></p>
     </c:otherwise>
 </c:choose>
         <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse${picture.id}">details...</a>
-            </h4>
+            <h3 class="panel-title pull-left">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse${picture.id}">Show more...</button>
+            </h3>
+            <c:if test="${authorized}">
+            <a href="#" class="panel-title pull-right" data-href="<c:url value="/delete/${picture.id}" />"
+                data-toggle="modal" data-target="#confirm-delete">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+            </c:if>
+            <div class="clearfix"></div>
         </div>
-        <div id="collapse${picture.id}" class="panel-collapse collapse">
-            <div class="panel-body">
-                File: <a href='<c:url value="${picture.path}"/>' target="_blank">${picture.filename}</a><hr>
-                Original: <a href="#" >http://originallink.com/document.suffix</a><hr>
-                Size: over 9000Gb
-            </div>
+        <div class="panel-body">
+        <div id="collapse${picture.id}" class="panel-collapse collapse borderless">
+        <ul class="list-group">
+            <li class="list-group-item">File: <a href='<c:url value="${picture.path}"/>' target="_blank">${picture.filename}</a></li>
+            <li class="list-group-item">Original: <a href="#" >http://originallink.com/document.suffix</a></li>
+            <li class="list-group-item">Owner: <a href="#" >${picture.owner}</a></li>
+            <li class="list-group-item">Size: over 9000Gb</li>
+        </ul>
+        </div>
         </div>
         </div>
 </div>
@@ -51,5 +52,4 @@
 </div>
 </c:forEach>
 
-</div>
 </c:if>

@@ -88,18 +88,8 @@ public class PictureService implements IPictureService {
         
         pic.setFilename(multipartFile.getOriginalFilename());
 
-        //TODO: validate model
-//        if ((pic.getOwner() == null)
-//                || (pic.getOwner().isEmpty())
-//                || (pic.getDescription() == null)
-//                || (pic.getDescription().isEmpty())
-//                || (pic.getFilename() == null)
-//                || (pic.getFilename().isEmpty())) {
-//            throw new Exception("Validation failed");
-//        }
-
         String username = getLoginedUserName();
-
+        pic.setOwner(username);
         // normalize description length
         if (pic.getDescription().length() >= AlbumConst.MAX_DESCRIPTION_SIZE) {
             pic.setDescription(pic.getDescription().substring(0, AlbumConst.MAX_DESCRIPTION_SIZE));

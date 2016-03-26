@@ -18,7 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
 import com.bobko.album.util.AlbumUtils;
@@ -26,6 +25,10 @@ import com.bobko.album.util.AlbumUtils;
 @Service
 public class PictureGrabber implements IPictureGrabber {
 
+    private static final int SAVE_FILE = 1;
+    private static final int SAVE_LINK = 2;
+    private static final int EXTRACT_IMAGES = 3;
+    
     @Autowired
     private IPictureService picService;
 
@@ -43,7 +46,7 @@ public class PictureGrabber implements IPictureGrabber {
     private List<String> urls;
 
     @Override
-    public void grub(IncomingURL url) throws Exception {
+    public void grub(String url, int option) throws Exception {
         String userName = getLoginedUserName();
 
         File dir = new File(rootPath + "/" + userName + "/");
@@ -51,15 +54,21 @@ public class PictureGrabber implements IPictureGrabber {
             dir.mkdirs();
         }
         
-        if(!url.getURL().endsWith(".htm") && !url.getURL().endsWith(".html")) {
-            picService.savePicture(url.getURL());
-            return;
-        }
-
-        urls = createURLList(url.getURL());
-        
-        for (String s : urls) {
-            picService.savePicture(s);
+        switch (option) {
+        case SAVE_FILE:
+            picService.savePicture(url);
+            break;
+        case SAVE_LINK:
+            
+            break;
+        case EXTRACT_IMAGES:
+            urls = createURLList(url);
+            for (String s : urls) {
+                picService.savePicture(s);
+            }
+            break;
+        default:
+            break;
         }
 
     }
@@ -90,6 +99,8 @@ public class PictureGrabber implements IPictureGrabber {
                 // Proxy proxy = new Proxy(Proxy.Type.HTTP, new
                 // InetSocketAddress("172.30.0.2", 3128));
                 URLConnection connection = url1.openConnection();
+                connection.addRequestProperty("User-Agent",
+                "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
                 InputStream inputStream = connection.getInputStream();
                 in = new InputStreamReader(inputStream);
 

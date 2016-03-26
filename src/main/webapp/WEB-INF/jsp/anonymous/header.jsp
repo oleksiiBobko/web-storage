@@ -4,6 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="req" value="${pageContext.request}" />
 <c:set var="url">${req.requestURL}</c:set>
 <c:set var="uri" value="${req.requestURI}" />
@@ -22,16 +23,20 @@
     </div>
     
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <c:if test="${authorized}">
-      <form:form class="navbar-form navbar-left" role="search" method="post" action="grab" commandName="url" enctype="multipart/form-data" id="grub">
+    <sec:authorize access="hasRole('ROLE_USER')">
+      <form class="navbar-form navbar-left" method="post" action="grab" 
+      enctype="multipart/form-data" id="url-form">
         <div class="form-group">
-        <form:input type="text" placeholder="URL" class="form-control" path="URL" />
+        <input type="text" id="submit-url" placeholder="URL" name="url" class="form-control" />
+        <input type="hidden" id="option" name="option"/>
         </div>
-        <button type="submit" class="btn btn-default">Save</button>
-      </form:form>
-    </c:if>
+        <button type="button" id="submit-btn" class="btn btn-default" data-toggle="modal" data-target="#confirm-submit">
+            Save
+        </button>
+      </form>
+    </sec:authorize>
       <ul class="nav navbar-nav navbar-right">
-        <c:if test="${not authorized}">
+        <sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
             <li><button type="button" class="btn btn-info navbar-btn signup-button" id="signup_button">Sign up</button></li>
             <script>
                 $('#signup_button').click(function() {
@@ -44,8 +49,8 @@
                     window.location = "/login";
                 });
             </script>
-        </c:if>
-        <c:if test="${authorized}">
+        </sec:authorize>
+        <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">more<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -57,8 +62,46 @@
             <li><a href="<c:url value="/logout" />">Sign out</a></li>
           </ul>
         </li>
-        </c:if>
+        </sec:authorize>
       </ul>
     </div>
   </div>
 </nav>
+<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">Actions</h4>
+      </div>
+      <div class="modal-body" id="select-action">
+        <p><strong>URL:&nbsp</strong><span id="url"></span></p>
+        <p><label class="radio-inline">
+          <input name="radioName" id="inlineRadio1" value="1" checked="checked" type="radio"> Save link as file
+        </label></p>
+        <p><label class="radio-inline">
+          <input name="radioName" id="inlineRadio2" value="2" type="radio"> Save link
+        </label></p>
+        <p><label class="radio-inline">
+          <input name="radioName" id="inlineRadio3" value="3" type="radio"> Extract pictures
+        </label></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a href="#" id="submit" class="btn btn-success success">Apply</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+$('#submit-btn').click(function() {
+     $('#url').text($('#submit-url').val());
+});
+
+$('#submit').click(function(){
+    $("#option").val($('input[name=radioName]:checked', '#select-action').val());
+    $('#url-form').submit();
+});
+});
+</script>

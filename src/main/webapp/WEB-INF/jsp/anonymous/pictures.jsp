@@ -12,7 +12,9 @@
 </c:if>
 <c:if test="${!empty pictures}">
 <c:forEach items="${pictures}" var="picture">
-<h2>${picture.filename}</h2>
+<a href='<c:url value="${picture.path}"/>' target="_blank">
+<h3 class="elipsis-box">${picture.filename}</h3>
+</a>
 <div class="panel-group">
     <div class="panel panel-default">
 <c:choose>
@@ -28,7 +30,7 @@
             <h3 class="panel-title pull-left">
                 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse${picture.id}">Show more...</button>
             </h3>
-            <c:if test="${authorized}">
+            <c:if test="${picture.canDelete}">
             <a href="#" class="panel-title pull-right" data-href="<c:url value="/delete/${picture.id}" />"
                 data-toggle="modal" data-target="#confirm-delete">
                 <span class="glyphicon glyphicon-remove"></span>
@@ -39,9 +41,9 @@
         <div class="panel-body">
         <div id="collapse${picture.id}" class="panel-collapse collapse borderless">
         <ul class="list-group">
-            <li class="list-group-item">File: <a href='<c:url value="${picture.path}"/>' target="_blank">${picture.filename}</a></li>
             <li class="list-group-item">Original: <a href="#" >http://originallink.com/document.suffix</a></li>
             <li class="list-group-item">Owner: <a href="#" >${picture.owner}</a></li>
+            <li class="list-group-item">Description: <p align="justify">${picture.description}</p></li>
             <li class="list-group-item">Size: over 9000Gb</li>
         </ul>
         </div>

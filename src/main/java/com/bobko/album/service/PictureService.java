@@ -70,7 +70,7 @@ public class PictureService implements IPictureService {
         return pictureDao.rankList(shift, count);
     }
 
-    public Picture getPicture(Integer id) {
+    public Picture getPicture(int id) {
         return pictureDao.find(id);
     }
 
@@ -78,9 +78,12 @@ public class PictureService implements IPictureService {
         pictureDao.add(pic);
     }
 
-    public void removePicture(Integer id) {
+    public void removePicture(int id) {
         Picture entity = pictureDao.find(id);
-        pictureDao.remove(entity);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(entity.getOwner().equals(auth.getName())) {
+            pictureDao.remove(entity);
+        }
     }
 
     @Override
@@ -183,6 +186,8 @@ public class PictureService implements IPictureService {
             // InetSocketAddress("172.30.0.2", 3128));
 
             connection = (HttpURLConnection) urlToPicture.openConnection();
+            connection.addRequestProperty("User-Agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 LOGGER.error(connection.getErrorStream());

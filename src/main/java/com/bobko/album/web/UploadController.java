@@ -7,6 +7,7 @@ package com.bobko.album.web;
  * @data 12.08.2013
  */
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,7 @@ import com.bobko.album.common.AlbumConst;
 import com.bobko.album.common.UserRolesTypes;
 import com.bobko.album.domain.IncomingURL;
 import com.bobko.album.domain.Picture;
+import com.bobko.album.domain.UserEntity;
 import com.bobko.album.service.interfaces.IPagesService;
 import com.bobko.album.service.interfaces.IPictureGrabber;
 import com.bobko.album.service.interfaces.IPictureService;
@@ -62,13 +66,20 @@ public class UploadController {
             HttpServletRequest request) {
 
         List<Picture> pictures = picService.list(pagesService.getShift(), AlbumConst.PICTURE_COUNT);
+        Principal principal = request.getUserPrincipal();
+        String userName = null;
+        
+        if(principal != null) {
+            userName = principal.getName();
+        }
         
         AlbumUtils.correctPaths(pictures);
+        AlbumUtils.setCanDelete(pictures, userName);
         
         map.put("url", new IncomingURL());
         map.put("pages", pagesService.list());
         map.put("pictures", pictures);
-        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
+//        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
         return "content";
     }
 
@@ -80,7 +91,7 @@ public class UploadController {
             HttpServletRequest request) {
         map.put("picture", new Picture());
         map.put("url", new IncomingURL());
-        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
+//        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
         return "upload";
     }
 
@@ -125,10 +136,11 @@ public class UploadController {
      * Method perform picture grabbind from web-page by incomingURL
      * */
     @RequestMapping(value = "/grab")
-    public String grub(@ModelAttribute("URL") IncomingURL url) {
+    public String grub(@ModelAttribute("url") String url,
+            @ModelAttribute("option") int option) {
 
         try {
-            pictureGrubber.grub(url);
+            pictureGrubber.grub(url, option);
         } catch (Exception e) {
             LOGGER.error("error during grub occured", e);
             return "redirect:/error";

@@ -9,7 +9,7 @@
 margin: 13px 0;
 }
 
-.centered-form{
+.centered-form {
     margin-top: 60px;
 }
 
@@ -17,7 +17,7 @@ margin: 13px 0;
   .container {
     max-width: 410px;
   }
-
+}
 .signup-button {
     -moz-box-shadow:inset 0px 1px 0px 0px #bee2f9;
     -webkit-box-shadow:inset 0px 1px 0px 0px #bee2f9;
@@ -119,4 +119,10 @@ margin: 13px 0;
 
 .borderless li {
     border: none;
+}
+
+.elipsis-box {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -17,9 +17,9 @@ public interface IPictureService {
 
     public List<Picture> list(int shift, int count);
 
-    public Picture getPicture(Integer id);
+    public Picture getPicture(int id);
     
-    public void removePicture(Integer id);
+    public void removePicture(int id);
 
     public void savePicture(Picture pic, MultipartFile file) throws Exception;
     

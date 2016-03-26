@@ -101,5 +101,17 @@ public class AlbumUtils {
         return encoded;
         
     }
+
+    public static void setCanDelete(List<Picture> pictures, String userName) {
+        
+        for(Picture p : pictures) {
+            if(userName != null && !userName.isEmpty() && p.getOwner().equals(userName)) {
+                p.setCanDelete(true);
+            } else {
+                p.setCanDelete(false);
+            }
+        }
+        
+    }
     
 }

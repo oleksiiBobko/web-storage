@@ -19,4 +19,4 @@
             class="btn btn-info btn-block" />
     </div>
 </form:form>
-</div></div>
+</div>

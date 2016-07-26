@@ -8,7 +8,6 @@ public class Main {
         String regex = "^(?!\\.)([a-zA-Z0-9-_\\.!?*+]*)@([a-zA-Z0-9-_\\.!?*+]*)$";
         String regex1 = "rx1";
         boolean b = Pattern.matches(regex, "ole..ksii.bobko@somemail.org.kz");
-        String regex1 = "rx2";
         System.err.println(b);
     }
 }

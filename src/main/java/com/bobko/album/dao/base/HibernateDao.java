@@ -5,7 +5,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class HibernateDao<E, K extends Serializable> implements
         IGenericDao<E, K> {
 
-    private static final Logger LOGGER = Logger.getLogger(HibernateDao.class);
+    private static final Logger LOGGER = LogManager.getLogger(HibernateDao.class);
     
     @Autowired
     private SessionFactory sessionFactory;

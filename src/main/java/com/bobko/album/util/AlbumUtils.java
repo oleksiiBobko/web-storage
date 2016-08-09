@@ -18,7 +18,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import com.bobko.album.domain.Picture;
 
@@ -27,7 +28,7 @@ public class AlbumUtils {
     private static final int MAX_PICTURE_SIZE = 400;
     private static final int PREFIX_SIZE = 4;
     
-    private static final Logger LOGGER = Logger.getLogger(AlbumUtils.class);
+    private static final Logger LOGGER = LogManager.getLogger(AlbumUtils.class);
     
     private AlbumUtils() {
     }

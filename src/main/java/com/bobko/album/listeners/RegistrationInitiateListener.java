@@ -1,6 +1,7 @@
 package com.bobko.album.listeners;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -13,7 +14,7 @@ import com.bobko.album.service.interfaces.IUserService;
 @Component
 public class RegistrationInitiateListener implements ApplicationListener<OnRegistrationInitiatedEvent> {
 
-    private static final Logger LOG = Logger.getLogger(RegistrationInitiateListener.class);
+	private static final Logger LOG = LogManager.getLogger(RegistrationInitiateListener.class);
     
     @Autowired
     private IUserService userService;

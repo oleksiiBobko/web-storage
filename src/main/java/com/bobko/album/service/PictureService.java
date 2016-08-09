@@ -27,7 +27,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.validation.Valid;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -64,7 +65,7 @@ public class PictureService implements IPictureService {
     private static final String THUMBNAIL = "thumbnail";
     private static final int SIZE = 1024;
     
-    private static final Logger LOGGER = Logger.getLogger(PictureService.class);
+    private static final Logger LOGGER = LogManager.getLogger(PictureService.class);
     
     public List<Picture> list(int shift, int count) {
         return pictureDao.rankList(shift, count);

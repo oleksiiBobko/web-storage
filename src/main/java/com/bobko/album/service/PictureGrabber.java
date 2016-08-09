@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.Logger;
-import·org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -39,7 +39,7 @@ public class PictureGrabber implements IPictureGrabber {
     @Value("${data.root.path}")
     String rootPath;
 
-    private static final Logger logger = LogiManager.getLogger(PictureGrabber.class);
+    private static final Logger logger = LogManager.getLogger(PictureGrabber.class);
     
     
     private static final String PATTERN_STRING = "(https?|ftp|file)://[A-Za-z0-9%./]+(\\.jpg|\\.jpeg|\\.png|\\.gif|\\.tiff|\\.ico)";    

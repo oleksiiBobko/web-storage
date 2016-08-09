@@ -127,6 +127,7 @@ public class UploadController {
      * */
     @RequestMapping(value = "/login")
     public String login() {
+    	LOGGER.info("try to login");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             return "redirect:/";

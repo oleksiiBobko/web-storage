@@ -8,7 +8,8 @@ package com.bobko.album.web;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -35,7 +36,7 @@ public class RegistrationController {
     private IUserService userService;
     private static final String NOT_ACTIVE = "notActive";
     private static final String OK = "ok";
-    private static final Logger LOG = Logger.getLogger(RegistrationController.class);
+    private static final Logger LOG = LogManager.getLogger(RegistrationController.class);
 
     /**
      * redirect to registration page and put to Map UserEntity object

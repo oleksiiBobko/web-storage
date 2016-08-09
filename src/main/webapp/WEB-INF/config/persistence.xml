@@ -76,7 +76,7 @@
 <!--                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop> -->
                 <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
                 <prop key="hibernate.auto_close_session">${hibernate.auto_close_session}</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
 

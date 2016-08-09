@@ -13,7 +13,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -51,15 +53,15 @@ public class UploadController {
     @Autowired
     private IPictureGrabber pictureGrubber;
 
-    private static final Logger LOGGER = Logger.getLogger(UploadController.class);
-    
+    private static final Logger LOGGER = LogManager.getLogger(UploadController.class);
+
     private static final String REDIRECT_CONTENT_PAGE = "redirect:/"; 
-    
-    /**
-     * rootPath contains path which will be use to save uploaded pictures
-     * */
-    @Value("${data.root.path}")
-    private String rootPath;
+
+//    /**
+//     * rootPath contains path which will be use to save uploaded pictures
+//     * */
+//    @Value("${data.root.path}")
+//    private String rootPath;
 
     @RequestMapping("/")
     public String getContent(Map<String, Object> map,

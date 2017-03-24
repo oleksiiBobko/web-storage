@@ -9,19 +9,19 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bobko.storage.domain.Picture;
+import com.bobko.storage.domain.Document;
 
 public interface IPictureService {
 
-    public void addPicture(Picture pic);
+    public void addPicture(Document pic);
 
-    public List<Picture> list(int shift, int count);
+    public List<Document> list(int shift, int count);
 
-    public Picture getPicture(int id);
+    public Document getPicture(int id);
     
     public void removePicture(int id);
 
-    public void savePicture(Picture pic, MultipartFile file) throws Exception;
+    public void savePicture(Document pic, MultipartFile file) throws Exception;
     
     public byte[] getPicByPath(String path);
     

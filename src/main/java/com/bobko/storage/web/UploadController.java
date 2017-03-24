@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bobko.storage.common.StorageConst;
 import com.bobko.storage.domain.IncomingURL;
-import com.bobko.storage.domain.Picture;
+import com.bobko.storage.domain.Document;
 import com.bobko.storage.service.interfaces.IPagesService;
 import com.bobko.storage.service.interfaces.IPictureGrabber;
 import com.bobko.storage.service.interfaces.IPictureService;
@@ -61,7 +61,7 @@ public class UploadController {
     public String getContent(Map<String, Object> map,
             HttpServletRequest request) {
 
-        List<Picture> pictures = picService.list(pagesService.getShift(), StorageConst.PICTURE_COUNT);
+        List<Document> pictures = picService.list(pagesService.getShift(), StorageConst.PICTURE_COUNT);
         Principal principal = request.getUserPrincipal();
         String userName = null;
         
@@ -85,7 +85,7 @@ public class UploadController {
     @RequestMapping("/add")
     public String addNew(Map<String, Object> map,
             HttpServletRequest request) {
-        map.put("picture", new Picture());
+        map.put("picture", new Document());
         map.put("url", new IncomingURL());
 //        map.put("authorized", request.isUserInRole(UserRolesTypes.ROLE_USER));
         return "upload";
@@ -96,7 +96,7 @@ public class UploadController {
      * system
      * */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@ModelAttribute("picture") Picture pic, @RequestParam("file") MultipartFile file) {
+    public String save(@ModelAttribute("picture") Document pic, @RequestParam("file") MultipartFile file) {
         try {
             picService.savePicture(pic, file);
         } catch (Exception e) {

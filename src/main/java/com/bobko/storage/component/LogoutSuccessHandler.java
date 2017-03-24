@@ -16,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.
 SimpleUrlLogoutSuccessHandler;
@@ -23,8 +25,16 @@ import org.springframework.stereotype.Component;
 
 /**
  * 
- * */@Component
+ * */
+@Component
 public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
+    
+    private static final Logger LOGGER = LogManager.getLogger(LogoutSuccessHandler.class);
+    
+    public LogoutSuccessHandler() {
+        LOGGER.info("instantiated");
+    }
+    
     @Override
     public void onLogoutSuccess(HttpServletRequest request,
             final HttpServletResponse response, Authentication authentication)

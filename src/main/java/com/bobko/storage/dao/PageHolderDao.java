@@ -20,36 +20,39 @@ import org.springframework.stereotype.Repository;
 
 import com.bobko.storage.common.StorageConst;
 import com.bobko.storage.dao.interfaces.IPagesHolderDao;
-import com.bobko.storage.domain.AlbumPage;
-import com.bobko.storage.domain.Picture;
+import com.bobko.storage.domain.StoragePage;
+import com.bobko.storage.domain.Document;
 
 @Repository
 public class PageHolderDao implements IPagesHolderDao {
 
     private int shift = 0;
     private int pagesCount = 0;
-    private int rowCount = 0;
+    private int rowCount = 1;
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public List<AlbumPage> list() {
+    public List<StoragePage> list() {
         return createPagesList();
     }
 
     /**
      * @return List of <tt>AlbumPage</tt>
      * */
-    private List<AlbumPage> createPagesList() {
+    private List<StoragePage> createPagesList() {
         Session session = sessionFactory.getCurrentSession();
-        rowCount = ((Number) session.createCriteria(Picture.class).setProjection(Projections.rowCount()).uniqueResult()).intValue();
+        Number num = ((Number) session.createCriteria(Document.class).setProjection(Projections.rowCount()).uniqueResult());
+        if(num != null) {
+            rowCount = num.intValue();
+        }
         
         pagesCount = ((int) Math.ceil(rowCount / (double) StorageConst.PICTURE_COUNT)) - 1;
         
         int finalCount = pagesCount;
         
-        List<AlbumPage> pages = new ArrayList<AlbumPage>();
+        List<StoragePage> pages = new ArrayList<StoragePage>();
 
         if (pagesCount > StorageConst.MAX_PAGES_COUNT) {
             finalCount = StorageConst.MAX_PAGES_COUNT;
@@ -60,9 +63,9 @@ public class PageHolderDao implements IPagesHolderDao {
                 break;
             }
             if (i == 0) {
-                pages.add(new AlbumPage(shift + i, true));
+                pages.add(new StoragePage(shift + i, true));
             } else {
-                pages.add(new AlbumPage(shift + i, false));
+                pages.add(new StoragePage(shift + i, false));
             }
         }
         return pages;

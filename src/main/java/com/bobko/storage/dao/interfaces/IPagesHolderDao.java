@@ -11,14 +11,14 @@ package com.bobko.storage.dao.interfaces;
 
 import java.util.List;
 
-import com.bobko.storage.domain.AlbumPage;
+import com.bobko.storage.domain.StoragePage;
 
 public interface IPagesHolderDao {
    
     /**
      * @return <tt>List</tt> of pages that provides handling active page and count of pages
      * */
-    public List<AlbumPage> list();
+    public List<StoragePage> list();
     
     /**
      * @return absolute number of current page

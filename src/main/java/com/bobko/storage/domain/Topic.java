@@ -1,12 +1,10 @@
 package com.bobko.storage.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  * Associated with any topic on the site
@@ -28,7 +26,7 @@ public class Topic {
     private String title;
     
     @Column(name="front_image")
-    private Picture frontImage;
+    private Document frontImage;
     
     @Column(name="tags")
     private String tags;
@@ -48,11 +46,11 @@ public class Topic {
         this.title = title;
     }
 
-    public Picture getFrontImage() {
+    public Document getFrontImage() {
         return frontImage;
     }
 
-    public void setFrontImage(Picture frontImage) {
+    public void setFrontImage(Document frontImage) {
         this.frontImage = frontImage;
     }
 

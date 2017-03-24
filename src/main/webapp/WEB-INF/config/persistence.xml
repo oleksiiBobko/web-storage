@@ -62,7 +62,7 @@
 
         <property name="packagesToScan">
             <list>
-                <value>com.bobko.album.domain</value>
+                <value>com.bobko.storage.domain</value>
             </list>
         </property>
         

@@ -20,8 +20,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="pictures")
-public class Picture {
+@Table(name="documents")
+public class Document {
 
     @Column(name="id")
     @Id

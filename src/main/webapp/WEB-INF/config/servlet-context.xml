@@ -20,18 +20,17 @@
         class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass">
             <value>
-                org.springframework.web.servlet.view.tiles2.TilesView
+                org.springframework.web.servlet.view.tiles3.TilesView
             </value>
         </property>
     </bean>
-    <bean id="tilesConfigurer"
-        class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <list>
                 <value>/WEB-INF/config/tiles.xml</value>
             </list>
         </property>
     </bean>
-    <context:component-scan base-package="com.bobko.album.web" />
+    <context:component-scan base-package="com.bobko.storage.web" />
 
 </beans>

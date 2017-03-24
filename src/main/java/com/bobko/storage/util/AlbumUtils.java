@@ -21,7 +21,7 @@ import java.util.UUID;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import com.bobko.storage.domain.Picture;
+import com.bobko.storage.domain.Document;
 
 public class AlbumUtils {
     
@@ -78,8 +78,8 @@ public class AlbumUtils {
         }
     }
 
-    public static void correctPaths(List<Picture> pictures) {
-        for (Picture picture : pictures) {
+    public static void correctPaths(List<Document> pictures) {
+        for (Document picture : pictures) {
             picture.setPath(picture.getPath().replace("\\", "/"));
         }
         
@@ -103,9 +103,9 @@ public class AlbumUtils {
         
     }
 
-    public static void setCanDelete(List<Picture> pictures, String userName) {
+    public static void setCanDelete(List<Document> pictures, String userName) {
         
-        for(Picture p : pictures) {
+        for(Document p : pictures) {
             if(userName != null && !userName.isEmpty() && p.getOwner().equals(userName)) {
                 p.setCanDelete(true);
             } else {

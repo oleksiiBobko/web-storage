@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bobko.storage.domain.Picture;
+import com.bobko.storage.domain.Document;
 import com.bobko.storage.domain.Topic;
 
 @Controller
@@ -20,7 +20,7 @@ public class MainController {
 //    @RequestMapping("/")
     public String home(Map<String, Object> model, HttpServletRequest request) {
         
-        Picture p = new Picture();
+        Document p = new Document();
         p.setPath("data/admin/images/fc03856b60bd42769485784afb56317a.jpeg");
         
         Topic stub = new Topic();

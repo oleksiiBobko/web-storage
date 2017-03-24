@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bobko.storage.dao.interfaces.IPagesHolderDao;
-import com.bobko.storage.domain.AlbumPage;
+import com.bobko.storage.domain.StoragePage;
 import com.bobko.storage.service.interfaces.IPagesService;
 
 @Service
@@ -23,7 +23,7 @@ public class PagesService implements IPagesService {
     private IPagesHolderDao pagesDao;
     
     @Transactional
-    public List<AlbumPage> list() {
+    public List<StoragePage> list() {
         return pagesDao.list();
     }
 

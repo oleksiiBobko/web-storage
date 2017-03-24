@@ -36,7 +36,7 @@
       </form>
     </sec:authorize>
       <ul class="nav navbar-nav navbar-right">
-        <sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
+        <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
             <li><button type="button" class="btn btn-info navbar-btn signup-button" id="signup_button">Sign up</button></li>
             <script>
                 $('#signup_button').click(function() {
@@ -50,7 +50,7 @@
                 });
             </script>
         </sec:authorize>
-        <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+        <sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">more<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -75,7 +75,7 @@
         <h4 class="modal-title" id="myModalLabel">Actions</h4>
       </div>
       <div class="modal-body" id="select-action">
-        <p><strong>URL:&nbsp</strong><span id="url"></span></p>
+        <p><strong>URL: </strong><span id="url"></span></p>
         <p><label class="radio-inline">
           <input name="radioName" id="inlineRadio1" value="1" checked="checked" type="radio"> Save link as file
         </label></p>

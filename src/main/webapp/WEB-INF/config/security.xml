@@ -1,4 +1,5 @@
-<beans:beans xmlns="http://www.springframework.org/schema/security"
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
     xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:security="http://www.springframework.org/schema/security"
     xsi:schemaLocation="
@@ -6,47 +7,35 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd">
-
+    
     <security:http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/add" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/url" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/delete/*" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/grub" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/" access="permitAll" />
-        <intercept-url pattern="/content" access="permitAll" />
-        <intercept-url pattern="/registration" access="permitAll" />
-        <intercept-url pattern="/adduser" access="permitAll" />
-        <form-login login-page="/login" authentication-failure-url="/login?error=true" />
-    <security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+        <security:intercept-url pattern="/add" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/url" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/delete/*" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/grub" access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/" access="permitAll" />
+        <security:intercept-url pattern="/content" access="permitAll" />
+        <security:intercept-url pattern="/registration" access="permitAll" />
+        <security:intercept-url pattern="/adduser" access="permitAll" />
+        <security:form-login login-page="/login" authentication-failure-url="/login?error=true" />
+        <security:logout logout-url="/logout" success-handler-ref="logoutSuccessHandler" />
+        <security:csrf disabled="true"/>
     </security:http>
 
-<!--     <beans:bean id="albumUserDetailsService" class="com.bobko.album.service.AlbumUserDetailsService" /> -->
-
-<!--     <authentication-manager> -->
-<!--         <authentication-provider user-service-ref="albumUserDetailsService"> -->
-<!--             <password-encoder hash="md5" /> -->
-<!--         </authentication-provider> -->
-<!--     </authentication-manager> -->
-
-    <beans:bean id="daoAuthenticationProvider"
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="storageUserDetailsService">
+            <security:password-encoder hash="md5" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+    
+    <bean id="daoAuthenticationProvider"
         class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-        <beans:property name="userDetailsService" ref="albumUserDetailsService" />
-    </beans:bean>
-
-    <beans:bean id="authenticationManager"
+        <property name="userDetailsService" ref="storageUserDetailsService" />
+    </bean>
+    
+    <bean id="authenticationManager"
         class="org.springframework.security.authentication.ProviderManager">
-        <beans:property name="providers">
-            <beans:list>
-                <beans:ref bean="daoAuthenticationProvider" />
-            </beans:list>
-        </beans:property>
-    </beans:bean>
-
-    <authentication-manager>
-        <authentication-provider user-service-ref="albumUserDetailsService">
-            <password-encoder hash="md5" />
-        </authentication-provider>
-    </authentication-manager>
-
-
-</beans:beans>
+        <constructor-arg ref="daoAuthenticationProvider" />
+    </bean>
+    
+</beans>

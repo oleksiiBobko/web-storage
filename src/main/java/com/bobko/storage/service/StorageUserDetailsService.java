@@ -1,5 +1,8 @@
 package com.bobko.storage.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Service that provide user exists by username using almost at registration or authorization
  * 
@@ -21,8 +24,14 @@ import com.bobko.storage.domain.UserEntity;
 import com.bobko.storage.service.interfaces.IUserService;
 
 @Service("storageUserDetailsService")
-public class AlbumUserDetailsService implements UserDetailsService {
-
+public class StorageUserDetailsService implements UserDetailsService {
+    
+    private static final Logger LOGGER = LogManager.getLogger(StorageUserDetailsService.class);
+    
+    public StorageUserDetailsService() {
+        LOGGER.info("instantiated");
+    }
+    
     @Autowired
     private IUserService userService;
     

@@ -40,7 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bobko.storage.common.StorageConst;
 import com.bobko.storage.dao.base.IGenericDao;
 import com.bobko.storage.dao.interfaces.IPictureDao;
-import com.bobko.storage.domain.Picture;
+import com.bobko.storage.domain.Document;
 import com.bobko.storage.domain.UserEntity;
 import com.bobko.storage.service.interfaces.IPictureService;
 import com.bobko.storage.util.AlbumUtils;
@@ -50,7 +50,7 @@ import com.bobko.storage.util.AlbumUtils;
 public class PictureService implements IPictureService {
 
     @Autowired
-    private IPictureDao<Picture, Integer> pictureDao;
+    private IPictureDao<Document, Integer> pictureDao;
 
     @Autowired
     private IGenericDao<UserEntity, Integer> userDao;
@@ -67,20 +67,20 @@ public class PictureService implements IPictureService {
     
     private static final Logger LOGGER = LogManager.getLogger(PictureService.class);
     
-    public List<Picture> list(int shift, int count) {
+    public List<Document> list(int shift, int count) {
         return pictureDao.rankList(shift, count);
     }
 
-    public Picture getPicture(int id) {
+    public Document getPicture(int id) {
         return pictureDao.find(id);
     }
 
-    public void addPicture(Picture pic) {
+    public void addPicture(Document pic) {
         pictureDao.add(pic);
     }
 
     public void removePicture(int id) {
-        Picture entity = pictureDao.find(id);
+        Document entity = pictureDao.find(id);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(entity.getOwner().equals(auth.getName())) {
             pictureDao.remove(entity);
@@ -88,7 +88,7 @@ public class PictureService implements IPictureService {
     }
 
     @Override
-    public void savePicture(@Valid Picture pic, MultipartFile multipartFile) throws Exception {
+    public void savePicture(@Valid Document pic, MultipartFile multipartFile) throws Exception {
         
         pic.setFilename(multipartFile.getOriginalFilename());
 
@@ -144,7 +144,7 @@ public class PictureService implements IPictureService {
     @Override
     public void savePicture(String url) {
         
-        Picture pic = new Picture();
+        Document pic = new Document();
         
         int slashIndex = url.lastIndexOf('/');
         String originalFileName = url.substring(slashIndex + 1);

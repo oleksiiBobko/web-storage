@@ -8,14 +8,14 @@ package com.bobko.storage.service.interfaces;
 
 import java.util.List;
 
-import com.bobko.storage.domain.AlbumPage;
+import com.bobko.storage.domain.StoragePage;
 
 public interface IPagesService {
     
     /**
      * @return List of <tt>AlbumPage</tt>
      * */
-    public List<AlbumPage> list();
+    public List<StoragePage> list();
     
     /**
      * @return number of current page

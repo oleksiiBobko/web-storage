@@ -3,13 +3,25 @@
  * */
 package com.bobko.storage.common;
 
-public class UserRolesTypes {
+public enum UserRolesTypes {
 
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
-    public static final String ROLE_USER = "ROLE_USER";
-    public static final String ROLE_ANONYMOUS = "ROLE_ANONYMOUS";
-
-    private UserRolesTypes() {
+    ROLE_ADMIN("ROLE_ADMIN"),
+    ROLE_USER("ROLE_USER") {
+        @Override
+        public String getValue() {
+            return "ROLE_USER";
+        }
+    },
+    ROLE_ANONYMOUS("ROLE_ANONYMOUS");
+    
+    private String value;
+    
+    private UserRolesTypes(String value) {
+        this.value = value;
+    }
+    
+    public String getValue() {
+        return value;
     }
     
 }

@@ -7,7 +7,7 @@ package com.bobko.storage.domain;
  * @data 12.08.2013
  */
 
-public class AlbumPage {
+public class StoragePage {
     
     /**
      * index is the position number of page
@@ -19,7 +19,7 @@ public class AlbumPage {
      * */
     private boolean isActive;
     
-    public AlbumPage(int index, boolean isActive) {
+    public StoragePage(int index, boolean isActive) {
         this.index = index;
         this.isActive = isActive;
     }

@@ -1,11 +1,14 @@
-DROP DATABASE IF EXISTS album;
-CREATE DATABASE album;
+DROP DATABASE IF EXISTS webstorage;
+CREATE DATABASE webstorage;
 
-USE album;
+USE webstorage;
 
 create table users (
 id INT NOT NULL AUTO_INCREMENT,
 login VARCHAR(100) NOT NULL,
+first_name VARCHAR(100) NOT NULL,
+last_name VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL,
 pass VARCHAR(100) NOT NULL,
 role VARCHAR(100) NOT NULL,
 active BOOLEAN NOT NULL DEFAULT 0,
@@ -21,7 +24,7 @@ PRIMARY KEY (token_id),
 CONSTRAINT FKUSR FOREIGN KEY (token_id) REFERENCES users(id)
 ) ENGINE=InnoDB;
 
-create table pictures (
+create table documents (
 id INT AUTO_INCREMENT,
 pic_owner VARCHAR(100) NOT NULL,
 filename VARCHAR(100) NOT NULL,

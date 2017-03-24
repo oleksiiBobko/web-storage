@@ -30,14 +30,12 @@ public class RegistrationInitiateListener implements ApplicationListener<OnRegis
         
         try {
             userService.addUser(event.getUser());
+            String confirmUrl = event.getConfirmUrl();
+            mailservice.sendMail(from, event.getUser().getEmail(), "noreply",
+                    "Please follow the link to confirm registration " + confirmUrl);
         } catch (Exception e) {
             LOG.error("Error during user registration", e);
         }
-        
-        String confirmUrl = event.getConfirmUrl();
-        
-        mailservice.sendMail(from, event.getUser().getEmail(), "noreply",
-                "Please follow the link to confirm registration " + confirmUrl);
         
     }
 

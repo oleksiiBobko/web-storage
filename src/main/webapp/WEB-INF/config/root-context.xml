@@ -9,16 +9,15 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config />
-    <context:component-scan base-package="com.bobko.album.dao" />
-    <context:component-scan base-package="com.bobko.album.service" />
-    <context:component-scan base-package="com.bobko.album.component" />
-    <context:component-scan base-package="com.bobko.album.listeners" />
+    <context:component-scan base-package="com.bobko.storage.dao" />
+    <context:component-scan base-package="com.bobko.storage.service" />
+    <context:component-scan base-package="com.bobko.storage.component" />
+    <context:component-scan base-package="com.bobko.storage.listeners" />
 
     <bean id="applicationEventMulticaster"
         class="org.springframework.context.event.SimpleApplicationEventMulticaster">
         <property name="taskExecutor">
-            <bean
-                class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" />
+            <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" />
         </property>
     </bean>
 

@@ -7,7 +7,6 @@ package com.bobko.storage.domain;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,8 +63,8 @@ public class UserEntity {
     @Column(name = "active")
     private boolean active;
     
-    @OneToMany(targetEntity = Picture.class, mappedBy = "user")
-    private List<Picture> pictures;
+    @OneToMany(targetEntity = Document.class, mappedBy = "user")
+    private List<Document> pictures;
 
     @OneToOne(mappedBy="user", cascade=CascadeType.ALL)
     @JoinColumn(nullable = false, name = "id")
@@ -119,7 +118,7 @@ public class UserEntity {
         this.role = role;
     }
 
-    public List<Picture> getPictures() {
+    public List<Document> getPictures() {
         return pictures;
     }
 
@@ -159,7 +158,7 @@ public class UserEntity {
         this.pwConfirmation = pwConfirmation;
     }
 
-    public void setPictures(List<Picture> pictures) {
+    public void setPictures(List<Document> pictures) {
         this.pictures = pictures;
     }
     
